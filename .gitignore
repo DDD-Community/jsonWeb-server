@@ -18,6 +18,7 @@ bin/
 !**/src/test/**/bin/
 
 ### IntelliJ IDEA ###
+application-secret.yaml
 .idea
 *.iws
 *.iml
