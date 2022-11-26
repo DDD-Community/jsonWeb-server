@@ -8,3 +8,9 @@ spring:
         show_sql: true # for test
   profiles:
     active: secret
+
+# 에러 응답 설정
+server:
+  error:
+    include-stacktrace: on_param
+    include-exception: true
