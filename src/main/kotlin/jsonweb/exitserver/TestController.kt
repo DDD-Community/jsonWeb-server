@@ -2,6 +2,7 @@ package jsonweb.exitserver
 
 import jsonweb.exitserver.common.CommonResponse
 import jsonweb.exitserver.common.logger
+import jsonweb.exitserver.common.success
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RestController
 
@@ -16,7 +17,7 @@ class TestController {
     fun successTest(): CommonResponse<Test> {
         log.info("success")
         val data = Test("test")
-        return CommonResponse(data = data)
+        return success(data)
     }
 
     @GetMapping("/fail")
