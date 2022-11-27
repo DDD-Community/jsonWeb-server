@@ -1,4 +1,4 @@
-package jsonweb.exitserver.security
+package jsonweb.exitserver.auth.security
 
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
