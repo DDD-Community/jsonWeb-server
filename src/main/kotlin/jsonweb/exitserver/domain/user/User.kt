@@ -10,7 +10,7 @@ class User(
 ) {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id")
-    val id: Long = -1
+    val id: Long = 0L
 
     var nickname: String = ""
     var profileImageUrl: String = ""

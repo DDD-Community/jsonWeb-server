@@ -23,7 +23,7 @@ class Review(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "review_id")
-    val id: Long = -1
+    val id: Long = 0L
 
     var content: String = content
         protected set

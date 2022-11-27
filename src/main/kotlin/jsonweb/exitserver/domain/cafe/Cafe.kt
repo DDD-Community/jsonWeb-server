@@ -13,7 +13,7 @@ class Cafe(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "cafe_id")
-    val id: Long = -1
+    val id: Long = 0L
 
     var name: String = name
         protected set
@@ -63,7 +63,7 @@ class OpenHour(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "open_hour_id")
-    val id: Long = -1
+    val id: Long = 0L
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "cafe_id")
@@ -91,7 +91,7 @@ class Price(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "price_id")
-    val id: Long = -1
+    val id: Long = 0L
     var target: String = target
         protected set
     var price: Int = price

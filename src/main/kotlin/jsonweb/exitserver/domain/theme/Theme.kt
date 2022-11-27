@@ -22,7 +22,7 @@ class Theme(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "theme_id")
-    val id: Long = -1
+    val id: Long = 0L
 
     var name: String = name
         protected set
@@ -67,7 +67,7 @@ class ThemeGenre(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "theme_genre_id")
-    val id: Long = -1,
+    val id: Long = 0L,
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "theme_id")
@@ -83,7 +83,7 @@ class Genre(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "genre_id")
-    val id: Long = -1,
+    val id: Long = 0L,
 
     val name: String,
 
