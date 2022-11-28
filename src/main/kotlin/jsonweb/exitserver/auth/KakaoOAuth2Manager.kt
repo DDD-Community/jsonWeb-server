@@ -1,5 +1,6 @@
 package jsonweb.exitserver.auth
 
+import org.json.JSONException
 import org.json.JSONObject
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.http.HttpEntity
@@ -13,9 +14,9 @@ import org.springframework.web.client.RestTemplate
 
 
 data class KakaoUserInfo(
-    val id: Long,
-    val email: String,
-    val nickname: String,
+    val kakaoId: Long,
+    val gender: String,
+    val ageRange: String,
 )
 
 @Component
@@ -23,9 +24,9 @@ class KakaoOAuth2Manager(
     @Value("\${kakao.rest-api-key}") private val restApiKey: String
 ) {
 
-    fun getKakaoUserInfo(authorizedCode: String) {
+    fun getKakaoUserInfo(authorizedCode: String): KakaoUserInfo {
         val kakaoAccessToken = fetchKakaoAccessToken(authorizedCode)
-        fetchKakaoUserInfoByToken(kakaoAccessToken)
+        return fetchKakaoUserInfoByToken(kakaoAccessToken)
     }
 
     fun fetchKakaoAccessToken(authorizedCode: String): String {
@@ -49,7 +50,7 @@ class KakaoOAuth2Manager(
         return JSONObject(response.body).getString("access_token")
     }
 
-    fun fetchKakaoUserInfoByToken(kakaoAccessToken: String) {
+    fun fetchKakaoUserInfoByToken(kakaoAccessToken: String): KakaoUserInfo {
         val header = HttpHeaders()
         header.add("Authorization", "Bearer $kakaoAccessToken")
         header.add("Content-type", "application/x-www-form-urlencoded;charset=utf-8")
@@ -61,8 +62,21 @@ class KakaoOAuth2Manager(
             kakaoProfileRequest,
             String::class.java
         )
-
-        println(JSONObject(response.body))
+        val bodyJson = JSONObject(response.body)
+        val kakaoAccountJson = bodyJson.getJSONObject("kakao_account")
+        val kakaoId = bodyJson.getLong("id")
+        var ageRange: String
+        var gender: String
+        try {
+            // 유저가 성별, 연령대 수집에 동의
+            ageRange = kakaoAccountJson.getString("age_range")
+            gender= kakaoAccountJson.getString("gender")
+        } catch (e: JSONException) {
+            // 비동의시 디폴트 값
+            ageRange = "20~29"
+            gender = "female"
+        }
+        return KakaoUserInfo(kakaoId, gender, ageRange)
     }
 
 }
