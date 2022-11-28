@@ -8,6 +8,10 @@ spring:
         show_sql: true # for test
   profiles:
     active: secret
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 10MB
 
 # 에러 응답 설정
 server:
