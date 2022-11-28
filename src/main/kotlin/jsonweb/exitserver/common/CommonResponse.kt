@@ -8,7 +8,7 @@ data class CommonResponse<T>(
     var data: T? = null,
 )
 
-fun <T> success(data: T): CommonResponse<T> = CommonResponse(data = data)
+fun <T> success(data: T? = null): CommonResponse<T> = CommonResponse(data = data)
 fun badRequest(message: String): ResponseEntity<CommonResponse<Any>> = ResponseEntity
     .status(HttpStatus.BAD_REQUEST)
     .body(CommonResponse(message = message))
