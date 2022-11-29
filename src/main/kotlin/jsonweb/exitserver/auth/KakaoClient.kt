@@ -7,7 +7,7 @@ import org.springframework.http.HttpEntity
 import org.springframework.http.HttpHeaders
 import org.springframework.http.HttpMethod
 import org.springframework.http.ResponseEntity
-import org.springframework.stereotype.Component
+import org.springframework.stereotype.Service
 import org.springframework.util.LinkedMultiValueMap
 import org.springframework.util.MultiValueMap
 import org.springframework.web.client.RestTemplate
@@ -19,8 +19,8 @@ data class KakaoUserInfo(
     val ageRange: String,
 )
 
-@Component
-class KakaoOAuth2Manager(
+@Service
+class KakaoClient(
     @Value("\${kakao.rest-api-key}") private val restApiKey: String
 ) {
 
@@ -73,8 +73,8 @@ class KakaoOAuth2Manager(
             gender= kakaoAccountJson.getString("gender")
         } catch (e: JSONException) {
             // 비동의시 디폴트 값
-            ageRange = "20~29"
-            gender = "female"
+            ageRange = ""
+            gender = ""
         }
         return KakaoUserInfo(kakaoId, gender, ageRange)
     }

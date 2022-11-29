@@ -32,6 +32,11 @@ dependencies {
 
     // JSONObject
     compileOnly("org.json:json:20220924")
+
+    // jjwt
+    implementation("io.jsonwebtoken:jjwt-api:0.11.5")
+    implementation("io.jsonwebtoken:jjwt-impl:0.11.5")
+    implementation("io.jsonwebtoken:jjwt-jackson:0.11.5")
 }
 
 allOpen {

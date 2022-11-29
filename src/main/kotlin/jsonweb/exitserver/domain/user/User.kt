@@ -3,19 +3,33 @@ package jsonweb.exitserver.domain.user
 import jsonweb.exitserver.domain.review.Review
 import javax.persistence.*
 
+enum class Role { ROLE_USER, ROLE_ADMIN }
+
 @Entity
 class User(
+    val kakaoId: Long,
+    val password: String,
     val gender: String,
-    val age: Int,
+    val ageRange: String,
+    var nickname: String,
 ) {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "user_id")
-    val id: Long = 0L
+    val userId: Long = 0L
 
-    var nickname: String = ""
     var profileImageUrl: String = ""
     var exp: Int = 0
 
+    @Enumerated(EnumType.STRING)
+    var role: Role = Role.ROLE_USER
+
     @OneToMany(mappedBy = "user", cascade = [CascadeType.ALL], orphanRemoval = true)
     var reviewList: MutableList<Review> = mutableListOf()
+
+    /**
+     * methods
+     */
+    fun updateUserInfo(newNickname: String? = null, newProfileImageUrl: String? = null) {
+        newNickname?.let { nickname = newNickname }
+        newProfileImageUrl?.let { profileImageUrl = newProfileImageUrl }
+    }
 }
