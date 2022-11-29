@@ -20,11 +20,9 @@ import java.util.*
 class S3Service(
     private val amazonS3Client: AmazonS3Client,
 
-    @Value("\${cloud.aws.s3.bucket}")
-    private val bucket: String,
+    @Value("\${cloud.aws.s3.bucket}") private val bucket: String,
 
-    @Value("\${cloud.aws.s3.dir}")
-    private val dir: String
+    @Value("\${cloud.aws.s3.dir}") private val dir: String
 ) {
     val dateFormat: DateTimeFormatter = DateTimeFormatter.ofPattern("yyyyMMdd_HHmmss")
     fun uploadImage(type: String, file: MultipartFile): UploadImageResponse {
@@ -35,8 +33,11 @@ class S3Service(
         objMeta.contentLength = bytes.size.toLong()
         val byteArrayInputStream = ByteArrayInputStream(bytes)
 
-        amazonS3Client.putObject(PutObjectRequest(bucket, path, byteArrayInputStream, objMeta)
-            .withCannedAcl(CannedAccessControlList.PublicRead))
+        amazonS3Client.putObject(
+            PutObjectRequest(
+                bucket, path, byteArrayInputStream, objMeta
+            ).withCannedAcl(CannedAccessControlList.PublicRead)
+        )
 
         return UploadImageResponse(imageName, amazonS3Client.getUrl(bucket, path).toString())
     }
@@ -46,15 +47,6 @@ class S3Service(
         amazonS3Client.deleteObject(DeleteObjectRequest(bucket, path))
     }
 
-//    private fun makePath(type: String): String {
-//        var path = bucket;
-//        path += S3TypeDir.valueOf(type.uppercase()).getDir()
-//        path += LocalDateTime.now().format(dateFormat)
-//        path += ("_" + generateRandomNumber())
-//        path += ("_" + S3TypeDir.valueOf(type.uppercase()).getSuffix() + ".png")
-//        return path
-//    }
-
     private fun makePath(type: String, imageName: String): String {
         var path = dir
         path += S3TypeDir.valueOf(type.uppercase()).getDir()
@@ -62,7 +54,7 @@ class S3Service(
         return path
     }
 
-    private fun generateImageName(type: String) : String {
+    private fun generateImageName(type: String): String {
         var generatedImageName = "";
         generatedImageName += LocalDateTime.now().format(dateFormat)
         generatedImageName += ("_" + generateRandomNumber())

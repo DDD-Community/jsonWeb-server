@@ -11,14 +11,12 @@ class S3Controller(
 ) {
     @PostMapping("/{type}")
     fun uploadImage(
-        @PathVariable("type") type: String,
-        @ModelAttribute uploadImageRequest: UploadImageRequest
+        @PathVariable("type") type: String, @ModelAttribute uploadImageRequest: UploadImageRequest
     ): CommonResponse<UploadImageResponse> = success(s3Service.uploadImage(type, uploadImageRequest.image))
 
     @DeleteMapping("/{type}/{imageName}")
     fun deleteImage(
-        @PathVariable("type") type: String,
-        @PathVariable("imageName") imageName: String
+        @PathVariable("type") type: String, @PathVariable("imageName") imageName: String
     ): CommonResponse<Any> {
         s3Service.deleteImage(type, imageName)
         return success()
