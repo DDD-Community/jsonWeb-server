@@ -1,4 +1,4 @@
-package jsonweb.exitserver.swagger
+package jsonweb.exitserver.util.swagger
 
 import org.springframework.stereotype.Controller
 import org.springframework.web.bind.annotation.GetMapping
@@ -8,7 +8,5 @@ import springfox.documentation.annotations.ApiIgnore
 @ApiIgnore
 class SwaggerRedirector {
     @GetMapping("/api")
-    fun redirect(): String {
-        return "redirect:/swagger-ui/#"
-    }
+    fun redirect() = "redirect:/swagger-ui/#"
 }
