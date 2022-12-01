@@ -22,7 +22,7 @@ class Theme(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "theme_id")
-    val id: Long = 0L
+    val themeId: Long = 0L
 
     var name: String = name
         protected set
@@ -64,32 +64,32 @@ class Theme(
 
 @Entity
 class ThemeGenre(
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "theme_genre_id")
-    val id: Long = 0L,
-
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "theme_id")
+    @JoinColumn(name = "theme")
     val theme: Theme,
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "genre_id")
+    @JoinColumn(name = "genre")
     val genre: Genre,
-)
+) {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "theme_genre_id")
+    val themeGenreId: Long = 0L
+}
 
 @Entity
 class Genre(
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "genre_id")
-    val id: Long = 0L,
-
-    val name: String,
+    val genreName: String
 
     // 장르에서는 테마를 참조할 경우가 없을 거 같아서 단방향으로 해도 될 듯 싶습니다
 //    @OneToMany(mappedBy = "genre", cascade = [CascadeType.ALL], orphanRemoval = true)
 //    var themeGenreList: MutableList<ThemeGenre> = mutableListOf()
-)
+) {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "genre_id")
+    val genreId: Long = 0L
+}
 
 
