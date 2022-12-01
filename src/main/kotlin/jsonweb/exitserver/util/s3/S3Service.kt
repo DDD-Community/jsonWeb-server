@@ -1,4 +1,4 @@
-package jsonweb.exitserver.s3
+package jsonweb.exitserver.util.s3
 
 import com.amazonaws.services.s3.AmazonS3Client
 import com.amazonaws.services.s3.model.CannedAccessControlList
@@ -6,7 +6,6 @@ import com.amazonaws.services.s3.model.DeleteObjectRequest
 import com.amazonaws.services.s3.model.ObjectMetadata
 import com.amazonaws.services.s3.model.PutObjectRequest
 import com.amazonaws.util.IOUtils
-import org.apache.catalina.valves.rewrite.InternalRewriteMap.UpperCase
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.stereotype.Service
 import org.springframework.web.multipart.MultipartFile
@@ -14,14 +13,11 @@ import java.io.ByteArrayInputStream
 import java.text.DecimalFormat
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
-import java.util.*
 
 @Service
 class S3Service(
     private val amazonS3Client: AmazonS3Client,
-
     @Value("\${cloud.aws.s3.bucket}") private val bucket: String,
-
     @Value("\${cloud.aws.s3.dir}") private val dir: String
 ) {
     val dateFormat: DateTimeFormatter = DateTimeFormatter.ofPattern("yyyyMMdd_HHmmss")
