@@ -23,12 +23,17 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-validation")
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
+    implementation("com.amazonaws:aws-java-sdk:1.12.347")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
     implementation("mysql:mysql-connector-java")
+    implementation("org.springframework.cloud:spring-cloud-starter-aws:2.2.6.RELEASE")
     runtimeOnly("com.mysql:mysql-connector-j")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("org.springframework.security:spring-security-test")
+    implementation("io.springfox:springfox-boot-starter:3.0.0")
+    implementation("org.springframework.boot:spring-boot-test:2.7.5")
+
 }
 
 allOpen {
