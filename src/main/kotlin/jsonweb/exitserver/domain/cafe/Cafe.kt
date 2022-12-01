@@ -12,7 +12,6 @@ class Cafe(
 ) {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "cafe_id")
     val cafeId: Long = 0L
 
     var name: String = name
@@ -62,7 +61,6 @@ class OpenHour(
 ) {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "open_hour_id")
     val openHourId: Long = 0L
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -91,7 +89,6 @@ class Price(
 ) {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "price_id")
     val priceId: Long = 0L
     var headCount: String = headCount
         protected set

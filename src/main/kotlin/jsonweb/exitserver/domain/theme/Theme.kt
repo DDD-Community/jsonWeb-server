@@ -21,7 +21,6 @@ class Theme(
 ) {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "theme_id")
     val themeId: Long = 0L
 
     var name: String = name
@@ -65,16 +64,15 @@ class Theme(
 @Entity
 class ThemeGenre(
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "theme")
+    @JoinColumn(name = "theme_id")
     val theme: Theme,
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "genre")
+    @JoinColumn(name = "genre_id")
     val genre: Genre,
 ) {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "theme_genre_id")
     val themeGenreId: Long = 0L
 }
 
@@ -88,7 +86,6 @@ class Genre(
 ) {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "genre_id")
     val genreId: Long = 0L
 }
 
