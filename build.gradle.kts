@@ -37,7 +37,7 @@ dependencies {
     implementation("org.springframework.cloud:spring-cloud-starter-aws:2.2.6.RELEASE")
 
     // JSONObject
-    compileOnly("org.json:json:20220924")
+    implementation("org.json:json:20220924")
 
     // jjwt
     implementation("io.jsonwebtoken:jjwt-api:0.11.5")
