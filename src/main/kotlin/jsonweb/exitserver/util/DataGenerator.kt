@@ -20,6 +20,8 @@ class DataGenerator(
 ) {
     @PostConstruct
     fun addData() {
+        if (cafeRepository.count().toInt() != 0) return
+
         val genres: Array<String> = arrayOf("장르1", "장르2", "장르3", "장르4", "장르5", "장르6", "장르7", "장르8")
 //        val genreEntities = emptyArray<Genre>()
         val genreEntities = arrayOfNulls<Genre>(8)
@@ -27,7 +29,7 @@ class DataGenerator(
             genreEntities[i] = genreRepository.save(Genre(genres[i]))
         }
 
-        var cntCafe: Int = 1
+        var cntCafe = 1
 
         // 방카페 50회 반복
         repeat(50) {
