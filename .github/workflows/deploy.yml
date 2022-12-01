@@ -1,4 +1,4 @@
-name: jsonWeb exit server CI/CD
+name: jsonWeb exit server CI/CD 
 
 on:
   push:
