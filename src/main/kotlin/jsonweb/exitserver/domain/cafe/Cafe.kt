@@ -9,6 +9,7 @@ class Cafe(
     address: String,
     tel: String,
     homepage: String,
+    imageUrl: String
 ) {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,13 +21,15 @@ class Cafe(
         protected set
     var themeCount: Int = 0
         protected set
-    var themeAvgStar: Double = 0.0
+    var likeCount: Int = 0
         protected set
     var tel: String = tel
         protected set
     var homepage: String = homepage
         protected set
-    var totalReviewCount: Int = 0
+    var reviewCount: Int = 0
+        protected set
+    var imageUrl: String = imageUrl
         protected set
 
     @OneToMany(mappedBy = "cafe", cascade = [CascadeType.ALL], orphanRemoval = true)
