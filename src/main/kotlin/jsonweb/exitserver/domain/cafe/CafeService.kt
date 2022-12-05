@@ -21,10 +21,17 @@ class CafeService(
         val pageable = PageRequest.of(
             page,
             size,
-            Sort.by(CafeSort.valueOf(sort).getDirection(), CafeSort.valueOf(sort).getSortBy()).and(Sort.by("cafeId"))
+            makeSort(sort)
         )
         val result = cafeRepository.findAll(pageable)
         return CafeListResponse(result.toList().map { CafeResponse(it) }, result.isLast)
     }
+
+    fun makeSort(sort: String): Sort {
+        return Sort.by(
+            CafeSort.valueOf(sort).getDirection(),
+            CafeSort.valueOf(sort).getSortBy()).and(Sort.by("cafeId"))
+    }
+
 
 }
