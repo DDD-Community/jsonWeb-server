@@ -53,6 +53,18 @@ class Cafe(
         themeList.add(theme)
         themeCount = themeList.size
     }
+    fun increaseReviewCount() {
+        reviewCount++
+    }
+    fun decreaseReviewCount() {
+        reviewCount--
+    }
+    fun increaseLikeCount() {
+        likeCount++
+    }
+    fun decreaseLikeCount() {
+        likeCount--
+    }
 }
 
 @Entity

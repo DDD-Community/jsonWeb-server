@@ -10,8 +10,7 @@ import org.springframework.data.domain.Sort
 enum class CafeSort(private val sort: String, private val direction: Sort.Direction) {
     DEFAULT("cafeId", Sort.Direction.ASC),
     LIKE("likeCount", Sort.Direction.DESC),
-    EASY("difficulty", Sort.Direction.ASC),
-    HARD("difficulty", Sort.Direction.DESC);
+    REVIEW("reviewCount", Sort.Direction.DESC);
 
     fun getSortBy() = sort
     fun getDirection() = direction

@@ -1,6 +1,7 @@
 package jsonweb.exitserver.domain.cafe
 
 import com.amazonaws.services.workdocs.model.EntityNotExistsException
+import jsonweb.exitserver.domain.cafe.entity.Cafe
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.PageRequest
 import org.springframework.data.domain.Sort
@@ -20,7 +21,7 @@ class CafeService(
         val pageable = PageRequest.of(
             page,
             size,
-            Sort.by(CafeSort.valueOf(sort).getDirection(), CafeSort.valueOf(sort).getSortBy())
+            Sort.by(CafeSort.valueOf(sort).getDirection(), CafeSort.valueOf(sort).getSortBy()).and(Sort.by("cafeId"))
         )
         val result = cafeRepository.findAll(pageable)
         return CafeListResponse(result.toList().map { CafeResponse(it) }, result.isLast)

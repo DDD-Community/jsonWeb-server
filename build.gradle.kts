@@ -26,7 +26,6 @@ dependencies {
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
     implementation("mysql:mysql-connector-java")
-    testImplementation("io.kotest:kotest-runner-junit5-jvm:4.6.0")
     runtimeOnly("com.mysql:mysql-connector-j")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("org.springframework.security:spring-security-test")
@@ -45,11 +44,13 @@ dependencies {
     implementation("io.jsonwebtoken:jjwt-impl:0.11.5")
     implementation("io.jsonwebtoken:jjwt-jackson:0.11.5")
 
-//    // test
-//    testImplementation("io.kotest.extensions:kotest-extensions-spring:1.1.2")
-//    testImplementation("io.mockk:mockk:1.13.2")
-//    testImplementation("io.kotest:kotest-runner-junit5:5.5")
-
+    // test
+    testImplementation("io.kotest:kotest-runner-junit5:5.4.2")
+    testImplementation("io.kotest:kotest-assertions-core:5.4.2")
+    testImplementation("io.kotest.extensions:kotest-extensions-spring:1.1.2")
+    testImplementation("io.mockk:mockk:1.12.0")
+    testImplementation("org.junit.platform:junit-platform-launcher")
+    testImplementation("com.h2database:h2:2.1.214")
 }
 
 allOpen {
