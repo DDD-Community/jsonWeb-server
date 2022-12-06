@@ -14,14 +14,12 @@ class CafeService(
 ) {
     fun registerCafe(form: RegisterCafeRequest) {
         val cafe = makeCafe(form.name, form.address, form.tel, form.homepage)
-        val openHourList = form.openHourList.map { OpenHour(it.day, it.open, it.close, cafe) }
-        for (openHour in openHourList) {
-            cafe.addOpenHour(openHour)
-        }
-        val priceList = form.priceList.map { Price(it.headCount, it.day, it.price, cafe) }
-        for (price in priceList) {
-            cafe.addPrice(price)
-        }
+        form.openHourList
+            .map { OpenHour(it.day, it.open, it.close, cafe) }
+            .forEach { cafe.addOpenHour(it) }
+        val priceList = form.priceList
+            .map { Price(it.headCount, it.day, it.price, cafe) }
+            .forEach { cafe.addPrice(it) }
         cafeRepository.save(cafe)
     }
 
