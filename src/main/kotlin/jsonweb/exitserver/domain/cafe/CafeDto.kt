@@ -27,8 +27,8 @@ data class CafeResponse(
     val isLiked: Boolean,
     val likeCount: Int,
     val address: String,
-    val imageUrl: String
-//    val reviewCount: Int // TODO: 관련 작업 후 수정
+    val imageUrl: String,
+    val reviewCount: Int
 ) {
     constructor(cafe: Cafe): this(
         cafeId = cafe.cafeId,
@@ -36,7 +36,8 @@ data class CafeResponse(
         isLiked = false, // TODO: 관련 작업 후 수정
         likeCount = cafe.likeCount,
         address = cafe.address,
-        imageUrl = cafe.imageUrl
+        imageUrl = cafe.imageUrl,
+        reviewCount = cafe.reviewCount
     )
 }
 
@@ -51,8 +52,8 @@ data class CafeSpecResponse(
     val openHourList: List<OpenHourResponse>,
     val priceList: List<PriceResponse>,
     val themeCount: Int,
-    val themeList: List<ThemeResponse>
-//    val reviewCount: Int, // TODO: 관련 작업 후 수정
+    val themeList: List<ThemeResponse>,
+    val reviewCount: Int
 //    val reviewList: MutableList<ReviewResponse> // TODO: 관련 작업 후 수정
 ) {
     constructor(cafe: Cafe): this(
@@ -66,7 +67,8 @@ data class CafeSpecResponse(
         openHourList = cafe.openHourList.map { OpenHourResponse(it) },
         priceList = cafe.priceList.map { PriceResponse(it) },
         themeCount = cafe.themeCount,
-        themeList = cafe.themeList.map { ThemeResponse(it) }
+        themeList = cafe.themeList.map { ThemeResponse(it) },
+        reviewCount = cafe.reviewCount
     )
 }
 

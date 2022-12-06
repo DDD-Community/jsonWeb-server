@@ -27,10 +27,22 @@ class CafeService(
         return CafeListResponse(result.toList().map { CafeResponse(it) }, result.isLast)
     }
 
+    fun markCafeWrong(cafeId: Long) {
+        val cafe = cafeRepository.findById(cafeId).orElseThrow { throw EntityNotFoundException() }
+        cafe.markWrong()
+    }
+
+    fun markCafeRight(cafeId: Long) {
+        val cafe = cafeRepository.findById(cafeId).orElseThrow { throw EntityNotFoundException() }
+        cafe.markRight()
+    }
+
+
     fun makeSort(sort: String): Sort {
         return Sort.by(
             CafeSort.valueOf(sort).getDirection(),
-            CafeSort.valueOf(sort).getSortBy()).and(Sort.by("cafeId"))
+            CafeSort.valueOf(sort).getSortBy()
+        ).and(Sort.by("cafeId"))
     }
 
 

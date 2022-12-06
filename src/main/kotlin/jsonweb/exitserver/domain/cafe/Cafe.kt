@@ -32,6 +32,9 @@ class Cafe(
     var imageUrl: String = imageUrl
         protected set
 
+    var wrongCheck: Boolean = false
+        protected set
+
     @OneToMany(mappedBy = "cafe", cascade = [CascadeType.ALL], orphanRemoval = true)
     var themeList: MutableList<Theme> = mutableListOf()
         protected set
@@ -64,6 +67,12 @@ class Cafe(
     }
     fun decreaseLikeCount() {
         likeCount--
+    }
+    fun markWrong() {
+        wrongCheck = true
+    }
+    fun markRight() {
+        wrongCheck = false
     }
 }
 

@@ -12,7 +12,14 @@ class CafeController(private val cafeService: CafeService) {
         success(cafeService.getCafeSpec(cafeId))
 
     @GetMapping("/{cafeId}/wrong")
-    fun reportCafe(@PathVariable("cafeId") cafeId: Long): CommonResponse<Any> {
+    fun reportWrongCafe(@PathVariable("cafeId") cafeId: Long): CommonResponse<Any> {
+        cafeService.markCafeWrong(cafeId)
+        return success(null)
+    }
+
+    @GetMapping("/{cafeId}/right")
+    fun resolveWrongCafe(@PathVariable("cafeId") cafeId: Long) : CommonResponse<Any> {
+        cafeService.markCafeRight(cafeId)
         return success(null)
     }
 
