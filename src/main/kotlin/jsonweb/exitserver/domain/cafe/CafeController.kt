@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.*
 @RestController
 @RequestMapping("/cafe")
 class CafeController(private val cafeService: CafeService) {
-    @GetMapping
+    @PostMapping
     fun registerCafe(@RequestBody form: RegisterCafeRequest): CommonResponse<Any> {
         cafeService.registerCafe(form)
         return success(null)
