@@ -1,8 +1,8 @@
 package jsonweb.exitserver.domain.cafe
 
-import com.amazonaws.services.workdocs.model.EntityNotExistsException
 import jsonweb.exitserver.domain.cafe.entity.Cafe
-import org.springframework.data.domain.Page
+import jsonweb.exitserver.domain.cafe.entity.OpenHour
+import jsonweb.exitserver.domain.cafe.entity.Price
 import org.springframework.data.domain.PageRequest
 import org.springframework.data.domain.Sort
 import org.springframework.stereotype.Service
@@ -12,6 +12,19 @@ import javax.persistence.EntityNotFoundException
 class CafeService(
     private val cafeRepository: CafeRepository
 ) {
+    fun registerCafe(form: RegisterCafeRequest) {
+        val cafe = makeCafe(form.name, form.address, form.tel, form.homepage)
+        val openHourList = form.openHourList.map { it -> OpenHour(it.day, it.open, it.close, cafe) }
+        for (openHour in openHourList) {
+            cafe.addOpenHour(openHour)
+        }
+        val priceList = form.priceList.map { it -> Price(it.headCount, it.day, it.price, cafe) }
+        for (price in priceList) {
+            cafe.addPrice(price)
+        }
+        cafeRepository.save(cafe)
+    }
+
     fun getCafeSpec(cafeId: Long): CafeSpecResponse {
         val cafe = cafeRepository.findById(cafeId).orElseThrow { throw EntityNotFoundException() }
         return CafeSpecResponse(cafe)
@@ -37,6 +50,9 @@ class CafeService(
         cafe.markRight()
     }
 
+    fun makeCafe(name: String, address: String, tel: String, homepage: String): Cafe {
+        return Cafe(name, address, tel, homepage, "")
+    }
 
     fun makeSort(sort: String): Sort {
         return Sort.by(

@@ -95,3 +95,24 @@ data class PriceResponse(
         price = price.price
     )
 }
+
+data class RegisterCafeRequest(
+    val name: String,
+    val address: String,
+    val tel: String,
+    val homepage: String,
+    val openHourList: List<OpenHourRequest>,
+    val priceList: List<PriceRequest>
+)
+
+data class OpenHourRequest(
+    val day: String,
+    val open: String,
+    val close: String
+)
+
+data class PriceRequest(
+    val day: String,
+    val headCount: String,
+    val price: Int
+)
