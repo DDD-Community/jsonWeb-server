@@ -14,15 +14,19 @@ class CafeService(
 ) {
     fun registerCafe(form: RegisterCafeRequest) {
         val cafe = makeCafe(form.name, form.address, form.tel, form.homepage)
-        val openHourList = form.openHourList.map { it -> OpenHour(it.day, it.open, it.close, cafe) }
+        val openHourList = form.openHourList.map { OpenHour(it.day, it.open, it.close, cafe) }
         for (openHour in openHourList) {
             cafe.addOpenHour(openHour)
         }
-        val priceList = form.priceList.map { it -> Price(it.headCount, it.day, it.price, cafe) }
+        val priceList = form.priceList.map { Price(it.headCount, it.day, it.price, cafe) }
         for (price in priceList) {
             cafe.addPrice(price)
         }
         cafeRepository.save(cafe)
+    }
+
+    fun deleteCafe(cafeId: Long) {
+        cafeRepository.deleteById(cafeId)
     }
 
     fun getCafeSpec(cafeId: Long): CafeSpecResponse {

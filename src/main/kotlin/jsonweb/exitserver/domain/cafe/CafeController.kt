@@ -13,6 +13,12 @@ class CafeController(private val cafeService: CafeService) {
         return success(null)
     }
 
+    @DeleteMapping("/{cafeId}")
+    fun deleteCafe(@PathVariable("cafeId") cafeId: Long): CommonResponse<Any> {
+        cafeService.deleteCafe(cafeId)
+        return success(null)
+    }
+
     @GetMapping("/{cafeId}")
     fun getCafeSpec(@PathVariable("cafeId") cafeId: Long): CommonResponse<CafeSpecResponse> =
         success(cafeService.getCafeSpec(cafeId))
@@ -38,10 +44,5 @@ class CafeController(private val cafeService: CafeService) {
     ): CommonResponse<CafeListResponse> {
         return success(cafeService.getCafeList(page, size, sort))
     }
-
-//    @PostMapping("/new")
-//    fun uploadNewCafe(): CommonResponse<> {
-//
-//    }
 
 }
