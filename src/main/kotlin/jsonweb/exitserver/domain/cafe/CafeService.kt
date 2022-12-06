@@ -59,7 +59,11 @@ class CafeService(
     }
 
     fun makeSort(sort: String): Sort {
-        return Sort.by(
+        return if (sort == "DEFAULT") Sort.by(
+            CafeSort.valueOf(sort).getDirection(),
+            CafeSort.valueOf(sort).getSortBy()
+        )
+        else Sort.by(
             CafeSort.valueOf(sort).getDirection(),
             CafeSort.valueOf(sort).getSortBy()
         ).and(Sort.by("cafeId"))
