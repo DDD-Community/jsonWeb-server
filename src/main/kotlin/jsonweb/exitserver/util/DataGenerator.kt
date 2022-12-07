@@ -33,7 +33,7 @@ class DataGenerator(
 
         // 방카페 50회 반복
         repeat(50) {
-            val tempCafe: Cafe = cafeRepository.save(Cafe("카페카페$cntCafe", "주소주소주소주소", "042-8282-8282", "asdf.net"))
+            val tempCafe: Cafe = cafeRepository.save(Cafe("카페카페$cntCafe", "주소주소주소주소", "042-8282-8282", "asdf.net", ""))
 
             // 테마 10회씩 반복
             var cntTheme = 1
@@ -79,13 +79,13 @@ class DataGenerator(
             }
 
             // 영업 시간 6회 반복
-            val days: Array<String> = arrayOf("월", "화", "수", "목", "금", "주말")
-            for (i: Int in 0..5) {
+            val days: Array<String> = arrayOf("월", "화", "수", "목", "금", "토", "일")
+            for (i: Int in 0..6) {
                 tempCafe.addOpenHour(
                     OpenHour(
                         days[i],
-                        "대충 시작 시간 $i",
-                        "대충 마감 시간 $i",
+                        "11:00",
+                        "22:00",
                         tempCafe
                     )
                 )
