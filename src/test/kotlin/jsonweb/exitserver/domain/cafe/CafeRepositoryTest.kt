@@ -35,7 +35,7 @@ class CafeRepositoryTest(
     private val genreRepository: GenreRepository
 ) : AnnotationSpec() {
     @BeforeAll
-    fun setup() {
+    fun `초기 설정`() {
         for (i: Int in 1..5) {
             val tempCafe = Cafe("a", "a", "a", "a", "a")
             repeat(i) {
@@ -55,7 +55,7 @@ class CafeRepositoryTest(
     }
 
     @Test
-    fun sorting_with_review_test() {
+    fun `리뷰수로 정렬되서 리스트 나오는지 테스트`() {
         val pageable = PageRequest.of(
             0,
             5,
@@ -70,7 +70,7 @@ class CafeRepositoryTest(
     }
 
     @Test
-    fun sorting_with_like_test() {
+    fun `좋아요수로 정렬되서 리스트 나오는지 테스트`() {
         val pageable = PageRequest.of(
             0,
             5,
@@ -85,7 +85,7 @@ class CafeRepositoryTest(
     }
 
     @Test
-    fun sorting_with_like_sliced_test_1() {
+    fun `좋아요수로 페이징 처리도 잘 되는지 테스트 1`() {
         val pageable = PageRequest.of(
             0,
             3,
@@ -103,7 +103,7 @@ class CafeRepositoryTest(
     }
 
     @Test
-    fun sorting_with_like_sliced_test_2() {
+    fun `좋아요수로 페이징 처리도 잘 되는지 테스트 2`() {
         val pageable = PageRequest.of(
             1,
             3,
@@ -121,7 +121,7 @@ class CafeRepositoryTest(
     }
 
     @Test
-    fun sorting_with_review_sliced_test_1() {
+    fun `리뷰수로 페이징 처리도 잘 되는지 테스트 1`() {
         val pageable = PageRequest.of(
             0,
             3,
@@ -139,7 +139,7 @@ class CafeRepositoryTest(
     }
 
     @Test
-    fun sorting_with_review_sliced_test_2() {
+    fun `리뷰수로 페이징 처리도 잘 되는지 테스트 2`() {
         val pageable = PageRequest.of(
             1,
             3,

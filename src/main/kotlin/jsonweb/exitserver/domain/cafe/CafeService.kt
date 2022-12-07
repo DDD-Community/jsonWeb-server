@@ -6,23 +6,27 @@ import jsonweb.exitserver.domain.cafe.entity.Price
 import org.springframework.data.domain.PageRequest
 import org.springframework.data.domain.Sort
 import org.springframework.stereotype.Service
+import org.springframework.transaction.annotation.Transactional
 import javax.persistence.EntityNotFoundException
 
 @Service
+@Transactional(readOnly = true)
 class CafeService(
     private val cafeRepository: CafeRepository
 ) {
+    @Transactional
     fun registerCafe(form: RegisterCafeRequest) {
         val cafe = makeCafe(form.name, form.address, form.tel, form.homepage)
         form.openHourList
             .map { OpenHour(it.day, it.open, it.close, cafe) }
             .forEach { cafe.addOpenHour(it) }
-        val priceList = form.priceList
+        form.priceList
             .map { Price(it.headCount, it.day, it.price, cafe) }
             .forEach { cafe.addPrice(it) }
         cafeRepository.save(cafe)
     }
 
+    @Transactional
     fun deleteCafe(cafeId: Long) {
         cafeRepository.deleteById(cafeId)
     }
@@ -42,21 +46,23 @@ class CafeService(
         return CafeListResponse(result.toList().map { CafeResponse(it) }, result.isLast)
     }
 
+    @Transactional
     fun markCafeWrong(cafeId: Long) {
         val cafe = cafeRepository.findById(cafeId).orElseThrow { throw EntityNotFoundException() }
         cafe.markWrong()
     }
 
+    @Transactional
     fun markCafeRight(cafeId: Long) {
         val cafe = cafeRepository.findById(cafeId).orElseThrow { throw EntityNotFoundException() }
         cafe.markRight()
     }
 
-    fun makeCafe(name: String, address: String, tel: String, homepage: String): Cafe {
+    private fun makeCafe(name: String, address: String, tel: String, homepage: String): Cafe {
         return Cafe(name, address, tel, homepage, "")
     }
 
-    fun makeSort(sort: String): Sort {
+    private fun makeSort(sort: String): Sort {
         return if (sort == "DEFAULT") Sort.by(
             CafeSort.valueOf(sort).getDirection(),
             CafeSort.valueOf(sort).getSortBy()
