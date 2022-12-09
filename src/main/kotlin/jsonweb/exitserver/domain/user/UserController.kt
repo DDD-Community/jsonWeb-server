@@ -10,6 +10,10 @@ import org.springframework.web.bind.annotation.RestController
 @RestController
 class UserController(private val userService: UserService) {
 
+    @GetMapping("/test-login")
+    fun testLogin(): CommonResponse<JwtDto> =
+        success(userService.testLogin())
+
     @GetMapping("/oauth/kakao")
     fun kakaoLogin(code: String): CommonResponse<JwtDto> =
         success(userService.login(code))

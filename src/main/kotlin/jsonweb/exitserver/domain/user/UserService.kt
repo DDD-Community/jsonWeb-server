@@ -3,6 +3,7 @@ package jsonweb.exitserver.domain.user
 import jsonweb.exitserver.auth.KakaoClient
 import jsonweb.exitserver.auth.jwt.JwtProvider
 import jsonweb.exitserver.auth.security.getCurrentLoginUserId
+import jsonweb.exitserver.common.TEST_KAKAO_ID
 import jsonweb.exitserver.common.USER_NOT_FOUND
 import jsonweb.exitserver.common.UserException
 import jsonweb.exitserver.util.NicknameGenerator
@@ -69,6 +70,26 @@ class UserService(
             newProfileImageUrl = form.newProfileImageUrl
         )
         return UserInfoResponse(user)
+    }
+
+    @Transactional
+    fun testLogin(): JwtDto {
+        val username = TEST_KAKAO_ID
+        val password = "1234"
+        var testUser = userRepository.findByKakaoId(TEST_KAKAO_ID)
+        if (testUser == null) {
+            val newUser = User(
+                kakaoId = TEST_KAKAO_ID,
+                nickname = nicknameGenerator.getRandomNickname(),
+                ageRange = "20~29",
+                gender = "male",
+                password = passwordEncoder.encode(password)
+            )
+            testUser = userRepository.save(newUser)
+        }
+        SecurityContextHolder.getContext().authentication =
+            UsernamePasswordAuthenticationToken(username, password)
+        return JwtDto(jwtProvider.generateToken(testUser))
     }
 
 }

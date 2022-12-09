@@ -38,10 +38,25 @@ class SecurityConfig(
         .apply(JwtSecurityConfig(jwtProvider))
         .and()
         .authorizeRequests()
-        .antMatchers("/oauth/kakao", "/api", ).permitAll()
+        .antMatchers("/oauth/kakao", "/api", "/test-login").permitAll()
         // Swagger 설정
-        .antMatchers("/docs/**", "/favicon.ico", "/v2/api-docs", "/v3/api-docs", "/configuration/ui","/swagger-resources/**",
-            "/configuration/security","/swagger-ui.html","/swagger-ui/#", "/webjars/**","/swagger/**", "/swagger-ui/**", "/", "/csrf", "/error").permitAll()
+        .antMatchers(
+            "/docs/**",
+            "/favicon.ico",
+            "/v2/api-docs",
+            "/v3/api-docs",
+            "/configuration/ui",
+            "/swagger-resources/**",
+            "/configuration/security",
+            "/swagger-ui.html",
+            "/swagger-ui/#",
+            "/webjars/**",
+            "/swagger/**",
+            "/swagger-ui/**",
+            "/",
+            "/csrf",
+            "/error"
+        ).permitAll()
         .antMatchers("/cafe/**").permitAll()
         .anyRequest()
         .authenticated()
