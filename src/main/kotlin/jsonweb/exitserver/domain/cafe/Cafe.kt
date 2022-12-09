@@ -21,7 +21,7 @@ class Cafe(
         protected set
     var themeCount: Int = 0
         protected set
-    var likeCount: Int = 0
+    var avgStar: Double = 0.0
         protected set
     var tel: String = tel
         protected set
@@ -61,12 +61,6 @@ class Cafe(
     }
     fun decreaseReviewCount() {
         reviewCount--
-    }
-    fun increaseLikeCount() {
-        likeCount++
-    }
-    fun decreaseLikeCount() {
-        likeCount--
     }
     fun markWrong() {
         wrongCheck = true

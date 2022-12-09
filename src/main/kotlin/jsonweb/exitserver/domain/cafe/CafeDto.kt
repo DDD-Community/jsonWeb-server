@@ -25,7 +25,7 @@ data class CafeResponse(
     val cafeId: Long,
     val name: String,
     val isLiked: Boolean,
-    val likeCount: Int,
+    val avgStar: Double,
     val address: String,
     val imageUrl: String,
     val reviewCount: Int
@@ -34,7 +34,7 @@ data class CafeResponse(
         cafeId = cafe.cafeId,
         name = cafe.name,
         isLiked = false, // TODO: 관련 작업 후 수정
-        likeCount = cafe.likeCount,
+        avgStar = cafe.avgStar,
         address = cafe.address,
         imageUrl = cafe.imageUrl,
         reviewCount = cafe.reviewCount
@@ -45,7 +45,7 @@ data class CafeSpecResponse(
     val cafeId: Long,
     val name: String,
     val isLiked: Boolean,
-    val likeCount: Int,
+    val avgStar: Double,
     val address: String,
     val tel: String,
     val homepage: String,
@@ -60,7 +60,7 @@ data class CafeSpecResponse(
         cafeId = cafe.cafeId,
         name = cafe.name,
         isLiked = false, // TODO: 관련 작업 후 수정
-        likeCount = cafe.likeCount,
+        avgStar = cafe.avgStar,
         address = cafe.address,
         tel = cafe.tel,
         homepage = cafe.homepage,
