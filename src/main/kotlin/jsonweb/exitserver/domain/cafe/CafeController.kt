@@ -42,7 +42,9 @@ class CafeController(private val cafeService: CafeService) {
         @RequestParam(defaultValue = "16", required = false) size: Int,
         @RequestParam(required = false) keyword: String?
     ): CommonResponse<CafeListResponse> {
-        return success(cafeService.getCafeList(page, size, sort))
+        keyword?.let {
+            return success(cafeService.getCafeListWithKeyword(keyword, page, size, sort))
+        } ?: return success(cafeService.getCafeList(page, size, sort))
     }
 
 }

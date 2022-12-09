@@ -12,7 +12,8 @@ import javax.persistence.EntityNotFoundException
 @Service
 @Transactional(readOnly = true)
 class CafeService(
-    private val cafeRepository: CafeRepository
+    private val cafeRepository: CafeRepository,
+    private val cafeRepositoryImpl: CafeRepositoryImpl
 ) {
     @Transactional
     fun registerCafe(form: RegisterCafeRequest) {
@@ -43,7 +44,17 @@ class CafeService(
             makeSort(sort)
         )
         val result = cafeRepository.findAll(pageable)
-        return CafeListResponse(result.toList().map { CafeResponse(it) }, result.isLast)
+        return CafeListResponse(result.toList().map { CafeResponse(it) }, result.totalElements, result.isLast)
+    }
+
+    fun getCafeListWithKeyword(keyword: String, page: Int, size: Int, sort: String): CafeListResponse {
+        val pageable = PageRequest.of(
+            page,
+            size,
+            makeSort(sort)
+        )
+        val result = cafeRepositoryImpl.getList(keyword, pageable)
+        return CafeListResponse(result.toList().map { CafeResponse(it) }, result.totalElements, result.isLast)
     }
 
     @Transactional
