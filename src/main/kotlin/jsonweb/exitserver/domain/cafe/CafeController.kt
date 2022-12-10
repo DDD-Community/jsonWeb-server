@@ -23,6 +23,18 @@ class CafeController(private val cafeService: CafeService) {
     fun getCafeSpec(@PathVariable("cafeId") cafeId: Long): CommonResponse<CafeSpecResponse> =
         success(cafeService.getCafeSpec(cafeId))
 
+    @GetMapping("/{cafeId}/like")
+    fun likeCafe(@PathVariable("cafeId") cafeId: Long): CommonResponse<Any> {
+        cafeService.likeCafe(cafeId)
+        return success(null)
+    }
+
+    @GetMapping("/{cafeId}/unlike")
+    fun unlikeCafe(@PathVariable("cafeId") cafeId: Long): CommonResponse<Any> {
+        cafeService.unlikeCafe(cafeId)
+        return success(null)
+    }
+
     @GetMapping("/{cafeId}/wrong")
     fun reportWrongCafe(@PathVariable("cafeId") cafeId: Long): CommonResponse<Any> {
         cafeService.markCafeWrong(cafeId)

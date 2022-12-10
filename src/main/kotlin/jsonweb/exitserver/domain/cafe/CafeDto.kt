@@ -25,7 +25,7 @@ data class CafeListResponse(
 data class CafeResponse(
     val cafeId: Long,
     val name: String,
-    val isLiked: Boolean,
+    var isLiked: Boolean,
     val avgStar: Double,
     val address: String,
     val imageUrl: String,
@@ -45,7 +45,7 @@ data class CafeResponse(
 data class CafeSpecResponse(
     val cafeId: Long,
     val name: String,
-    val isLiked: Boolean,
+    var isLiked: Boolean,
     val avgStar: Double,
     val address: String,
     val tel: String,

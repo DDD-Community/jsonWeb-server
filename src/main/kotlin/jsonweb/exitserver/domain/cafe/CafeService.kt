@@ -1,8 +1,7 @@
 package jsonweb.exitserver.domain.cafe
 
-import jsonweb.exitserver.domain.cafe.entity.Cafe
-import jsonweb.exitserver.domain.cafe.entity.OpenHour
-import jsonweb.exitserver.domain.cafe.entity.Price
+import jsonweb.exitserver.domain.cafe.entity.*
+import jsonweb.exitserver.domain.user.UserService
 import org.springframework.data.domain.PageRequest
 import org.springframework.data.domain.Sort
 import org.springframework.stereotype.Service
@@ -13,7 +12,9 @@ import javax.persistence.EntityNotFoundException
 @Transactional(readOnly = true)
 class CafeService(
     private val cafeRepository: CafeRepository,
-    private val cafeRepositoryImpl: CafeRepositoryImpl
+    private val cafeRepositoryImpl: CafeRepositoryImpl,
+    private val cafeLikeRepository: CafeLikeRepository,
+    private val userService: UserService
 ) {
     @Transactional
     fun registerCafe(form: RegisterCafeRequest) {
@@ -34,7 +35,7 @@ class CafeService(
 
     fun getCafeSpec(cafeId: Long): CafeSpecResponse {
         val cafe = cafeRepository.findById(cafeId).orElseThrow { throw EntityNotFoundException() }
-        return CafeSpecResponse(cafe)
+        return markLike(CafeSpecResponse(cafe))
     }
 
     fun getCafeList(page: Int, size: Int, sort: String): CafeListResponse {
@@ -44,7 +45,7 @@ class CafeService(
             makeSort(sort)
         )
         val result = cafeRepository.findAll(pageable)
-        return CafeListResponse(result.toList().map { CafeResponse(it) }, result.totalElements, result.isLast)
+        return markLike(CafeListResponse(result.toList().map { CafeResponse(it) }, result.totalElements, result.isLast))
     }
 
     fun getCafeListWithKeyword(keyword: String, page: Int, size: Int, sort: String): CafeListResponse {
@@ -54,7 +55,7 @@ class CafeService(
             makeSort(sort)
         )
         val result = cafeRepositoryImpl.getList(keyword, pageable)
-        return CafeListResponse(result.toList().map { CafeResponse(it) }, result.totalElements, result.isLast)
+        return markLike(CafeListResponse(result.toList().map { CafeResponse(it) }, result.totalElements, result.isLast))
     }
 
     @Transactional
@@ -84,5 +85,30 @@ class CafeService(
         ).and(Sort.by("cafeId"))
     }
 
+    fun likeCafe(cafeId: Long) {
+        val userId = userService.getCurrentLoginUser().userId
+        cafeLikeRepository.save(CafeLike(userId, cafeId))
+    }
+
+    fun unlikeCafe(cafeId: Long) {
+        val userId = userService.getCurrentLoginUser().userId
+        cafeLikeRepository.deleteById(UserAndCafe(userId, cafeId))
+    }
+
+    private fun markLike(cafeListResponse: CafeListResponse): CafeListResponse {
+        val userId = userService.getCurrentLoginUser().userId
+        val likes = cafeLikeRepository.findAllByUserId(userId).map { it.cafeId }
+        for (cafeResponse in cafeListResponse.cafeList) {
+            if (cafeResponse.cafeId in likes) cafeResponse.isLiked = true
+        }
+        return cafeListResponse
+    }
+
+    private fun markLike(cafeSpecResponse: CafeSpecResponse): CafeSpecResponse {
+        val userId = userService.getCurrentLoginUser().userId
+        val likes = cafeLikeRepository.findAllByUserId(userId).map { it.cafeId }
+        if (cafeSpecResponse.cafeId in likes) cafeSpecResponse.isLiked = true
+        return cafeSpecResponse
+    }
 
 }

@@ -1,6 +1,7 @@
 package jsonweb.exitserver.domain.cafe.entity
 
 import jsonweb.exitserver.domain.theme.Theme
+import java.io.Serializable
 import javax.persistence.*
 
 @Entity
@@ -124,3 +125,18 @@ class Price(
      * methods
      */
 }
+
+@Embeddable
+data class UserAndCafe(
+    private val userId: Long,
+    private val cafeId: Long
+): Serializable
+
+@Entity
+@IdClass(UserAndCafe::class)
+class CafeLike(
+    @Id
+    val userId: Long,
+    @Id
+    val cafeId: Long
+)
