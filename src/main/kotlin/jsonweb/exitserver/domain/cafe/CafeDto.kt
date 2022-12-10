@@ -34,7 +34,7 @@ data class CafeResponse(
     constructor(cafe: Cafe): this(
         cafeId = cafe.cafeId,
         name = cafe.name,
-        isLiked = false, // TODO: 관련 작업 후 수정
+        isLiked = false,
         avgStar = cafe.avgStar,
         address = cafe.address,
         imageUrl = cafe.imageUrl,
@@ -60,7 +60,7 @@ data class CafeSpecResponse(
     constructor(cafe: Cafe): this(
         cafeId = cafe.cafeId,
         name = cafe.name,
-        isLiked = false, // TODO: 관련 작업 후 수정
+        isLiked = false,
         avgStar = cafe.avgStar,
         address = cafe.address,
         tel = cafe.tel,
