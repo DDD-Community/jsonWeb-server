@@ -8,11 +8,11 @@ import org.springframework.web.bind.annotation.*
 @RequestMapping("/user")
 class UserController(private val userService: UserService) {
 
-    @GetMapping("/test-login")
+    @PostMapping("/test-login")
     fun testLogin(): CommonResponse<JwtDto> =
         success(userService.testLogin())
 
-    @GetMapping("/login")
+    @PostMapping("/login")
     fun kakaoLogin(code: String): CommonResponse<JwtDto> =
         success(userService.login(code))
 
@@ -24,7 +24,7 @@ class UserController(private val userService: UserService) {
     fun updateUserInfo(@RequestBody form: UpdateUserInfoRequest): CommonResponse<UserInfoResponse> =
         success(userService.updateUserInfo(form))
 
-    @GetMapping("/logout")
+    @PostMapping("/logout")
     fun logout(): CommonResponse<Boolean> =
         success(userService.logout())
 
