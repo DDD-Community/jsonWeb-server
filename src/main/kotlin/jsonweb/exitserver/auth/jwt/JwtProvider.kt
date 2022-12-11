@@ -24,7 +24,7 @@ class JwtProvider(
     fun generateToken(user: User): String {
         val now = Date(System.currentTimeMillis())
         return Jwts.builder()
-            .setSubject("Exit Server REST API AccessToken")
+            .setSubject(user.userId.toString())
             .claim("kakaoId", user.kakaoId)
             .setIssuedAt(now)
             .setExpiration(Date(now.time + accessDurationMils))
@@ -51,8 +51,7 @@ class JwtProvider(
             .build()
             .parseClaimsJws(token)
             .body
-        val userDetails = principalDetailsService
-            .loadUserByUsername(userId = body.subject)
+        val userDetails = principalDetailsService.loadUserByUsername(userId = body.subject)
         return UsernamePasswordAuthenticationToken(
             userDetails.username,
             userDetails.password,

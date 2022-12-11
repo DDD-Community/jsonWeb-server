@@ -21,7 +21,8 @@ data class KakaoUserInfo(
 
 @Service
 class KakaoClient(
-    @Value("\${kakao.rest-api-key}") private val restApiKey: String
+    @Value("\${kakao.rest-api-key}") private val restApiKey: String,
+    @Value("\${kakao.app-admin-key}") private val appAdminKey: String
 ) {
 
     fun getKakaoUserInfo(authorizedCode: String): KakaoUserInfo {
@@ -29,14 +30,14 @@ class KakaoClient(
         return fetchKakaoUserInfoByToken(kakaoAccessToken)
     }
 
-    fun fetchKakaoAccessToken(authorizedCode: String): String {
+    private fun fetchKakaoAccessToken(authorizedCode: String): String {
         val header = HttpHeaders()
         header.add("Content-type", "application/x-www-form-urlencoded;charset=utf-8")
 
         val params = LinkedMultiValueMap<String, String>()
         params.add("grant_type", "authorization_code")
         params.add("client_id", restApiKey)
-        params.add("redirect_uri", "http://localhost:8080/oauth/kakao")
+        params.add("redirect_uri", "http://localhost:8080/user/login")
         params.add("code", authorizedCode)
 
         val kakaoTokenRequest = HttpEntity<MultiValueMap<String, String>>(params, header)
@@ -50,7 +51,7 @@ class KakaoClient(
         return JSONObject(response.body).getString("access_token")
     }
 
-    fun fetchKakaoUserInfoByToken(kakaoAccessToken: String): KakaoUserInfo {
+    private fun fetchKakaoUserInfoByToken(kakaoAccessToken: String): KakaoUserInfo {
         val header = HttpHeaders()
         header.add("Authorization", "Bearer $kakaoAccessToken")
         header.add("Content-type", "application/x-www-form-urlencoded;charset=utf-8")
@@ -70,13 +71,41 @@ class KakaoClient(
         try {
             // 유저가 성별, 연령대 수집에 동의
             ageRange = kakaoAccountJson.getString("age_range")
-            gender= kakaoAccountJson.getString("gender")
+            gender = kakaoAccountJson.getString("gender")
         } catch (e: JSONException) {
             // 비동의시 디폴트 값
             ageRange = ""
             gender = ""
         }
         return KakaoUserInfo(kakaoId, gender, ageRange)
+    }
+
+    fun logout(kakaoId: Long): Boolean =
+        sendRevokeRequest(kakaoId, "https://kapi.kakao.com/v1/user/logout")
+
+
+    fun unlink(kakaoId: Long): Boolean =
+        sendRevokeRequest(kakaoId, "https://kapi.kakao.com/v1/user/unlink")
+
+
+    private fun sendRevokeRequest(kakaoId: Long, url: String): Boolean {
+        val header = HttpHeaders()
+        header.add("Authorization", "KakaoAK $appAdminKey")
+        header.add("Content-type", "application/x-www-form-urlencoded;charset=utf-8")
+
+        val params = LinkedMultiValueMap<String, String>()
+        params.add("target_id_type", "user_id")
+        params.add("target_id", kakaoId.toString())
+
+        val unlinkRequest = HttpEntity<MultiValueMap<String, String>>(params, header)
+        val response: ResponseEntity<String> = RestTemplate().exchange(
+            url,
+            HttpMethod.POST,
+            unlinkRequest,
+            String::class.java
+        )
+
+        return JSONObject(response.body).getLong("id") == kakaoId
     }
 
 }

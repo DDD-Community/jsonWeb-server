@@ -2,29 +2,33 @@ package jsonweb.exitserver.domain.user
 
 import jsonweb.exitserver.common.CommonResponse
 import jsonweb.exitserver.common.success
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.PutMapping
-import org.springframework.web.bind.annotation.RequestBody
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.bind.annotation.*
 
 @RestController
+@RequestMapping("/user")
 class UserController(private val userService: UserService) {
 
-    @GetMapping("/test-login")
+    @PostMapping("/test-login")
     fun testLogin(): CommonResponse<JwtDto> =
         success(userService.testLogin())
 
-    @GetMapping("/oauth/kakao")
+    @PostMapping("/login")
     fun kakaoLogin(code: String): CommonResponse<JwtDto> =
         success(userService.login(code))
 
-    @GetMapping("/user/me")
+    @GetMapping("/me")
     fun getCurrentLoginUser(): CommonResponse<UserInfoResponse> =
         success(userService.getCurrentLoginUserToDto())
 
-    @PutMapping("/user")
-    fun updateUserInfo(@RequestBody form: UpdateUserInfoRequest) {
+    @PutMapping
+    fun updateUserInfo(@RequestBody form: UpdateUserInfoRequest): CommonResponse<UserInfoResponse> =
+        success(userService.updateUserInfo(form))
 
-    }
+    @PostMapping("/logout")
+    fun logout(): CommonResponse<Boolean> =
+        success(userService.logout())
 
+    @DeleteMapping
+    fun deleteUser(): CommonResponse<Boolean> =
+        success(userService.deleteUser())
 }

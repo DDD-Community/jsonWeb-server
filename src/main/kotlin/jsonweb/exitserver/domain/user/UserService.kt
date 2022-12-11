@@ -28,6 +28,7 @@ class UserService(
 
     fun getCurrentLoginUserToDto() = UserInfoResponse(getCurrentLoginUser())
 
+    @Transactional
     fun login(authorizedCode: String): JwtDto {
         val kakaoUserInfo = kakaoClient.getKakaoUserInfo(authorizedCode)
         var user = userRepository.findByKakaoId(kakaoUserInfo.kakaoId)
@@ -90,6 +91,15 @@ class UserService(
         SecurityContextHolder.getContext().authentication =
             UsernamePasswordAuthenticationToken(username, password)
         return JwtDto(jwtProvider.generateToken(testUser))
+    }
+
+    fun logout(): Boolean = kakaoClient.logout(getCurrentLoginUser().kakaoId)
+
+    @Transactional
+    fun deleteUser(): Boolean {
+        val user = getCurrentLoginUser()
+        userRepository.delete(user)
+        return kakaoClient.unlink(user.kakaoId)
     }
 
 }

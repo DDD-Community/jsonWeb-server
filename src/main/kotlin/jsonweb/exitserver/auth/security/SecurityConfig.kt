@@ -38,7 +38,7 @@ class SecurityConfig(
         .apply(JwtSecurityConfig(jwtProvider))
         .and()
         .authorizeRequests()
-        .antMatchers("/oauth/kakao", "/api", "/test-login").permitAll()
+        .antMatchers("/user/login", "/user/test-login", "/api").permitAll()
         // Swagger 설정
         .antMatchers(
             "/docs/**",
