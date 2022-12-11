@@ -85,11 +85,13 @@ class CafeService(
         ).and(Sort.by("cafeId"))
     }
 
+    @Transactional
     fun likeCafe(cafeId: Long) {
         val userId = userService.getCurrentLoginUser().userId
         cafeLikeRepository.save(CafeLike(userId, cafeId))
     }
 
+    @Transactional
     fun unlikeCafe(cafeId: Long) {
         val userId = userService.getCurrentLoginUser().userId
         cafeLikeRepository.deleteById(UserAndCafe(userId, cafeId))

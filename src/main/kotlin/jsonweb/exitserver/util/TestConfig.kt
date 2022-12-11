@@ -12,7 +12,5 @@ class TestConfig(
     private val entityManager: EntityManager
 ) {
     @Bean
-    fun jpaQueryFactory(): JPAQueryFactory {
-        return JPAQueryFactory(entityManager)
-    }
+    fun jpaQueryFactory(): JPAQueryFactory = JPAQueryFactory(entityManager)
 }

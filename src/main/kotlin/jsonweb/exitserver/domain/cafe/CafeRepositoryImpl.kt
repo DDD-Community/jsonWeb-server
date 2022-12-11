@@ -2,7 +2,7 @@ package jsonweb.exitserver.domain.cafe
 
 import com.querydsl.jpa.impl.JPAQueryFactory
 import jsonweb.exitserver.domain.cafe.entity.Cafe
-import jsonweb.exitserver.domain.cafe.entity.QCafe
+import jsonweb.exitserver.domain.cafe.entity.QCafe.cafe
 import jsonweb.exitserver.domain.theme.QTheme
 import jsonweb.exitserver.domain.theme.QTheme.theme
 import mu.KotlinLogging
@@ -18,12 +18,12 @@ class CafeRepositoryImpl(
 ) : QuerydslRepositorySupport(Cafe::class.java) {
 
     fun getList(keyword: String, pageable: Pageable): Page<Cafe> {
-        val query = jpaQueryFactory.selectFrom(QCafe.cafe)
-            .leftJoin(QCafe.cafe.themeList, theme)
+        val query = jpaQueryFactory.selectFrom(cafe)
+            .leftJoin(cafe.themeList, theme)
             .fetchJoin()
             .where(
-                QCafe.cafe.name.contains(keyword)
-                    .or(QCafe.cafe.address.contains(keyword))
+                cafe.name.contains(keyword)
+                    .or(cafe.address.contains(keyword))
                     .or(theme.name.contains(keyword))
             )
             .distinct()
