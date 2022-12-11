@@ -39,4 +39,14 @@ class CafeServiceTest : AnnotationSpec() {
         val testCafe = cafeRepository.findById(1L)
         testCafe.get().wrongCheck shouldBe false
     }
+
+    @Test
+    fun `좋아요 마킹 테스트 (CafeSpecResponse)`() {
+
+    }
+
+    @Test
+    fun `좋아요 마킹 테스트 (CafeListResponse)`() {
+
+    }
 }
