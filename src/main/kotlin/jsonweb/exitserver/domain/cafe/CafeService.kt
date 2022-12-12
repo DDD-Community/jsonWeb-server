@@ -19,12 +19,8 @@ class CafeService(
     @Transactional
     fun registerCafe(form: RegisterCafeRequest) {
         val cafe = makeCafe(form.name, form.address, form.tel, form.homepage)
-        form.openHourList
-            .map { OpenHour(it.day, it.open, it.close, cafe) }
-            .forEach { cafe.addOpenHour(it) }
-        form.priceList
-            .map { Price(it.headCount, it.day, it.price, cafe) }
-            .forEach { cafe.addPrice(it) }
+        form.openHourList.map { OpenHour(it.day, it.open, it.close, cafe) }.forEach { cafe.addOpenHour(it) }
+        form.priceList.map { Price(it.headCount, it.day, it.price, cafe) }.forEach { cafe.addPrice(it) }
         cafeRepository.save(cafe)
     }
 
@@ -40,9 +36,7 @@ class CafeService(
 
     fun getCafeList(page: Int, size: Int, sort: String): CafeListResponse {
         val pageable = PageRequest.of(
-            page,
-            size,
-            makeSort(sort)
+            page, size, makeSort(sort)
         )
         val result = cafeRepository.findAll(pageable)
         return markLike(CafeListResponse(result.toList().map { CafeResponse(it) }, result.totalElements, result.isLast))
@@ -50,9 +44,7 @@ class CafeService(
 
     fun getCafeListWithKeyword(keyword: String, page: Int, size: Int, sort: String): CafeListResponse {
         val pageable = PageRequest.of(
-            page,
-            size,
-            makeSort(sort)
+            page, size, makeSort(sort)
         )
         val result = cafeRepositoryImpl.getList(keyword, pageable)
         return markLike(CafeListResponse(result.toList().map { CafeResponse(it) }, result.totalElements, result.isLast))
@@ -76,24 +68,26 @@ class CafeService(
 
     private fun makeSort(sort: String): Sort {
         return if (sort == "DEFAULT") Sort.by(
-            CafeSort.valueOf(sort).getDirection(),
-            CafeSort.valueOf(sort).getSortBy()
+            CafeSort.valueOf(sort).getDirection(), CafeSort.valueOf(sort).getSortBy()
         )
         else Sort.by(
-            CafeSort.valueOf(sort).getDirection(),
-            CafeSort.valueOf(sort).getSortBy()
+            CafeSort.valueOf(sort).getDirection(), CafeSort.valueOf(sort).getSortBy()
         ).and(Sort.by("cafeId"))
     }
 
-    @Transactional
-    fun likeCafe(cafeId: Long) {
+    fun checkLike(cafeId: Long) {
         val userId = userService.getCurrentLoginUser().userId
+        if (cafeLikeRepository.existsById(UserAndCafe(userId, cafeId))) unlikeCafe(userId, cafeId)
+        else likeCafe(userId, cafeId)
+    }
+
+    @Transactional
+    fun likeCafe(userId: Long, cafeId: Long) {
         cafeLikeRepository.save(CafeLike(userId, cafeId))
     }
 
     @Transactional
-    fun unlikeCafe(cafeId: Long) {
-        val userId = userService.getCurrentLoginUser().userId
+    fun unlikeCafe(userId: Long, cafeId: Long) {
         cafeLikeRepository.deleteById(UserAndCafe(userId, cafeId))
     }
 
