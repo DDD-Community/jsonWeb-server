@@ -33,9 +33,6 @@ class Cafe(
     var imageUrl: String = imageUrl
         protected set
 
-    var wrongCheck: Boolean = false
-        protected set
-
     @OneToMany(mappedBy = "cafe", cascade = [CascadeType.ALL], orphanRemoval = true)
     var themeList: MutableList<Theme> = mutableListOf()
         protected set
@@ -62,12 +59,6 @@ class Cafe(
     }
     fun decreaseReviewCount() {
         reviewCount--
-    }
-    fun markWrong() {
-        wrongCheck = true
-    }
-    fun markRight() {
-        wrongCheck = false
     }
 }
 
@@ -140,3 +131,13 @@ class CafeLike(
     @Id
     val cafeId: Long
 )
+
+@Entity
+class CafeReport(
+    private val cafeId: Long,
+    private val reportContent: String
+) {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    val reportId: Long = 0L
+}

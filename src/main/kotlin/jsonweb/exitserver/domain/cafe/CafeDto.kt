@@ -117,3 +117,7 @@ data class PriceRequest(
     val headCount: String,
     val price: Int
 )
+
+data class ReportCafeRequest(
+    val reportContent: String
+)

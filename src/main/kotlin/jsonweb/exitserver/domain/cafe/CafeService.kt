@@ -14,6 +14,7 @@ class CafeService(
     private val cafeRepository: CafeRepository,
     private val cafeRepositoryImpl: CafeRepositoryImpl,
     private val cafeLikeRepository: CafeLikeRepository,
+    private val cafeReportRepository: CafeReportRepository,
     private val userService: UserService
 ) {
     @Transactional
@@ -51,15 +52,13 @@ class CafeService(
     }
 
     @Transactional
-    fun markCafeWrong(cafeId: Long) {
-        val cafe = cafeRepository.findById(cafeId).orElseThrow { throw EntityNotFoundException() }
-        cafe.markWrong()
+    fun reportCafe(cafeId: Long, reportContent: String) {
+        cafeReportRepository.save(CafeReport(cafeId, reportContent))
     }
 
     @Transactional
-    fun markCafeRight(cafeId: Long) {
-        val cafe = cafeRepository.findById(cafeId).orElseThrow { throw EntityNotFoundException() }
-        cafe.markRight()
+    fun resolveCafe(reportId: Long) {
+        cafeReportRepository.deleteById(reportId)
     }
 
     private fun makeCafe(name: String, address: String, tel: String, homepage: String): Cafe {

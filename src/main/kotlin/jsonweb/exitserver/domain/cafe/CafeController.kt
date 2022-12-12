@@ -29,15 +29,20 @@ class CafeController(private val cafeService: CafeService) {
         return success(null)
     }
 
-    @PutMapping("/{cafeId}/report")
-    fun reportWrongCafe(@PathVariable("cafeId") cafeId: Long): CommonResponse<Any> {
-        cafeService.markCafeWrong(cafeId)
+    @PostMapping("/{cafeId}/report")
+    fun reportCafe(
+        @PathVariable("cafeId") cafeId: Long,
+        @RequestBody form: ReportCafeRequest
+    ): CommonResponse<Any> {
+        cafeService.reportCafe(cafeId, form.reportContent)
         return success(null)
     }
 
-    @PutMapping("/{cafeId}/resolve")
-    fun resolveWrongCafe(@PathVariable("cafeId") cafeId: Long): CommonResponse<Any> {
-        cafeService.markCafeRight(cafeId)
+    @DeleteMapping("{reportId}/resolve")
+    fun resolveCafe(
+        @PathVariable("reportId") reportId: Long
+    ): CommonResponse<Any> {
+        cafeService.resolveCafe(reportId)
         return success(null)
     }
 
