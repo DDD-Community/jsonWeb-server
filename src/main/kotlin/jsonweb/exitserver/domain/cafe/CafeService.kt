@@ -18,11 +18,11 @@ class CafeService(
     private val userService: UserService
 ) {
     @Transactional
-    fun registerCafe(form: RegisterCafeRequest) {
+    fun registerCafe(form: RegisterCafeRequest): Long {
         val cafe = makeCafe(form.name, form.address, form.tel, form.homepage)
         form.openHourList.map { OpenHour(it.day, it.open, it.close, cafe) }.forEach { cafe.addOpenHour(it) }
         form.priceList.map { Price(it.headCount, it.day, it.price, cafe) }.forEach { cafe.addPrice(it) }
-        cafeRepository.save(cafe)
+        return cafeRepository.save(cafe).cafeId
     }
 
     @Transactional

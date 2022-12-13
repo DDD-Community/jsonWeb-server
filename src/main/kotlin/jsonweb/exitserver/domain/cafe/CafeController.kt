@@ -8,10 +8,8 @@ import org.springframework.web.bind.annotation.*
 @RequestMapping("/cafe")
 class CafeController(private val cafeService: CafeService) {
     @PostMapping
-    fun registerCafe(@RequestBody form: RegisterCafeRequest): CommonResponse<Any> {
-        cafeService.registerCafe(form)
-        return success(null)
-    }
+    fun registerCafe(@RequestBody form: RegisterCafeRequest): CommonResponse<Long> =
+        success(cafeService.registerCafe(form))
 
     @DeleteMapping("/{cafeId}")
     fun deleteCafe(@PathVariable("cafeId") cafeId: Long): CommonResponse<Any> {
