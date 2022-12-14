@@ -15,9 +15,10 @@ spring:
     multipart:
       max-file-size: 10MB
       max-request-size: 10MB
-
-# 에러 응답 설정
+  main:
+    allow-bean-definition-overriding: true # 에러 응답 설정
 server:
   error:
     include-stacktrace: on_param
     include-exception: true
+
