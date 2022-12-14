@@ -1,5 +1,4 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
-import org.jetbrains.kotlin.kapt3.base.Kapt.kapt
 
 plugins {
     id("org.springframework.boot") version "2.7.5"
@@ -7,7 +6,6 @@ plugins {
     kotlin("jvm") version "1.6.21"
     kotlin("plugin.spring") version "1.6.21"
     kotlin("plugin.jpa") version "1.6.21"
-    kotlin("kapt") version "1.7.10"
 }
 
 group = "jsonweb"
@@ -46,10 +44,6 @@ dependencies {
     implementation("io.jsonwebtoken:jjwt-impl:0.11.5")
     implementation("io.jsonwebtoken:jjwt-jackson:0.11.5")
 
-    //querydsl
-    implementation("com.querydsl:querydsl-jpa:5.0.0")
-    kapt("com.querydsl:querydsl-apt:5.0.0:jpa")
-
     // test
     testImplementation("io.kotest:kotest-runner-junit5:5.4.2")
     testImplementation("io.kotest:kotest-assertions-core:5.4.2")
@@ -57,8 +51,6 @@ dependencies {
     testImplementation("io.mockk:mockk:1.12.0")
     testImplementation("org.junit.platform:junit-platform-launcher")
     testImplementation("com.h2database:h2:2.1.214")
-
-    implementation("io.github.microutils:kotlin-logging:1.12.5")
 }
 
 allOpen {

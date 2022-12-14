@@ -1,7 +1,6 @@
 package jsonweb.exitserver.domain.cafe.entity
 
 import jsonweb.exitserver.domain.theme.Theme
-import java.io.Serializable
 import javax.persistence.*
 
 @Entity
@@ -22,7 +21,7 @@ class Cafe(
         protected set
     var themeCount: Int = 0
         protected set
-    var avgStar: Double = 0.0
+    var likeCount: Int = 0
         protected set
     var tel: String = tel
         protected set
@@ -31,6 +30,9 @@ class Cafe(
     var reviewCount: Int = 0
         protected set
     var imageUrl: String = imageUrl
+        protected set
+
+    var wrongCheck: Boolean = false
         protected set
 
     @OneToMany(mappedBy = "cafe", cascade = [CascadeType.ALL], orphanRemoval = true)
@@ -59,6 +61,18 @@ class Cafe(
     }
     fun decreaseReviewCount() {
         reviewCount--
+    }
+    fun increaseLikeCount() {
+        likeCount++
+    }
+    fun decreaseLikeCount() {
+        likeCount--
+    }
+    fun markWrong() {
+        wrongCheck = true
+    }
+    fun markRight() {
+        wrongCheck = false
     }
 }
 
@@ -115,29 +129,4 @@ class Price(
     /**
      * methods
      */
-}
-
-@Embeddable
-data class UserAndCafe(
-    private val userId: Long,
-    private val cafeId: Long
-): Serializable
-
-@Entity
-@IdClass(UserAndCafe::class)
-class CafeLike(
-    @Id
-    val userId: Long,
-    @Id
-    val cafeId: Long
-)
-
-@Entity
-class CafeReport(
-    private val cafeId: Long,
-    private val reportContent: String
-) {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    val reportId: Long = 0L
 }

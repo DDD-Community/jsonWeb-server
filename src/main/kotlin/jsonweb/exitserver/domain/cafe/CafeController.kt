@@ -8,8 +8,10 @@ import org.springframework.web.bind.annotation.*
 @RequestMapping("/cafe")
 class CafeController(private val cafeService: CafeService) {
     @PostMapping
-    fun registerCafe(@RequestBody form: RegisterCafeRequest): CommonResponse<Long> =
-        success(cafeService.registerCafe(form))
+    fun registerCafe(@RequestBody form: RegisterCafeRequest): CommonResponse<Any> {
+        cafeService.registerCafe(form)
+        return success(null)
+    }
 
     @DeleteMapping("/{cafeId}")
     fun deleteCafe(@PathVariable("cafeId") cafeId: Long): CommonResponse<Any> {
@@ -21,26 +23,15 @@ class CafeController(private val cafeService: CafeService) {
     fun getCafeSpec(@PathVariable("cafeId") cafeId: Long): CommonResponse<CafeSpecResponse> =
         success(cafeService.getCafeSpec(cafeId))
 
-    @PutMapping("/{cafeId}/like")
-    fun likeCafe(@PathVariable("cafeId") cafeId: Long): CommonResponse<Any> {
-        cafeService.checkLike(cafeId)
+    @GetMapping("/{cafeId}/wrong")
+    fun reportWrongCafe(@PathVariable("cafeId") cafeId: Long): CommonResponse<Any> {
+        cafeService.markCafeWrong(cafeId)
         return success(null)
     }
 
-    @PostMapping("/{cafeId}/report")
-    fun reportCafe(
-        @PathVariable("cafeId") cafeId: Long,
-        @RequestBody form: ReportCafeRequest
-    ): CommonResponse<Any> {
-        cafeService.reportCafe(cafeId, form.reportContent)
-        return success(null)
-    }
-
-    @DeleteMapping("{reportId}/resolve")
-    fun resolveCafe(
-        @PathVariable("reportId") reportId: Long
-    ): CommonResponse<Any> {
-        cafeService.resolveCafe(reportId)
+    @GetMapping("/{cafeId}/right")
+    fun resolveWrongCafe(@PathVariable("cafeId") cafeId: Long): CommonResponse<Any> {
+        cafeService.markCafeRight(cafeId)
         return success(null)
     }
 
@@ -51,9 +42,7 @@ class CafeController(private val cafeService: CafeService) {
         @RequestParam(defaultValue = "16", required = false) size: Int,
         @RequestParam(required = false) keyword: String?
     ): CommonResponse<CafeListResponse> {
-        keyword?.let {
-            return success(cafeService.getCafeListWithKeyword(keyword, page, size, sort))
-        } ?: return success(cafeService.getCafeList(page, size, sort))
+        return success(cafeService.getCafeList(page, size, sort))
     }
 
 }

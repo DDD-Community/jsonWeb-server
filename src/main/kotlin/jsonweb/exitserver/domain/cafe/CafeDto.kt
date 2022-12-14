@@ -9,7 +9,7 @@ import org.springframework.data.domain.Sort
 
 enum class CafeSort(private val sort: String, private val direction: Sort.Direction) {
     DEFAULT("cafeId", Sort.Direction.ASC),
-    STAR("avgStar", Sort.Direction.DESC),
+    LIKE("likeCount", Sort.Direction.DESC),
     REVIEW("reviewCount", Sort.Direction.DESC);
 
     fun getSortBy() = sort
@@ -18,15 +18,14 @@ enum class CafeSort(private val sort: String, private val direction: Sort.Direct
 
 data class CafeListResponse(
     val cafeList: List<CafeResponse>,
-    val totalNumber: Long,
     val isLast: Boolean
 )
 
 data class CafeResponse(
     val cafeId: Long,
     val name: String,
-    var isLiked: Boolean,
-    val avgStar: Double,
+    val isLiked: Boolean,
+    val likeCount: Int,
     val address: String,
     val imageUrl: String,
     val reviewCount: Int
@@ -34,8 +33,8 @@ data class CafeResponse(
     constructor(cafe: Cafe): this(
         cafeId = cafe.cafeId,
         name = cafe.name,
-        isLiked = false,
-        avgStar = cafe.avgStar,
+        isLiked = false, // TODO: 관련 작업 후 수정
+        likeCount = cafe.likeCount,
         address = cafe.address,
         imageUrl = cafe.imageUrl,
         reviewCount = cafe.reviewCount
@@ -45,8 +44,8 @@ data class CafeResponse(
 data class CafeSpecResponse(
     val cafeId: Long,
     val name: String,
-    var isLiked: Boolean,
-    val avgStar: Double,
+    val isLiked: Boolean,
+    val likeCount: Int,
     val address: String,
     val tel: String,
     val homepage: String,
@@ -60,8 +59,8 @@ data class CafeSpecResponse(
     constructor(cafe: Cafe): this(
         cafeId = cafe.cafeId,
         name = cafe.name,
-        isLiked = false,
-        avgStar = cafe.avgStar,
+        isLiked = false, // TODO: 관련 작업 후 수정
+        likeCount = cafe.likeCount,
         address = cafe.address,
         tel = cafe.tel,
         homepage = cafe.homepage,
@@ -116,8 +115,4 @@ data class PriceRequest(
     val day: String,
     val headCount: String,
     val price: Int
-)
-
-data class ReportCafeRequest(
-    val reportContent: String
 )
