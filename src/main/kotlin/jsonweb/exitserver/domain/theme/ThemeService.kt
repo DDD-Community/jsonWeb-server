@@ -58,6 +58,7 @@ class ThemeService(
         return ThemeSpecResponse(theme)
     }
 
+    @Transactional
     fun updateTheme(themeId: Long, form: UpdateThemeRequest) {
         val theme = themeRepository.findById(themeId).orElseThrow { throw EntityNotFoundException() }
         // TODO: update 로직 어떻게 처리할지 고민
