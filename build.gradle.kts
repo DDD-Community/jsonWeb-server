@@ -33,6 +33,7 @@ dependencies {
     testImplementation("org.springframework.security:spring-security-test")
     implementation("io.springfox:springfox-boot-starter:3.0.0")
     implementation("org.springframework.boot:spring-boot-test:2.7.5")
+    implementation("org.modelmapper:modelmapper:2.4.4")
 
     // aws
     implementation("com.amazonaws:aws-java-sdk:1.12.347")

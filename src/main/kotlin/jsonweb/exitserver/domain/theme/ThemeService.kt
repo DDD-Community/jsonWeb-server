@@ -1,8 +1,7 @@
 package jsonweb.exitserver.domain.theme
 
 import jsonweb.exitserver.domain.cafe.CafeRepository
-import jsonweb.exitserver.domain.cafe.entity.Cafe
-import jsonweb.exitserver.domain.cafe.entity.CafeReport
+import org.modelmapper.ModelMapper
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 import javax.persistence.EntityNotFoundException
@@ -12,33 +11,22 @@ import javax.persistence.EntityNotFoundException
 class ThemeService(
     private val cafeRepository: CafeRepository,
     private val themeRepository: ThemeRepository,
-    private val genreRepository: GenreRepository
+    private val genreRepository: GenreRepository,
+    private val themeGenreRepository: ThemeGenreRepository,
+    private val modelMapper: ModelMapper
 ) {
     @Transactional
     fun registerTheme(form: RegisterThemeRequest): Long {
         val cafe = cafeRepository.findById(form.cafeId).orElseThrow { throw EntityNotFoundException() }
-        val theme = makeTheme(
-            form.name,
-            form.description,
-            form.imageUrl,
-            form.time,
-            form.minPlayerCount,
-            form.maxPlayerCount,
-            form.difficulty,
-            form.ageLimit,
-            cafe
-        )
+        val theme = modelMapper.map(ThemeWithCafe(form, cafe), Theme::class.java)
+        addThemeGenre(theme, form.genreList)
         return themeRepository.save(theme).themeId
     }
 
     @Transactional
     fun registerThemeGenre(form: RegisterThemeGenreRequest) {
         val theme = themeRepository.findById(form.themeId).orElseThrow { throw EntityNotFoundException() }
-        for (genreName in form.genreList) {
-            val genre = genreRepository.findGenreByGenreName(genreName)
-                .orElse(genreRepository.save(Genre(genreName)))
-            theme.addGenre(genre)
-        }
+        addThemeGenre(theme, form.genreList)
     }
 
     @Transactional
@@ -69,15 +57,20 @@ class ThemeService(
         return themeList
     }
 
-    private fun makeTheme(
-        name: String,
-        description: String,
-        imageUrl: String,
-        time: Int,
-        minPlayerCount: Int,
-        maxPlayerCount: Int,
-        difficulty: Double,
-        ageLimit: String,
-        cafe: Cafe
-    ): Theme = Theme(name, description, imageUrl, time, minPlayerCount, maxPlayerCount, difficulty, ageLimit, cafe)
+    private fun addGenre(genreList: List<String>) {
+        for (genreName in genreList) {
+            genreRepository.save(Genre(genreName))
+        }
+    }
+
+    private fun addThemeGenre(theme: Theme, genreList: List<String>) {
+        for (genreName in genreList) {
+            val genre = genreRepository.findGenreByGenreName(genreName)
+                .orElse(addGenre(genreName))
+            val themeGenre = themeGenreRepository.save(ThemeGenre(theme, genre))
+            theme.addThemeGenre(themeGenre)
+        }
+    }
+
+    private fun addGenre(genreName: String): Genre = genreRepository.save(Genre(genreName))
 }

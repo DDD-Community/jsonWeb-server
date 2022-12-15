@@ -6,39 +6,21 @@ import javax.persistence.*
 
 @Entity
 class Theme(
-    name: String,
-    description: String,
-    imageUrl: String,
-    time: Int,
-    minPlayerCount: Int,
-    maxPlayerCount: Int,
-    difficulty: Double,
-    ageLimit: String,
-
+    var name: String,
+    var description: String,
+    var imageUrl: String,
+    var time: Int,
+    var minPlayerCount: Int,
+    var maxPlayerCount: Int,
+    var difficulty: Double,
+    var ageLimit: String,
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "cafe_id")
-    val cafe: Cafe,
+    var cafe: Cafe
 ) {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     val themeId: Long = 0L
-
-    var name: String = name
-        protected set
-    var description: String = description
-        protected set
-    var imageUrl: String = imageUrl
-        protected set
-    var time: Int = time
-        protected set
-    var minPlayerCount: Int = minPlayerCount
-        protected set
-    var maxPlayerCount: Int = maxPlayerCount
-        protected set
-    var difficulty: Double = difficulty
-        protected set
-    var ageLimit: String = ageLimit
-        protected set
     var reviewCount: Int = 0
         protected set
     var avgStar: Double = 0.0
@@ -50,15 +32,10 @@ class Theme(
     @OneToMany(mappedBy = "theme", cascade = [CascadeType.ALL], orphanRemoval = true)
     var reviewList: MutableList<Review> = mutableListOf()
 
-    @OneToMany(mappedBy = "theme", cascade = [CascadeType.ALL], orphanRemoval = true)
-    var genreList: MutableList<Genre> = mutableListOf()
-
     /**
      * methods
      */
     fun addThemeGenre(themeGenre: ThemeGenre) = themeGenreList.add(themeGenre)
-
-    fun addGenre(genre: Genre) = genreList.add(genre)
 
     fun addReview(review: Review) {
         reviewList.add(review)
