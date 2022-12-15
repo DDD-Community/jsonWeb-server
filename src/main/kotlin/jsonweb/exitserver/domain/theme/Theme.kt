@@ -41,7 +41,7 @@ class Theme(
         protected set
     var reviewCount: Int = 0
         protected set
-    var isReported: Boolean = false
+    var avgStar: Double = 0.0
         protected set
 
     @OneToMany(mappedBy = "theme", cascade = [CascadeType.ALL], orphanRemoval = true)
@@ -50,10 +50,16 @@ class Theme(
     @OneToMany(mappedBy = "theme", cascade = [CascadeType.ALL], orphanRemoval = true)
     var reviewList: MutableList<Review> = mutableListOf()
 
+    @OneToMany(mappedBy = "theme", cascade = [CascadeType.ALL], orphanRemoval = true)
+    var genreList: MutableList<Genre> = mutableListOf()
+
     /**
      * methods
      */
     fun addThemeGenre(themeGenre: ThemeGenre) = themeGenreList.add(themeGenre)
+
+    fun addGenre(genre: Genre) = genreList.add(genre)
+
     fun addReview(review: Review) {
         reviewList.add(review)
         reviewCount = reviewList.size

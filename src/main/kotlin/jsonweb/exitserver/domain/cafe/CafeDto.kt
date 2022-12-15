@@ -3,7 +3,6 @@ package jsonweb.exitserver.domain.cafe
 import jsonweb.exitserver.domain.cafe.entity.Cafe
 import jsonweb.exitserver.domain.cafe.entity.OpenHour
 import jsonweb.exitserver.domain.cafe.entity.Price
-import jsonweb.exitserver.domain.review.ReviewResponse
 import jsonweb.exitserver.domain.theme.ThemeResponse
 import org.springframework.data.domain.Sort
 
@@ -55,7 +54,7 @@ data class CafeSpecResponse(
     val themeCount: Int,
     val themeList: List<ThemeResponse>,
     val reviewCount: Int
-//    val reviewList: MutableList<ReviewResponse> // TODO: 관련 작업 후 수정
+//    val reviewList: MutableList<ReviewResponse> // TODO: 관련 작업 후 수정 (무한스크롤 구현을 위해 review 따로 request)
 ) {
     constructor(cafe: Cafe): this(
         cafeId = cafe.cafeId,
@@ -68,7 +67,7 @@ data class CafeSpecResponse(
         openHourList = cafe.openHourList.map { OpenHourResponse(it) },
         priceList = cafe.priceList.map { PriceResponse(it) },
         themeCount = cafe.themeCount,
-        themeList = cafe.themeList.map { ThemeResponse(it) },
+        themeList = cafe.themeList.map { ThemeResponse(it) }, // TODO: 정렬 알고리즘 추가
         reviewCount = cafe.reviewCount
     )
 }
