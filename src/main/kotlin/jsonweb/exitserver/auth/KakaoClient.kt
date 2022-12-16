@@ -25,6 +25,17 @@ class KakaoClient(
     @Value("\${kakao.app-admin-key}") private val appAdminKey: String
 ) {
 
+    fun getRedirectUri(): String {
+        return if (System.getProperty("os.name").contains("linux")) {
+            // deploy linux
+            "http://13.124.179.64/:8080/user/login"
+        } else {
+            // local window
+            "http://localhost:8080/user/login"
+
+        }
+    }
+
     fun getKakaoUserInfo(authorizedCode: String): KakaoUserInfo {
         val kakaoAccessToken = fetchKakaoAccessToken(authorizedCode)
         return fetchKakaoUserInfoByToken(kakaoAccessToken)
@@ -37,7 +48,7 @@ class KakaoClient(
         val params = LinkedMultiValueMap<String, String>()
         params.add("grant_type", "authorization_code")
         params.add("client_id", restApiKey)
-        params.add("redirect_uri", "http://localhost:8080/user/login")
+        params.add("redirect_uri", getRedirectUri())
         params.add("code", authorizedCode)
 
         val kakaoTokenRequest = HttpEntity<MultiValueMap<String, String>>(params, header)
