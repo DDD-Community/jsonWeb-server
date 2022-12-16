@@ -12,7 +12,7 @@ class UserController(private val userService: UserService) {
     fun testLogin(): CommonResponse<JwtDto> =
         success(userService.testLogin())
 
-    @PostMapping("/login")
+    @GetMapping("/login")
     fun kakaoLogin(code: String): CommonResponse<JwtDto> =
         success(userService.login(code))
 
