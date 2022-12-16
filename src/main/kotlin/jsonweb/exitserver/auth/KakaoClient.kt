@@ -1,5 +1,6 @@
 package jsonweb.exitserver.auth
 
+import jsonweb.exitserver.common.logger
 import org.json.JSONException
 import org.json.JSONObject
 import org.springframework.beans.factory.annotation.Value
@@ -24,14 +25,17 @@ class KakaoClient(
     @Value("\${kakao.rest-api-key}") private val restApiKey: String,
     @Value("\${kakao.app-admin-key}") private val appAdminKey: String
 ) {
+    val log = logger()
 
     fun getRedirectUri(): String {
-        return if (System.getProperty("os.name").contains("linux")) {
+        val os = System.getProperty("os.name")
+        log.info("OS : {}", os)
+        return if (os.contains("Win")) {
             // deploy linux
-            "http://13.124.179.64:8080/user/login"
+            "http://localhost:8080/user/login"
         } else {
             // local window
-            "http://localhost:8080/user/login"
+            "http://13.124.179.64:8080/user/login"
         }
     }
 
@@ -49,7 +53,6 @@ class KakaoClient(
         params.add("client_id", restApiKey)
         params.add("redirect_uri", getRedirectUri())
         params.add("code", authorizedCode)
-
         val kakaoTokenRequest = HttpEntity<MultiValueMap<String, String>>(params, header)
         val response: ResponseEntity<String> = RestTemplate().exchange(
             "https://kauth.kakao.com/oauth/token",
