@@ -28,11 +28,10 @@ class KakaoClient(
     fun getRedirectUri(): String {
         return if (System.getProperty("os.name").contains("linux")) {
             // deploy linux
-            "http://13.124.179.64/:8080/user/login"
+            "http://13.124.179.64:8080/user/login"
         } else {
             // local window
             "http://localhost:8080/user/login"
-
         }
     }
 
