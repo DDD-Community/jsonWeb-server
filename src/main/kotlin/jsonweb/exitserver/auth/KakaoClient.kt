@@ -31,11 +31,11 @@ class KakaoClient(
         val os = System.getProperty("os.name")
         log.info("OS : {}", os)
         return if (os.contains("Win")) {
-            // deploy linux
+            // local window
             "http://localhost:8080/user/login"
         } else {
-            // local window
-            "http://13.124.179.64:8080/user/login"
+            // deploy linux
+            "http://localhost:3000/user/login"
         }
     }
 
