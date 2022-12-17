@@ -25,7 +25,7 @@ class ThemeService(
 
     @Transactional
     fun registerThemeGenre(form: RegisterThemeGenreRequest) {
-        val theme = themeRepository.findById(form.themeId).orElseThrow { throw EntityNotFoundException() }
+        val theme = getTheme(form.themeId)
         addThemeGenre(theme, form.genreList)
     }
 
@@ -42,13 +42,13 @@ class ThemeService(
     }
 
     fun getThemeSpec(themeId: Long): ThemeSpecResponse {
-        val theme = themeRepository.findById(themeId).orElseThrow { throw EntityNotFoundException() }
+        val theme = getTheme(themeId)
         return ThemeSpecResponse(theme)
     }
 
     @Transactional
     fun updateTheme(themeId: Long, form: UpdateThemeRequest) {
-        val theme = themeRepository.findById(themeId).orElseThrow { throw EntityNotFoundException() }
+        val theme = getTheme(themeId)
         // TODO: update 로직 어떻게 처리할지 고민
     }
 
@@ -71,6 +71,8 @@ class ThemeService(
             theme.addThemeGenre(themeGenre)
         }
     }
+
+    private fun getTheme(themeId: Long): Theme = themeRepository.findById(form.themeId).orElseThrow { throw EntityNotFoundException() }
 
     private fun addGenre(genreName: String): Genre = genreRepository.save(Genre(genreName))
 }
