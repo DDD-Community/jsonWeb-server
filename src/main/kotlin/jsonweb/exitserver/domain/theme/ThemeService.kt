@@ -72,7 +72,7 @@ class ThemeService(
         }
     }
 
-    private fun getTheme(themeId: Long): Theme = themeRepository.findById(form.themeId).orElseThrow { throw EntityNotFoundException() }
+    private fun getTheme(themeId: Long): Theme = themeRepository.findById(themeId).orElseThrow { throw EntityNotFoundException() }
 
     private fun addGenre(genreName: String): Genre = genreRepository.save(Genre(genreName))
 }
