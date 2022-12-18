@@ -1,13 +1,11 @@
 package jsonweb.exitserver.domain.cafe
 
-import com.querydsl.core.util.Annotations
 import io.kotest.core.spec.style.AnnotationSpec
-import io.kotest.core.spec.style.Test
 import io.kotest.matchers.shouldBe
 import jsonweb.exitserver.domain.cafe.entity.Cafe
 import jsonweb.exitserver.domain.theme.Theme
 import jsonweb.exitserver.domain.theme.ThemeRepository
-import jsonweb.exitserver.util.TestConfig
+import jsonweb.exitserver.config.TestConfig
 import mu.KotlinLogging
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.jdbc.EmbeddedDatabaseConnection

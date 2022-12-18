@@ -1,4 +1,4 @@
-package jsonweb.exitserver.util
+package jsonweb.exitserver.config
 
 import org.modelmapper.ModelMapper
 import org.springframework.context.annotation.Bean

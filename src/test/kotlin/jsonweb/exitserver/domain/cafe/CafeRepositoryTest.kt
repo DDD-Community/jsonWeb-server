@@ -1,27 +1,20 @@
 package jsonweb.exitserver.domain.cafe
 
-import io.kotest.core.spec.KotestTestScope
 import io.kotest.core.spec.style.AnnotationSpec
-import io.kotest.extensions.spring.SpringExtension
 import io.kotest.matchers.shouldBe
 import jsonweb.exitserver.domain.cafe.entity.Cafe
 import jsonweb.exitserver.domain.review.ReviewRepository
 import jsonweb.exitserver.domain.theme.GenreRepository
 import jsonweb.exitserver.domain.theme.ThemeRepository
-import jsonweb.exitserver.util.TestConfig
-import org.junit.jupiter.api.BeforeAll
-import org.junit.jupiter.api.Test
+import jsonweb.exitserver.config.TestConfig
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.jdbc.EmbeddedDatabaseConnection
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest
-import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager
 import org.springframework.context.annotation.Import
 import org.springframework.data.domain.PageRequest
 import org.springframework.data.domain.Sort
 import org.springframework.test.context.TestPropertySource
-import kotlin.reflect.full.declaredMemberProperties
-import kotlin.reflect.full.declaredMembers
 
 @Import(TestConfig::class)
 @DataJpaTest

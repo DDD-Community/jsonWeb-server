@@ -1,4 +1,4 @@
-package jsonweb.exitserver.util
+package jsonweb.exitserver.config
 
 import com.querydsl.jpa.impl.JPAQueryFactory
 import org.springframework.boot.test.context.TestConfiguration
