@@ -1,5 +1,6 @@
 package jsonweb.exitserver.domain.user
 
+import jsonweb.exitserver.domain.inquiry.Inquiry
 import jsonweb.exitserver.domain.review.Review
 import javax.persistence.*
 
@@ -25,11 +26,18 @@ class User(
     @OneToMany(mappedBy = "user", cascade = [CascadeType.ALL], orphanRemoval = true)
     var reviewList: MutableList<Review> = mutableListOf()
 
+    @OneToMany(mappedBy = "user", cascade = [CascadeType.ALL], orphanRemoval = true)
+    var inquiryList: MutableList<Inquiry> = mutableListOf()
+
     /**
      * methods
      */
     fun updateUserInfo(newNickname: String? = null, newProfileImageUrl: String? = null) {
         newNickname?.let { nickname = newNickname }
         newProfileImageUrl?.let { profileImageUrl = newProfileImageUrl }
+    }
+
+    fun addInquiry(inquiry: Inquiry) {
+        this.inquiryList.add(inquiry)
     }
 }
