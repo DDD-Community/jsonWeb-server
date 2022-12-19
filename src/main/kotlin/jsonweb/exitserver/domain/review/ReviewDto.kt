@@ -15,7 +15,7 @@ enum class ReviewSort(private val sort: String, private val direction: Sort.Dire
 
 data class UpdateReviewRequest(
     val emotionFirst: String,
-    val emotionSecond: String?,
+    val emotionSecond: String,
     val star: Double,
     val difficulty: Double,
     val content: String
@@ -23,7 +23,7 @@ data class UpdateReviewRequest(
 
 data class CreateReviewRequest(
     val emotionFirst: String,
-    val emotionSecond: String?,
+    val emotionSecond: String,
     val star: Double,
     val difficulty: Double,
     val content: String
@@ -31,7 +31,7 @@ data class CreateReviewRequest(
 
 data class ReviewWithTheme(
     val emotionFirst: String,
-    val emotionSecond: String?,
+    val emotionSecond: String,
     val star: Double,
     val difficulty: Double,
     val content: String,

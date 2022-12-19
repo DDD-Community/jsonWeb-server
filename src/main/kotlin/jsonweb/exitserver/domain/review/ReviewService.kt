@@ -13,7 +13,7 @@ import javax.persistence.EntityNotFoundException
 @Transactional(readOnly = true)
 class ReviewService(
     private val reviewRepository: ReviewRepository,
-    private val reviewRepositoryImpl: ReviewRepositoryImpl,
+//    private val reviewRepositoryImpl: ReviewRepositoryImpl,
     private val reviewLikeRepository: ReviewLikeRepository,
     private val themeRepository: ThemeRepository,
     private val userService: UserService,
@@ -103,20 +103,28 @@ class ReviewService(
 
     fun getPopularEmotion(themeId: Long): PopularEmotionResponse {
         val theme = themeRepository.findById(themeId).orElseThrow { throw EntityNotFoundException() }
-        val totalReviewCount = reviewRepository.findAllByTheme(theme).count()
+        val reviews = reviewRepository.findAllByTheme(theme)
+        val totalReviewCount = reviews.count()
 
-        var popularEmotion: String = ""
-        var popularEmotionCount = 0
+        var emotionCount = mutableMapOf<String, Int>()
+        emotions.list.forEach { emotionCount[it] = 0 }
 
-        for (emotion in emotions.list) {
-            val tempCount = reviewRepositoryImpl.countWithEmotion(emotion)
-            if (tempCount > popularEmotionCount) {
-                popularEmotionCount = tempCount
-                popularEmotion = emotion
-            }
+        for (review in reviews) {
+            incrementCount(review.emotionFirst, emotionCount)
+            incrementCount(review.emotionSecond, emotionCount)
         }
-        val percentage = popularEmotionCount / totalReviewCount * 100
-        return PopularEmotionResponse(percentage, popularEmotion)
+
+        val maxEmotion = emotionCount.maxWith(Comparator { o1, o2 -> o1.value.compareTo(o2.value) })
+
+        val percentage = 100 * maxEmotion.value / totalReviewCount
+        return PopularEmotionResponse(percentage, maxEmotion.key)
+    }
+
+    private fun incrementCount(emotion: String, emotionCount: MutableMap<String, Int>) {
+        if (!emotion.isNullOrEmpty()) {
+            val curCount = emotionCount[emotion]
+            emotionCount[emotion] = curCount!! + 1
+        }
     }
 
     private fun makeSort(sort: String): Sort {

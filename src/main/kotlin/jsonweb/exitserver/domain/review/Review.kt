@@ -11,8 +11,8 @@ class Review(
     content: String,
     star: Double,
     difficulty: Double,
-    emotionFirst: String?,
-    emotionSecond: String?,
+    emotionFirst: String,
+    emotionSecond: String,
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
@@ -56,7 +56,7 @@ class Review(
         likeCount--
     }
 
-    fun editReview(emotionFirst: String, emotionSecond: String?, content: String, star: Double, difficulty: Double) {
+    fun editReview(emotionFirst: String, emotionSecond: String, content: String, star: Double, difficulty: Double) {
         this.emotionFirst = emotionFirst
         this.emotionSecond = emotionSecond
         this.content = content
