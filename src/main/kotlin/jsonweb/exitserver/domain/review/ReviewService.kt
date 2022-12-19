@@ -13,7 +13,6 @@ import javax.persistence.EntityNotFoundException
 @Transactional(readOnly = true)
 class ReviewService(
     private val reviewRepository: ReviewRepository,
-//    private val reviewRepositoryImpl: ReviewRepositoryImpl,
     private val reviewLikeRepository: ReviewLikeRepository,
     private val themeRepository: ThemeRepository,
     private val userService: UserService,

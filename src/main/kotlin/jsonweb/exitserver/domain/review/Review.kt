@@ -22,7 +22,7 @@ class Review(
     @JoinColumn(name = "theme_id")
     var theme: Theme
 
-): BaseTimeEntity() {
+) : BaseTimeEntity() {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     val reviewId: Long = 0L
@@ -77,7 +77,7 @@ class Review(
 data class UserAndReview(
     private val userId: Long,
     private val reviewId: Long
-): Serializable
+) : Serializable
 
 @Entity
 @IdClass(UserAndReview::class)

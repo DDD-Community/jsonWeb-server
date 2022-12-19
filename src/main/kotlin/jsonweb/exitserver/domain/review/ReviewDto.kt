@@ -38,7 +38,7 @@ data class ReviewWithTheme(
     val theme: Theme,
     val user: User
 ) {
-    constructor(form: CreateReviewRequest, theme: Theme, user: User): this(
+    constructor(form: CreateReviewRequest, theme: Theme, user: User) : this(
         emotionFirst = form.emotionFirst,
         emotionSecond = form.emotionSecond,
         star = form.star,
@@ -59,7 +59,7 @@ data class ReviewResponse(
     val difficulty: Double,
     val content: String
 ) {
-    constructor(review: Review): this(
+    constructor(review: Review) : this(
         reviewId = review.reviewId,
         isLiked = false, // TODO: 관련 작업 후 수정
         likeCount = review.likeCount,
