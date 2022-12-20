@@ -18,16 +18,21 @@ class User(
     val userId: Long = 0L
 
     var profileImageUrl: String = ""
+        protected set
     var exp: Int = 0
+        protected set
 
     @Enumerated(EnumType.STRING)
     var role: Role = Role.ROLE_USER
+        protected set
 
     @OneToMany(mappedBy = "user", cascade = [CascadeType.ALL], orphanRemoval = true)
     var reviewList: MutableList<Review> = mutableListOf()
+        protected set
 
     @OneToMany(mappedBy = "user", cascade = [CascadeType.ALL], orphanRemoval = true)
     var inquiryList: MutableList<Inquiry> = mutableListOf()
+        protected set
 
     /**
      * methods
@@ -39,5 +44,9 @@ class User(
 
     fun addInquiry(inquiry: Inquiry) {
         this.inquiryList.add(inquiry)
+    }
+
+    fun setAdmin() {
+        this.role = Role.ROLE_ADMIN
     }
 }

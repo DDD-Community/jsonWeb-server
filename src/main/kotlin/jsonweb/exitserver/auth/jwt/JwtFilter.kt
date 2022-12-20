@@ -36,25 +36,3 @@ class JwtFilter(private val jwtProvider: JwtProvider) : OncePerRequestFilter() {
     }
 }
 
-@Component
-class JwtAuthenticationEntryPoint(
-    private val objectMapper: ObjectMapper
-) : AuthenticationEntryPoint {
-    val log = logger()
-    override fun commence(
-        request: HttpServletRequest,
-        response: HttpServletResponse,
-        e: AuthenticationException
-    ) {
-        log.warn("Unauthorized access = {}", e.message)
-        response.contentType = MediaType.APPLICATION_JSON_VALUE
-        response.characterEncoding = "utf-8"
-        response.status = HttpStatus.UNAUTHORIZED.value()
-        val body = objectMapper.writeValueAsString(
-            CommonResponse<Any>(
-                message = "authorization fail, access denied."
-            )
-        )
-        response.writer.write(body)
-    }
-}
