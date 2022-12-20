@@ -6,11 +6,16 @@ import javax.persistence.*
 
 enum class InquiryStatus(private val type: String) {
     WAITING("waiting"),
-    PROCEEDING("proceeding"),
-    DONE("done"),
-    CANCEL("cancel");
+    RESOLVED("resolved");
     fun type() = type
 }
+
+val INQUIRY_CATEGORIES = mutableListOf(
+    "카페 등록 요청",
+    "정보 수정 요청",
+    "서비스 관련",
+    "기타 문의 사항"
+)
 
 @Entity
 class Inquiry(
@@ -21,27 +26,36 @@ class Inquiry(
     @ManyToOne
     @JoinColumn(name = "user_id")
     val user: User,
-
-    val cafeName: String,
-    val address: String,
-    val description: String
+    category: String,
+    title: String,
+    content: String
 ): BaseTimeEntity() {
+    var category: String = category
+        protected set
+    var title: String = title
+        protected set
+    var content: String = content
+        protected set
     @Enumerated(value = EnumType.STRING)
     var status: InquiryStatus = InquiryStatus.WAITING
+        protected set
+    var answer: String = ""
         protected set
 
     /**
      * methods
      */
-    fun proceeding() {
-        this.status = InquiryStatus.PROCEEDING
+    fun resolve() {
+        this.status = InquiryStatus.RESOLVED
     }
 
-    fun done() {
-        this.status = InquiryStatus.DONE
+    fun update(newCategory: String, newTitle: String, newContent: String) {
+        this.category = newCategory
+        this.title = newTitle
+        this.content = newContent
     }
 
-    fun cancel() {
-        this.status = InquiryStatus.CANCEL
+    fun addAnswer(answer: String) {
+        this.answer = answer
     }
 }

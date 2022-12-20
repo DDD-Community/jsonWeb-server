@@ -2,49 +2,37 @@ package jsonweb.exitserver.domain.inquiry
 
 import javax.validation.constraints.Size
 
-data class RegisterInquiryRequest(
-    val cafeName: String,
-    val address: String,
+data class InquiryRequest(
+    val category: String,
+    val title: String,
 
-    @field:Size(max = 500, message = "over the max length about description. (maximum 500)")
-    val description: String
+    @field:Size(max = 500, message = "over the max length about content. (maximum 500)")
+    val content: String
 )
 
 data class InquiryResponse(
     val id: Long,
-    val cafeName: String,
-    val address: String,
-    val description: String,
+    val category: String,
+    val title: String,
+    val content: String,
     val status: String,
-    val createdAt: String
+    val createdAt: String,
+    val answer: String
 ) {
     constructor(inquiry: Inquiry): this(
         id = inquiry.inquiryId,
-        cafeName = inquiry.cafeName,
-        address = inquiry.address,
-        description = inquiry.description,
+        category = inquiry.category,
+        title = inquiry.title,
+        content = inquiry.content,
         status = when(inquiry.status) {
-            InquiryStatus.PROCEEDING -> "진행 중"
-            InquiryStatus.DONE -> "등록 완료"
-            InquiryStatus.CANCEL -> "취소 됨"
-            else -> "등록 요청 중"
+            InquiryStatus.RESOLVED -> "해결"
+            else -> "미해결"
         },
-        createdAt = inquiry.createdAt
+        createdAt = inquiry.createdAt,
+        answer = inquiry.answer
     )
 }
 
-//data class InquirySimpleResponse(
-//    val createdAt: String,
-//    val cafeName: String,
-//    val status: String
-//) {
-//    constructor(inquiry: Inquiry): this(
-//        createdAt = inquiry.createdAt,
-//        cafeName = inquiry.cafeName,
-//        status = when(inquiry.status) {
-//            InquiryStatus.PROCEEDING -> "진행 중"
-//            InquiryStatus.DONE -> "등록 완료"
-//            else -> "등록 요청 중"
-//        }
-//    )
-//}
+data class InquiryAnswerDto(
+    val answer: String
+)

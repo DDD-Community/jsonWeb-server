@@ -27,13 +27,13 @@ class InquiryService(
     fun getInquiryToDto(id: Long) = InquiryResponse(getInquiry(id))
 
     @Transactional
-    fun registerInquiry(form: RegisterInquiryRequest): List<InquiryResponse> {
+    fun createInquiry(form: InquiryRequest): List<InquiryResponse> {
         val user = userService.getCurrentLoginUser()
         val inquiry = Inquiry(
+            category = form.category,
             user = user,
-            cafeName = form.cafeName,
-            address = form.address,
-            description = form.description
+            title = form.title,
+            content = form.content
         )
         user.addInquiry(inquiry)
         inquiryRepository.flush()
@@ -41,12 +41,21 @@ class InquiryService(
     }
 
     @Transactional
-    fun cancelInquiry(id: Long): List<InquiryResponse> {
+    fun updateInquiry(id: Long, form: InquiryRequest): List<InquiryResponse> {
         val inquiry = getInquiry(id)
-        if (inquiry.status == InquiryStatus.WAITING) inquiry.cancel()
-        else throw InquiryException(INQUIRY_CANCEL_ERROR)
+        inquiry.update(form.category, form.title, form.content)
         inquiryRepository.flush()
         return userService.getCurrentLoginUser().inquiryList.map { InquiryResponse(it) }
+    }
+
+    @Transactional
+    fun deleteInquiry(id: Long) {
+        val inquiry = getInquiry(id)
+        val user = userService.getCurrentLoginUser()
+        if (inquiry.status == InquiryStatus.WAITING)
+            user.inquiryList.remove(inquiry)
+        else
+            throw InquiryException(INQUIRY_CANCEL_ERROR)
     }
 
     /**
@@ -55,13 +64,15 @@ class InquiryService(
     fun getAllInquiries(): List<InquiryResponse> = inquiryRepository.findAll().map { InquiryResponse(it) }
 
     @Transactional
-    fun updateStatus(id: Long, type: String): InquiryResponse {
+    fun resolveInquiry(id: Long, form: InquiryAnswerDto): InquiryResponse {
         val inquiry = getInquiry(id)
-        when(type) {
-            InquiryStatus.PROCEEDING.type() -> inquiry.proceeding()
-            InquiryStatus.DONE.type() -> inquiry.done()
+        if (inquiry.status == InquiryStatus.WAITING) {
+            inquiry.resolve()
+            inquiry.addAnswer(form.answer)
+            inquiryRepository.flush()
+            return InquiryResponse(inquiry)
+        } else {
+            throw InquiryException(INQUIRY_CANCEL_ERROR)
         }
-        inquiryRepository.flush()
-        return InquiryResponse(inquiry)
     }
 }
