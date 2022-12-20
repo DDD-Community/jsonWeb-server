@@ -1,6 +1,6 @@
 package jsonweb.exitserver.domain.theme
 
-import jsonweb.exitserver.domain.cafe.entity.Cafe
+import jsonweb.exitserver.domain.cafe.Cafe
 import jsonweb.exitserver.domain.review.Review
 import javax.persistence.*
 

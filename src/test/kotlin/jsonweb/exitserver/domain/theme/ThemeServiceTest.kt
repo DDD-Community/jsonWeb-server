@@ -3,7 +3,7 @@ package jsonweb.exitserver.domain.theme
 import io.kotest.core.spec.style.AnnotationSpec
 import io.kotest.matchers.shouldBe
 import jsonweb.exitserver.domain.cafe.CafeRepository
-import jsonweb.exitserver.domain.cafe.entity.Cafe
+import jsonweb.exitserver.domain.cafe.Cafe
 import jsonweb.exitserver.config.TestConfig
 
 import org.junit.jupiter.api.Assertions.*
@@ -36,13 +36,15 @@ class ThemeServiceTest(
     fun `modelMapper 테스트`() {
 //        val themeService = ThemeService(cafeRepository, themeRepository, genreRepository, themeGenreRepository, modelMapper)
         val modelMapper = ModelMapper()
-        val testCafe = cafeRepository.save(Cafe(
+        val testCafe = cafeRepository.save(
+            Cafe(
             "nameC",
             "addressC",
             "telC",
             "homeC",
             "urlC"
-        ))
+        )
+        )
         println("cafeId: " + testCafe.cafeId)
         val testRequest = RegisterThemeRequest(
             testCafe.cafeId,

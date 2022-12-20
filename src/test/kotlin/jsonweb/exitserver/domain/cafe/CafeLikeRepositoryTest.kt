@@ -2,8 +2,6 @@ package jsonweb.exitserver.domain.cafe
 
 import io.kotest.core.spec.style.AnnotationSpec
 import io.kotest.matchers.shouldBe
-import jsonweb.exitserver.domain.cafe.entity.CafeLike
-import jsonweb.exitserver.domain.cafe.entity.UserAndCafe
 import jsonweb.exitserver.config.TestConfig
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.jdbc.EmbeddedDatabaseConnection

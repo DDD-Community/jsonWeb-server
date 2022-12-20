@@ -2,7 +2,6 @@ package jsonweb.exitserver.domain.inquiry
 
 import jsonweb.exitserver.common.INQUIRY_CANCEL_ERROR
 import jsonweb.exitserver.common.InquiryException
-import jsonweb.exitserver.domain.user.QUser.user
 import jsonweb.exitserver.domain.user.UserService
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
@@ -59,8 +58,8 @@ class InquiryService(
     fun updateStatus(id: Long, type: String): InquiryResponse {
         val inquiry = getInquiry(id)
         when(type) {
-            "proceeding" -> inquiry.proceeding()
-            "done" -> inquiry.done()
+            InquiryStatus.PROCEEDING.type() -> inquiry.proceeding()
+            InquiryStatus.DONE.type() -> inquiry.done()
         }
         inquiryRepository.flush()
         return InquiryResponse(inquiry)

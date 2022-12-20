@@ -4,8 +4,12 @@ import jsonweb.exitserver.common.BaseTimeEntity
 import jsonweb.exitserver.domain.user.User
 import javax.persistence.*
 
-enum class InquiryStatus {
-    WAITING, PROCEEDING, DONE, CANCEL
+enum class InquiryStatus(private val type: String) {
+    WAITING("waiting"),
+    PROCEEDING("proceeding"),
+    DONE("done"),
+    CANCEL("cancel");
+    fun type() = type
 }
 
 @Entity

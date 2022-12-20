@@ -1,6 +1,6 @@
 package jsonweb.exitserver.domain.theme
 
-import jsonweb.exitserver.domain.cafe.entity.Cafe
+import jsonweb.exitserver.domain.cafe.Cafe
 import org.springframework.data.jpa.repository.JpaRepository
 import java.util.*
 
