@@ -86,6 +86,7 @@ class UserService(
                 gender = "male",
                 password = passwordEncoder.encode(password)
             )
+            newUser.setAdmin()
             testUser = userRepository.save(newUser)
         }
         SecurityContextHolder.getContext().authentication =

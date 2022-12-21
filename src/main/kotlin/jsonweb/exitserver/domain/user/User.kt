@@ -1,5 +1,6 @@
 package jsonweb.exitserver.domain.user
 
+import jsonweb.exitserver.domain.inquiry.Inquiry
 import jsonweb.exitserver.domain.review.Review
 import javax.persistence.*
 
@@ -17,13 +18,21 @@ class User(
     val userId: Long = 0L
 
     var profileImageUrl: String = ""
+        protected set
     var exp: Int = 0
+        protected set
 
     @Enumerated(EnumType.STRING)
     var role: Role = Role.ROLE_USER
+        protected set
 
     @OneToMany(mappedBy = "user", cascade = [CascadeType.ALL], orphanRemoval = true)
     var reviewList: MutableList<Review> = mutableListOf()
+        protected set
+
+    @OneToMany(mappedBy = "user", cascade = [CascadeType.ALL], orphanRemoval = true)
+    var inquiryList: MutableList<Inquiry> = mutableListOf()
+        protected set
 
     /**
      * methods
@@ -31,5 +40,13 @@ class User(
     fun updateUserInfo(newNickname: String? = null, newProfileImageUrl: String? = null) {
         newNickname?.let { nickname = newNickname }
         newProfileImageUrl?.let { profileImageUrl = newProfileImageUrl }
+    }
+
+    fun addInquiry(inquiry: Inquiry) {
+        this.inquiryList.add(inquiry)
+    }
+
+    fun setAdmin() {
+        this.role = Role.ROLE_ADMIN
     }
 }

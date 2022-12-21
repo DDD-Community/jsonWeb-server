@@ -1,8 +1,5 @@
 package jsonweb.exitserver.domain.cafe
 
-import jsonweb.exitserver.domain.cafe.entity.Cafe
-import jsonweb.exitserver.domain.cafe.entity.OpenHour
-import jsonweb.exitserver.domain.cafe.entity.Price
 import jsonweb.exitserver.domain.theme.ThemeResponse
 import org.springframework.data.domain.Sort
 

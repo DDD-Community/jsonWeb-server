@@ -1,6 +1,6 @@
 package jsonweb.exitserver.domain.theme
 
-import jsonweb.exitserver.domain.cafe.entity.Cafe
+import jsonweb.exitserver.domain.cafe.Cafe
 import jsonweb.exitserver.domain.review.Review
 import javax.persistence.*
 
@@ -62,10 +62,6 @@ class ThemeGenre(
 @Entity
 class Genre(
     val genreName: String
-
-    // 장르에서는 테마를 참조할 경우가 없을 거 같아서 단방향으로 해도 될 듯 싶습니다
-//    @OneToMany(mappedBy = "genre", cascade = [CascadeType.ALL], orphanRemoval = true)
-//    var themeGenreList: MutableList<ThemeGenre> = mutableListOf()
 ) {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

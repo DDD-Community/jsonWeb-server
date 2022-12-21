@@ -1,9 +1,9 @@
 package jsonweb.exitserver.util
 
 import jsonweb.exitserver.domain.cafe.CafeRepository
-import jsonweb.exitserver.domain.cafe.entity.Cafe
-import jsonweb.exitserver.domain.cafe.entity.OpenHour
-import jsonweb.exitserver.domain.cafe.entity.Price
+import jsonweb.exitserver.domain.cafe.Cafe
+import jsonweb.exitserver.domain.cafe.OpenHour
+import jsonweb.exitserver.domain.cafe.Price
 import jsonweb.exitserver.domain.review.ReviewRepository
 import jsonweb.exitserver.domain.theme.*
 import org.springframework.stereotype.Component

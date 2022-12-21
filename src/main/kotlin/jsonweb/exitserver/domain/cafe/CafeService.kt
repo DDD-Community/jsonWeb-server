@@ -1,6 +1,5 @@
 package jsonweb.exitserver.domain.cafe
 
-import jsonweb.exitserver.domain.cafe.entity.*
 import jsonweb.exitserver.domain.user.UserService
 import org.springframework.data.domain.PageRequest
 import org.springframework.data.domain.Sort
