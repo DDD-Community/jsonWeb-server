@@ -33,11 +33,16 @@ class CafeRepositoryImpl(
         return PageImpl(result, pageable, total.toLong())
     }
 
-    fun getListWithTheme() {
+    fun getListWithGenreName(genreName: String, pageable: Pageable): Page<Cafe> {
         val query = jpaQueryFactory.selectFrom(cafe)
             .leftJoin(cafe.themeList, theme)
-            .fetchJoin()
+            .leftJoin(theme.themeGenreList, themeGenre)
             .where(
+                themeGenre.genre.genreName.contains(genreName)
             )
+            .distinct()
+        val total = query.fetch().count()
+        val result = querydsl!!.applyPagination(pageable, query).fetch()
+        return PageImpl(result, pageable, total.toLong())
     }
 }

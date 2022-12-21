@@ -42,7 +42,6 @@ class CafeService(
         val pageable = PageRequest.of(
             page, size, makeSort(sort)
         )
-
         if (genreName.isNullOrEmpty()) {
             val result = cafeRepository.findAll(pageable)
             return markLike(
@@ -53,16 +52,7 @@ class CafeService(
                 )
             )
         } else {
-            val genre = genreRepository.findGenreByGenreName(genreName).orElseThrow { throw EntityNotFoundException() }
-            val themeList = themeGenreRepository.findAllByGenre(genre)
-        }
-
-
-        genreId?.let {
-            val genre = genreRepository.findById(genreId).orElseThrow { throw EntityNotFoundException() }
-            val themeList = themeGenreRepository.findAllByGenre(genre)
-        } ?: run {
-            val result = cafeRepository.findAll(pageable)
+            val result = cafeRepositoryImpl.getListWithGenreName(genreName, pageable)
             return markLike(
                 CafeListResponse(
                     result.toList().map { CafeResponse(it) },
