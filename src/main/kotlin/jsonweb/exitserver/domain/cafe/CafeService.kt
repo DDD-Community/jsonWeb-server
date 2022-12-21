@@ -1,6 +1,8 @@
 package jsonweb.exitserver.domain.cafe
 
 import jsonweb.exitserver.domain.cafe.entity.*
+import jsonweb.exitserver.domain.theme.GenreRepository
+import jsonweb.exitserver.domain.theme.ThemeGenreRepository
 import jsonweb.exitserver.domain.user.UserService
 import org.springframework.data.domain.PageRequest
 import org.springframework.data.domain.Sort
@@ -14,7 +16,8 @@ class CafeService(
     private val cafeRepository: CafeRepository,
     private val cafeRepositoryImpl: CafeRepositoryImpl,
     private val cafeLikeRepository: CafeLikeRepository,
-    private val cafeReportRepository: CafeReportRepository,
+    private val themeGenreRepository: ThemeGenreRepository,
+    private val genreRepository: GenreRepository,
     private val userService: UserService
 ) {
     @Transactional
@@ -35,12 +38,39 @@ class CafeService(
         return markLike(CafeSpecResponse(cafe))
     }
 
-    fun getCafeList(page: Int, size: Int, sort: String): CafeListResponse {
+    fun getCafeList(genreName: String?, page: Int, size: Int, sort: String): CafeListResponse {
         val pageable = PageRequest.of(
             page, size, makeSort(sort)
         )
-        val result = cafeRepository.findAll(pageable)
-        return markLike(CafeListResponse(result.toList().map { CafeResponse(it) }, result.totalElements, result.isLast))
+
+        if (genreName.isNullOrEmpty()) {
+            val result = cafeRepository.findAll(pageable)
+            return markLike(
+                CafeListResponse(
+                    result.toList().map { CafeResponse(it) },
+                    result.totalElements,
+                    result.isLast
+                )
+            )
+        } else {
+            val genre = genreRepository.findGenreByGenreName(genreName).orElseThrow { throw EntityNotFoundException() }
+            val themeList = themeGenreRepository.findAllByGenre(genre)
+        }
+
+
+        genreId?.let {
+            val genre = genreRepository.findById(genreId).orElseThrow { throw EntityNotFoundException() }
+            val themeList = themeGenreRepository.findAllByGenre(genre)
+        } ?: run {
+            val result = cafeRepository.findAll(pageable)
+            return markLike(
+                CafeListResponse(
+                    result.toList().map { CafeResponse(it) },
+                    result.totalElements,
+                    result.isLast
+                )
+            )
+        }
     }
 
     fun getCafeListWithKeyword(keyword: String, page: Int, size: Int, sort: String): CafeListResponse {
@@ -49,16 +79,6 @@ class CafeService(
         )
         val cafes = cafeRepositoryImpl.getList(keyword, pageable)
         return markLike(CafeListResponse(cafes.toList().map { CafeResponse(it) }, cafes.totalElements, cafes.isLast))
-    }
-
-    @Transactional
-    fun reportCafe(cafeId: Long, reportContent: String) {
-        cafeReportRepository.save(CafeReport(cafeId, reportContent))
-    }
-
-    @Transactional
-    fun resolveCafe(reportId: Long) {
-        cafeReportRepository.deleteById(reportId)
     }
 
     private fun makeCafe(name: String, address: String, tel: String, homepage: String): Cafe {
@@ -105,5 +125,15 @@ class CafeService(
         if (cafeSpecResponse.cafeId in likes) cafeSpecResponse.isLiked = true
         return cafeSpecResponse
     }
+
+//    @Transactional
+//    fun reportCafe(cafeId: Long, reportContent: String) {
+//        cafeReportRepository.save(CafeReport(cafeId, reportContent))
+//    }
+
+//    @Transactional
+//    fun resolveCafe(reportId: Long) {
+//        cafeReportRepository.deleteById(reportId)
+//    }
 
 }

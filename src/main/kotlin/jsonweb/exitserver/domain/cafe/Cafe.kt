@@ -3,6 +3,7 @@ package jsonweb.exitserver.domain.cafe.entity
 import jsonweb.exitserver.domain.theme.Theme
 import java.io.Serializable
 import javax.persistence.*
+import kotlin.math.round
 
 @Entity
 class Cafe(
@@ -60,6 +61,28 @@ class Cafe(
     fun decreaseReviewCount() {
         reviewCount--
     }
+    fun addReview(star: Double) {
+        val totalStar = avgStar * reviewCount + star
+        reviewCount++
+        avgStar = round((totalStar / reviewCount * 10) / 10)
+    }
+
+    fun deleteReview(star: Double) {
+        if (reviewCount == 1) {
+            reviewCount = 0
+            avgStar = 0.0
+        } else {
+            val totalStar = avgStar * reviewCount - star
+            reviewCount--
+            avgStar = round((totalStar / reviewCount * 10) / 10)
+        }
+    }
+
+    fun editStar(starDiff: Double) {
+        val totalStar = avgStar * reviewCount + starDiff
+        avgStar = round((totalStar / reviewCount * 10) / 10)
+    }
+
 }
 
 @Entity

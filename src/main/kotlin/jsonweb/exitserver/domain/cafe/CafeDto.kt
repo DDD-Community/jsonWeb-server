@@ -53,8 +53,8 @@ data class CafeSpecResponse(
     val priceList: List<PriceResponse>,
     val themeCount: Int,
     val themeList: List<ThemeResponse>,
-    val reviewCount: Int
-//    val reviewList: MutableList<ReviewResponse> // TODO: 관련 작업 후 수정 (무한스크롤 구현을 위해 review 따로 request)
+    val reviewCount: Int,
+    val imageUrl: String
 ) {
     constructor(cafe: Cafe): this(
         cafeId = cafe.cafeId,
@@ -68,7 +68,8 @@ data class CafeSpecResponse(
         priceList = cafe.priceList.map { PriceResponse(it) },
         themeCount = cafe.themeCount,
         themeList = cafe.themeList.map { ThemeResponse(it) }, // TODO: 정렬 알고리즘 추가
-        reviewCount = cafe.reviewCount
+        reviewCount = cafe.reviewCount,
+        imageUrl = cafe.imageUrl
     )
 }
 

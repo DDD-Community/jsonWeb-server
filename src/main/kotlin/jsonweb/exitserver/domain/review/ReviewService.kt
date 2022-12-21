@@ -1,5 +1,8 @@
 package jsonweb.exitserver.domain.review
 
+import jsonweb.exitserver.domain.cafe.CafeRepository
+import jsonweb.exitserver.domain.cafe.entity.Cafe
+import jsonweb.exitserver.domain.theme.Theme
 import jsonweb.exitserver.domain.theme.ThemeRepository
 import jsonweb.exitserver.domain.user.UserService
 import org.modelmapper.ModelMapper
@@ -15,6 +18,7 @@ class ReviewService(
     private val reviewRepository: ReviewRepository,
     private val reviewLikeRepository: ReviewLikeRepository,
     private val themeRepository: ThemeRepository,
+    private val cafeRepository: CafeRepository,
     private val userService: UserService,
     private val modelMapper: ModelMapper
 ) {
@@ -25,16 +29,24 @@ class ReviewService(
         val theme = themeRepository.findById(themeId).orElseThrow { throw EntityNotFoundException() }
         val review = modelMapper.map(ReviewWithTheme(form, theme, user), Review::class.java)
         reviewRepository.save(review)
+        theme.addReview(review)
+        theme.cafe.addReview(form.star)
     }
 
     @Transactional
     fun updateReview(reviewId: Long, form: UpdateReviewRequest) {
         val review = reviewRepository.findById(reviewId).orElseThrow { throw EntityNotFoundException() }
+        review.theme.deleteReview(review)
+        review.theme.cafe.editStar(form.star - review.star)
         review.editReview(form.emotionFirst, form.emotionSecond, form.content, form.star, form.difficulty)
+        review.theme.addReview(review)
     }
 
     @Transactional
     fun deleteReview(reviewId: Long) {
+        val review = reviewRepository.findById(reviewId).orElseThrow { throw EntityNotFoundException() }
+        review.theme.addReview(review)
+        review.theme.cafe.deleteReview(review.star)
         reviewRepository.deleteById(reviewId)
     }
 
