@@ -47,8 +47,8 @@ class CafeService(
         val pageable = PageRequest.of(
             page, size, makeSort(sort)
         )
-        val result = cafeRepositoryImpl.getList(keyword, pageable)
-        return markLike(CafeListResponse(result.toList().map { CafeResponse(it) }, result.totalElements, result.isLast))
+        val cafes = cafeRepositoryImpl.getList(keyword, pageable)
+        return markLike(CafeListResponse(cafes.toList().map { CafeResponse(it) }, cafes.totalElements, cafes.isLast))
     }
 
     @Transactional
