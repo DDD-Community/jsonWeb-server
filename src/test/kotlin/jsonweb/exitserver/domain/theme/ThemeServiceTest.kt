@@ -5,6 +5,7 @@ import io.kotest.matchers.shouldBe
 import io.kotest.mpp.log
 import jsonweb.exitserver.domain.cafe.CafeRepository
 import jsonweb.exitserver.domain.cafe.entity.Cafe
+import jsonweb.exitserver.domain.review.Emotions
 import jsonweb.exitserver.util.ModelMapperConfig
 import jsonweb.exitserver.util.TestConfig
 

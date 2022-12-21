@@ -18,7 +18,6 @@ class ReviewService(
     private val userService: UserService,
     private val modelMapper: ModelMapper
 ) {
-    val emotions = Emotions()
 
     @Transactional
     fun createReview(themeId: Long, form: CreateReviewRequest) {
@@ -106,7 +105,7 @@ class ReviewService(
         val totalReviewCount = reviews.count()
 
         var emotionCount = mutableMapOf<String, Int>()
-        emotions.list.forEach { emotionCount[it] = 0 }
+        Emotions.values().forEach { emotionCount[it.getEmotion()] = 0 }
 
         for (review in reviews) {
             incrementCount(review.emotionFirst, emotionCount)
