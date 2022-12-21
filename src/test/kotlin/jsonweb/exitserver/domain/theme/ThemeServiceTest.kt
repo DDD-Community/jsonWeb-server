@@ -5,6 +5,9 @@ import io.kotest.matchers.shouldBe
 import jsonweb.exitserver.domain.cafe.CafeRepository
 import jsonweb.exitserver.domain.cafe.Cafe
 import jsonweb.exitserver.config.TestConfig
+import jsonweb.exitserver.domain.review.Emotions
+import jsonweb.exitserver.util.ModelMapperConfig
+import jsonweb.exitserver.util.TestConfig
 
 import org.junit.jupiter.api.Assertions.*
 import org.modelmapper.ModelMapper
