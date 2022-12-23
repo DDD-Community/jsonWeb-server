@@ -39,6 +39,16 @@ data class CafeResponse(
         imageUrl = cafe.imageUrl,
         reviewCount = cafe.reviewCount
     )
+
+    constructor(cafe: Cafe, like: Boolean): this(
+        cafeId = cafe.cafeId,
+        name = cafe.name,
+        isLiked = like,
+        avgStar = cafe.avgStar,
+        address = cafe.address,
+        imageUrl = cafe.imageUrl,
+        reviewCount = cafe.reviewCount
+    )
 }
 
 data class CafeSpecResponse(

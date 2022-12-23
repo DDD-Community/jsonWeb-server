@@ -1,5 +1,6 @@
 package jsonweb.exitserver.domain.cafe.entity
 
+import jsonweb.exitserver.common.BaseTimeEntity
 import jsonweb.exitserver.domain.theme.Theme
 import java.io.Serializable
 import javax.persistence.*
@@ -153,7 +154,7 @@ class CafeLike(
     val userId: Long,
     @Id
     val cafeId: Long
-)
+) : BaseTimeEntity()
 
 @Entity
 class CafeReport(

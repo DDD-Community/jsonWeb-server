@@ -61,7 +61,7 @@ data class ReviewResponse(
 ) {
     constructor(review: Review) : this(
         reviewId = review.reviewId,
-        isLiked = false, // TODO: 관련 작업 후 수정
+        isLiked = false,
         likeCount = review.likeCount,
         writerNickname = review.user.nickname,
         modifiedAt = review.modifiedAt,

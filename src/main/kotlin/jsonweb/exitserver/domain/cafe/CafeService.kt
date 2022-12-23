@@ -71,6 +71,16 @@ class CafeService(
         return markLike(CafeListResponse(cafes.toList().map { CafeResponse(it) }, cafes.totalElements, cafes.isLast))
     }
 
+    fun getLikeCafeList(page: Int, size: Int): CafeListResponse {
+        val pageable = PageRequest.of(
+            page, size
+        )
+        val userId = userService.getCurrentLoginUser().userId
+        val cafeLikes = cafeLikeRepository.findAllByUserIdOrderByCreatedAtDesc(userId, pageable)
+        val cafes = cafeLikes.map { cafeRepository.findById(it.cafeId).get() }
+        return CafeListResponse(cafes.toList().map { CafeResponse(it, true) }, cafeLikes.totalElements, cafeLikes.isLast)
+    }
+
     private fun makeCafe(name: String, address: String, tel: String, homepage: String): Cafe {
         return Cafe(name, address, tel, homepage, "")
     }
