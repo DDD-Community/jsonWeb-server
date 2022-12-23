@@ -40,5 +40,4 @@ class ThemeController(
     @GetMapping("/list")
     fun getThemeList(@RequestParam(required = true) cafeId: Long): CommonResponse<ThemeListResponse> =
         success(themeService.getThemeList(cafeId))
-
 }

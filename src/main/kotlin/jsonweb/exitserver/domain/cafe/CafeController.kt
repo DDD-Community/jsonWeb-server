@@ -46,6 +46,10 @@ class CafeController(private val cafeService: CafeService) {
         @RequestParam(defaultValue = "16", required = false) size: Int
     ): CommonResponse<CafeListResponse> = success(cafeService.getLikeCafeList(page, size))
 
+    @GetMapping("/{cafeId}/theme")
+    fun getThemeListOfCafe(@PathVariable("cafeId") cafeId: Long): CommonResponse<CafeThemeListResponse> =
+        success(cafeService.getThemeListOfCafe(cafeId))
+
 //    @PostMapping("/{cafeId}/report")
 //    fun reportCafe(
 //        @PathVariable("cafeId") cafeId: Long,

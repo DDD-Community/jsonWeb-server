@@ -3,6 +3,7 @@ package jsonweb.exitserver.domain.cafe
 import jsonweb.exitserver.domain.cafe.entity.*
 import jsonweb.exitserver.domain.theme.GenreRepository
 import jsonweb.exitserver.domain.theme.ThemeGenreRepository
+import jsonweb.exitserver.domain.theme.ThemeResponse
 import jsonweb.exitserver.domain.user.UserService
 import org.springframework.data.domain.PageRequest
 import org.springframework.data.domain.Sort
@@ -79,6 +80,13 @@ class CafeService(
         val cafeLikes = cafeLikeRepository.findAllByUserIdOrderByCreatedAtDesc(userId, pageable)
         val cafes = cafeLikes.map { cafeRepository.findById(it.cafeId).get() }
         return CafeListResponse(cafes.toList().map { CafeResponse(it, true) }, cafeLikes.totalElements, cafeLikes.isLast)
+    }
+
+    fun getThemeListOfCafe(cafeId: Long): CafeThemeListResponse {
+        val cafe = cafeRepository.findById(cafeId).orElseThrow { throw EntityNotFoundException() }
+        val cafeThemeListResponse = CafeThemeListResponse(cafe.themeList.map { ThemeResponse(it) })
+        cafeThemeListResponse.themeList.sortedBy { it.name }
+        return cafeThemeListResponse
     }
 
     private fun makeCafe(name: String, address: String, tel: String, homepage: String): Cafe {

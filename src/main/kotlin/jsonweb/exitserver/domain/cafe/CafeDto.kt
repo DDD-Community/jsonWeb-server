@@ -15,6 +15,10 @@ enum class CafeSort(private val sort: String, private val direction: Sort.Direct
     fun getDirection() = direction
 }
 
+data class CafeThemeListResponse(
+    val themeList: List<ThemeResponse>
+)
+
 data class CafeListResponse(
     val cafeList: List<CafeResponse>,
     val totalNumber: Long,
