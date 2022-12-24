@@ -16,7 +16,6 @@ class BoastController(private val boastService: BoastService) {
         @RequestParam(defaultValue = "16", required = false) size: Int,
     ): CommonResponse<BoastListResponse> = success(boastService.getBoastList(sort, page, size))
 
-    // 마지막 수정된 날짜 순
     @GetMapping("/user")
     fun getUserBoastList(
         @RequestParam(defaultValue = "DATE", required = false) sort: String,

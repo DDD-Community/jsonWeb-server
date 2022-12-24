@@ -3,13 +3,15 @@ package jsonweb.exitserver.domain.boast
 import org.springframework.data.domain.Sort
 import javax.validation.constraints.Size
 
-enum class BoastSort(private val sort: String, private val direction: Sort.Direction) {
-    LIKE("likeCount", Sort.Direction.ASC),
-    DATE("modifiedAt", Sort.Direction.ASC);
-
-    fun getSortBy() = sort
-    fun getDirection() = direction
-}
+//enum class BoastSort(private val sort: String, private val direction: Sort.Direction) {
+//    LIKE("likeCount", Sort.Direction.ASC),
+//    DATE("modifiedAt", Sort.Direction.ASC);
+//
+////    fun getSortBy() = sort
+////    fun getDirection() = direction
+//    fun sortByLike(): Sort = Sort.by(LIKE.direction, LIKE.sort)
+//    fun sortByDate(): Sort = Sort.by(DATE.direction, DATE.sort)
+//}
 
 data class BoastRequest(
     val themeId: Long,

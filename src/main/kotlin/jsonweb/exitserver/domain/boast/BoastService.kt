@@ -17,12 +17,11 @@ class BoastService(
     private val boastLikeRepository: BoastLikeRepository,
 ) {
     private fun String.toSort(): Sort {
-        return if (this == "DATE") Sort.by(
-            BoastSort.valueOf(this).getDirection(), BoastSort.valueOf(this).getSortBy()
-        )
-        else Sort.by(
-            BoastSort.valueOf(this).getDirection(), BoastSort.valueOf(this).getSortBy()
-        ).and(Sort.by("boastId"))
+        return if (this == "DATE") {
+            Sort.by(Sort.Direction.DESC, "modifiedAt")
+        } else {
+            Sort.by(Sort.Direction.DESC, "likeCount")
+        }
     }
 
     private fun BoastListResponse.markLike() {
@@ -67,6 +66,20 @@ class BoastService(
     @Transactional
     fun createBoast(form: BoastRequest) {
         val user = userService.getCurrentLoginUser()
+        val theme = themeRepository.findById(form.themeId).orElseThrow()
+        val boast = boastRepository.save(Boast(user = user, theme = theme))
+        form.imageUrls.forEach {
+            boast.addImage(BoastImage(imageUrl = it, boast = boast))
+        }
+        form.hashtags.forEach {
+            boast.addHashtag(BoastHashtag(hashtag = "#$it", boast = boast))
+        }
+        user.addMyBoast(boast)
+    }
+
+    @Transactional
+    fun createDummyBoast(form: BoastRequest, dummyKakaoId: Long) {
+        val user = userService.getTestUser(dummyKakaoId)
         val theme = themeRepository.findById(form.themeId).orElseThrow()
         val boast = boastRepository.save(Boast(user = user, theme = theme))
         form.imageUrls.forEach {

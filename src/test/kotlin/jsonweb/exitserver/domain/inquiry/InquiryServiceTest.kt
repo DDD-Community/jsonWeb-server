@@ -30,11 +30,10 @@ class InquiryServiceTest : AnnotationSpec() {
         every { userService.getCurrentLoginUser() } returns testUser
         justRun { inquiryRepository.flush() }
         every { inquiryService["getInquiry"](0L) } returns testInquiry
-
     }
 
     @AfterEach
-    fun clear() = testUser.inquiryList.clear()
+    fun clear() = testUser.clearInquiry()
 
 
     @Test

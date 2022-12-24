@@ -58,6 +58,10 @@ class User(
         inquiryMutableList.remove(inquiry)
     }
 
+    fun clearInquiry() {
+        inquiryMutableList.clear()
+    }
+
     fun setAdmin() {
         role = Role.ROLE_ADMIN
     }
