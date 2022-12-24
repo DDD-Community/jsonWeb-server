@@ -66,7 +66,6 @@ data class CafeSpecResponse(
     val openHourList: List<OpenHourResponse>,
     val priceList: List<PriceResponse>,
     val themeCount: Int,
-    val themeList: List<ThemeResponse>,
     val reviewCount: Int,
     val imageUrl: String
 ) {
@@ -81,7 +80,6 @@ data class CafeSpecResponse(
         openHourList = cafe.openHourList.map { OpenHourResponse(it) },
         priceList = cafe.priceList.map { PriceResponse(it) },
         themeCount = cafe.themeCount,
-        themeList = cafe.themeList.map { ThemeResponse(it) }, // TODO: 정렬 알고리즘 추가
         reviewCount = cafe.reviewCount,
         imageUrl = cafe.imageUrl
     )
