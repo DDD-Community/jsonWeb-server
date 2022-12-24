@@ -33,6 +33,11 @@ class ReviewController(
         return success(null)
     }
 
+    @GetMapping("/{reviewId}")
+    fun getReview(@PathVariable("reviewId") reviewId: Long): CommonResponse<ReviewResponse> =
+        success(reviewService.getReview(reviewId))
+
+
     @PutMapping("/{reviewId}/like")
     fun likeReview(@PathVariable("reviewId") reviewId: Long): CommonResponse<Any> {
         reviewService.checkLike(reviewId)

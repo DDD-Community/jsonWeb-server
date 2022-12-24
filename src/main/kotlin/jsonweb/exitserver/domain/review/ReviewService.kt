@@ -50,6 +50,11 @@ class ReviewService(
         reviewRepository.deleteById(reviewId)
     }
 
+    fun getReview(reviewId: Long): ReviewResponse {
+        val review = reviewRepository.findById(reviewId).orElseThrow { throw EntityNotFoundException() }
+        return markLike(ReviewResponse(review))
+    }
+
     fun checkLike(reviewId: Long) {
         val userId = userService.getCurrentLoginUser().userId
         val review = reviewRepository.findById(reviewId).orElseThrow { throw EntityNotFoundException() }
@@ -100,6 +105,13 @@ class ReviewService(
                 reviews.isLast
             )
         )
+    }
+
+    private fun markLike(reviewResponse: ReviewResponse): ReviewResponse {
+        val userId = userService.getCurrentLoginUser().userId
+        val likes = reviewLikeRepository.findAllByUserId(userId).map { it.reviewId }
+        if (reviewResponse.reviewId in likes) reviewResponse.isLiked = true
+        return reviewResponse
     }
 
     private fun markLike(reviewListResponse: ReviewListResponse): ReviewListResponse {
