@@ -1,5 +1,6 @@
 package jsonweb.exitserver.domain.user
 
+import jsonweb.exitserver.domain.boast.Boast
 import jsonweb.exitserver.domain.inquiry.Inquiry
 import jsonweb.exitserver.domain.review.Review
 import javax.persistence.*
@@ -14,25 +15,32 @@ class User(
     val ageRange: String,
     var nickname: String,
 ) {
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    val userId: Long = 0L
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "user_id")
+    val id: Long = 0L
 
     var profileImageUrl: String = ""
         protected set
     var exp: Int = 0
         protected set
 
+    @OneToMany(mappedBy = "user", cascade = [CascadeType.ALL], orphanRemoval = true)
+    protected val myBoastMutableList: MutableList<Boast> = mutableListOf()
+    val myBoastList: List<Boast> get() = myBoastMutableList.toList()
+
+    @OneToMany(mappedBy = "user", cascade = [CascadeType.ALL], orphanRemoval = true)
+    protected val reviewMutableList: MutableList<Review> = mutableListOf()
+    val reviewList: List<Review> get() = reviewMutableList.toList()
+
+    @OneToMany(mappedBy = "user", cascade = [CascadeType.ALL], orphanRemoval = true)
+    protected val inquiryMutableList: MutableList<Inquiry> = mutableListOf()
+    val inquiryList: List<Inquiry> get() = inquiryMutableList.toList()
+
     @Enumerated(EnumType.STRING)
     var role: Role = Role.ROLE_USER
         protected set
 
-    @OneToMany(mappedBy = "user", cascade = [CascadeType.ALL], orphanRemoval = true)
-    var reviewList: MutableList<Review> = mutableListOf()
-        protected set
-
-    @OneToMany(mappedBy = "user", cascade = [CascadeType.ALL], orphanRemoval = true)
-    var inquiryList: MutableList<Inquiry> = mutableListOf()
-        protected set
 
     /**
      * methods
@@ -43,10 +51,18 @@ class User(
     }
 
     fun addInquiry(inquiry: Inquiry) {
-        this.inquiryList.add(inquiry)
+       inquiryMutableList.add(inquiry)
+    }
+
+    fun deleteInquiry(inquiry: Inquiry) {
+        inquiryMutableList.remove(inquiry)
     }
 
     fun setAdmin() {
-        this.role = Role.ROLE_ADMIN
+        role = Role.ROLE_ADMIN
+    }
+
+    fun addMyBoast(boast: Boast) {
+        myBoastMutableList.add(boast)
     }
 }

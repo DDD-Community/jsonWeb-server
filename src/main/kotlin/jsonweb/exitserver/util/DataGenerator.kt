@@ -1,7 +1,9 @@
 package jsonweb.exitserver.util
 
-import jsonweb.exitserver.domain.cafe.CafeRepository
+import jsonweb.exitserver.domain.boast.BoastRepository
+import jsonweb.exitserver.domain.boast.BoastService
 import jsonweb.exitserver.domain.cafe.Cafe
+import jsonweb.exitserver.domain.cafe.CafeRepository
 import jsonweb.exitserver.domain.cafe.OpenHour
 import jsonweb.exitserver.domain.cafe.Price
 import jsonweb.exitserver.domain.review.ReviewRepository
@@ -16,8 +18,11 @@ class DataGenerator(
     private val cafeRepository: CafeRepository,
     private val themeRepository: ThemeRepository,
     private val reviewRepository: ReviewRepository,
-    private val genreRepository: GenreRepository
+    private val genreRepository: GenreRepository,
+    private val boastRepository: BoastRepository,
+    private val boastService: BoastService
 ) {
+
     @PostConstruct
     fun addData() {
         if (cafeRepository.count().toInt() != 0) return
@@ -93,5 +98,33 @@ class DataGenerator(
             cafeRepository.save(tempCafe)
             cntCafe++
         }
+
+//        /**
+//         * 인증 글 세팅
+//         */
+//        if (boastRepository.count().toInt() != 0) return
+//        val imageUrls = listOf(
+//            "https://jsonweb-image.s3.ap-northeast-2.amazonaws.com/spring.png",
+//            "https://jsonweb-image.s3.ap-northeast-2.amazonaws.com/spring.png"
+//        )
+//        val randomHashtags = listOf(
+//            "어려워요",
+//            "내가 최고",
+//            "나만깸",
+//            "쉬워요",
+//            "무서워요",
+//            "재밌어요",
+//            "추천해요"
+//        )
+//        repeat(3) { themeId ->
+//            repeat(10) {
+//                val hashtags = mutableListOf<String>()
+//                repeat((0..3).random()) {
+//                    hashtags.add(randomHashtags[(0..randomHashtags.size).random()])
+//                }
+//                val form = BoastRequest(themeId.toLong(), imageUrls, hashtags)
+//                boastService.createBoastForTest(form)
+//            }
+//        }
     }
 }

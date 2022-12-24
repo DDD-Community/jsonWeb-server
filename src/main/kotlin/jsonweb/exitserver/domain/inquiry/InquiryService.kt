@@ -53,7 +53,7 @@ class InquiryService(
         val inquiry = getInquiry(id)
         val user = userService.getCurrentLoginUser()
         if (inquiry.status == InquiryStatus.WAITING)
-            user.inquiryList.remove(inquiry)
+            user.deleteInquiry(inquiry)
         else
             throw InquiryException(INQUIRY_CANCEL_ERROR)
     }
