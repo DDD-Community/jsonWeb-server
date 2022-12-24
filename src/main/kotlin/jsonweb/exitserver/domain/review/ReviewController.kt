@@ -5,11 +5,10 @@ import jsonweb.exitserver.common.success
 import org.springframework.web.bind.annotation.*
 
 @RestController
-@RequestMapping("/review")
 class ReviewController(
     private val reviewService: ReviewService
 ) {
-    @PostMapping("/{themeId}")
+    @PostMapping("/theme/{themeId}/review")
     fun createReview(
         @PathVariable("themeId") themeId: Long,
         @RequestBody form: CreateReviewRequest
@@ -44,7 +43,7 @@ class ReviewController(
         return success(null)
     }
 
-    @GetMapping("/list/{themeId}")
+    @GetMapping("/theme/{themeId}/review/list")
     fun getReviewList(
         @PathVariable("themeId") themeId: Long,
         @RequestParam(defaultValue = "DATE", required = false) sort: String,
@@ -52,14 +51,14 @@ class ReviewController(
         @RequestParam(defaultValue = "16", required = false) size: Int
     ): CommonResponse<ReviewListResponse> = success(reviewService.getReviewList(themeId, page, size, sort))
 
-    @GetMapping("/list/user")
+    @GetMapping("/user/review/list")
     fun getUserReviewList(
         @RequestParam(defaultValue = "DATE", required = false) sort: String,
         @RequestParam(defaultValue = "0", required = false) page: Int,
         @RequestParam(defaultValue = "16", required = false) size: Int
     ): CommonResponse<ReviewListResponse> = success(reviewService.getUserReviewList(page, size, sort))
 
-    @GetMapping("/{themeId}/popular-emotion")
+    @GetMapping("/theme/{themeId}/review/popular-emotion")
     fun getPopularEmotion(@PathVariable("themeId") themeId: Long): CommonResponse<PopularEmotionResponse> =
         success(reviewService.getPopularEmotion(themeId))
 
