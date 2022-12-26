@@ -25,6 +25,9 @@ class Boast(
     var likeCount: Int = 0
         protected set
 
+    var visibility: Boolean = true
+        protected set
+
     @OneToMany(mappedBy = "boast", cascade = [CascadeType.ALL], orphanRemoval = true)
     protected val boastImageMutableList: MutableList<BoastImage> = mutableListOf()
     val boastImageList: List<BoastImage> get() = boastImageMutableList.toList()
@@ -62,6 +65,14 @@ class Boast(
 
     fun minusLike() {
         likeCount--
+    }
+
+    fun setInvisible() {
+        visibility = false
+    }
+
+    fun setVisible() {
+        visibility = true
     }
 }
 
@@ -106,3 +117,17 @@ class BoastLike(
     @Id
     val boastId: Long,
 )
+
+@Entity
+class BoastReport(
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "boast_report_id")
+    val id: Long = 0L,
+
+    val reportContent: String,
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "boast_id")
+    val boast: Boast
+)
+

@@ -15,6 +15,7 @@ class BoastService(
     private val themeRepository: ThemeRepository,
     private val boastRepository: BoastRepository,
     private val boastLikeRepository: BoastLikeRepository,
+    private val boastReportRepository: BoastReportRepository
 ) {
     private fun String.toSort(): Sort {
         return if (this == "DATE") {
@@ -111,6 +112,13 @@ class BoastService(
             unlikeBoast(userId, boastId)
             boast.minusLike()
         }
+    }
+
+    @Transactional
+    fun reportBoast(boastId: Long, form: ReportBoastRequest) {
+        val boast = boastRepository.findById(boastId).orElseThrow()
+        boastReportRepository.save(BoastReport(boast = boast, reportContent = form.reportContent))
+        boast.setInvisible()
     }
 
     /**

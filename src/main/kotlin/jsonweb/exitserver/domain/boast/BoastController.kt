@@ -49,9 +49,18 @@ class BoastController(private val boastService: BoastService) {
         return success()
     }
 
-    @PutMapping("/boasts/{boastId}/like")
-    fun likeBoast(@PathVariable("boastId") reviewId: Long): CommonResponse<Any> {
-        boastService.checkLike(reviewId)
+    @PutMapping("/boasts/{boastId}/likes")
+    fun likeBoast(@PathVariable("boastId") id: Long): CommonResponse<Any> {
+        boastService.checkLike(id)
+        return success()
+    }
+
+    @PostMapping("/boasts/{boastId}/reports")
+    fun reportBoast(
+        @PathVariable("boastId") id: Long,
+        @RequestBody form: ReportBoastRequest
+    ): CommonResponse<Any> {
+        boastService.reportBoast(id, form)
         return success()
     }
 }
