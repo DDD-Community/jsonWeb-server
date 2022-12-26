@@ -17,8 +17,7 @@ class User(
 ) {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "user_id")
-    val id: Long = 0L
+    val userId: Long = 0L
 
     var profileImageUrl: String = ""
         protected set

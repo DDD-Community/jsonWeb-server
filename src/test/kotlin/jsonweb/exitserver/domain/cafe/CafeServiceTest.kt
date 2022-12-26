@@ -9,7 +9,7 @@ import java.util.*
 
 class CafeServiceTest : AnnotationSpec() {
     private val cafeRepository = mockk<CafeRepository>()
-    private val cafeRepositoryImpl = mockk<CafeRepositoryImpl>()
+    private val cafeRepositoryCustomImpl = mockk<CafeRepositoryCustomImpl>()
     private val userRepository = mockk<UserRepository>()
     private val cafeLikeRepository = mockk<CafeLikeRepository>()
     private val userService = mockk<UserService>()

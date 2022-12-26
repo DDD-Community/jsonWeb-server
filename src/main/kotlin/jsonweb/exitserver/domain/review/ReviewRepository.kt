@@ -11,3 +11,7 @@ interface ReviewRepository: JpaRepository<Review, Long> {
     fun findAllByTheme(theme: Theme, pageable: Pageable): Page<Review>
     fun findAllByUser(user: User, pageable: Pageable): Page<Review>
 }
+
+interface ReviewLikeRepository: JpaRepository<ReviewLike, UserAndReview> {
+    fun findAllByUserId(userId: Long): List<ReviewLike>
+}

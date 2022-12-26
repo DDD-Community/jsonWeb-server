@@ -32,7 +32,7 @@ data class CafeResponse(
     val reviewCount: Int
 ) {
     constructor(cafe: Cafe): this(
-        cafeId = cafe.id,
+        cafeId = cafe.cafeId,
         name = cafe.name,
         isLiked = false,
         avgStar = cafe.avgStar,
@@ -42,7 +42,7 @@ data class CafeResponse(
     )
 
     constructor(cafe: Cafe, like: Boolean): this(
-        cafeId = cafe.id,
+        cafeId = cafe.cafeId,
         name = cafe.name,
         isLiked = like,
         avgStar = cafe.avgStar,
@@ -67,7 +67,7 @@ data class CafeSpecResponse(
     val imageUrl: String
 ) {
     constructor(cafe: Cafe): this(
-        cafeId = cafe.id,
+        cafeId = cafe.cafeId,
         name = cafe.name,
         isLiked = false,
         avgStar = cafe.avgStar,

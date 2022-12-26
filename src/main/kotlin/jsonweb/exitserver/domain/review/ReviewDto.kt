@@ -64,7 +64,7 @@ data class ReviewResponse(
     val themeGenre: List<String>
 ) {
     constructor(review: Review) : this(
-        reviewId = review.id,
+        reviewId = review.reviewId,
         isLiked = false,
         likeCount = review.likeCount,
         writerNickname = review.user.nickname,

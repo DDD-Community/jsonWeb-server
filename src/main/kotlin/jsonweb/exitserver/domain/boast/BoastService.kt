@@ -26,7 +26,7 @@ class BoastService(
     }
 
     private fun BoastListResponse.markLike() {
-        val userId = userService.getCurrentLoginUser().id
+        val userId = userService.getCurrentLoginUser().userId
         this.boastList.forEach {
             if (boastLikeRepository.existsById(BoastLikeId(userId, it.boastId))) {
                 it.isLiked = true
@@ -92,7 +92,7 @@ class BoastService(
 
     @Transactional
     fun checkLike(boastId: Long) {
-        val userId = userService.getCurrentLoginUser().id
+        val userId = userService.getCurrentLoginUser().userId
         val boast = boastRepository.findById(boastId).orElseThrow()
         if (!boastLikeRepository.existsById(BoastLikeId(userId, boast.id))) {
             boastLikeRepository.save(BoastLike(userId, boastId))

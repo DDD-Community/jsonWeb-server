@@ -20,7 +20,7 @@ data class InquiryResponse(
     val answer: String
 ) {
     constructor(inquiry: Inquiry) : this(
-        id = inquiry.id,
+        id = inquiry.inquiryId,
         category = inquiry.category,
         title = inquiry.title,
         content = inquiry.content,

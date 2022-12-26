@@ -1,7 +1,5 @@
 package jsonweb.exitserver.domain.cafe
 
-import jsonweb.exitserver.domain.theme.GenreRepository
-import jsonweb.exitserver.domain.theme.ThemeGenreRepository
 import jsonweb.exitserver.domain.theme.ThemeResponse
 import jsonweb.exitserver.domain.user.UserService
 import org.springframework.data.domain.PageRequest
@@ -14,10 +12,7 @@ import javax.persistence.EntityNotFoundException
 @Transactional(readOnly = true)
 class CafeService(
     private val cafeRepository: CafeRepository,
-    private val cafeRepositoryImpl: CafeRepositoryImpl,
     private val cafeLikeRepository: CafeLikeRepository,
-    private val themeGenreRepository: ThemeGenreRepository,
-    private val genreRepository: GenreRepository,
     private val userService: UserService
 ) {
     @Transactional
@@ -25,7 +20,7 @@ class CafeService(
         val cafe = makeCafe(form.name, form.address, form.tel, form.homepage)
         form.openHourList.map { OpenHour(it.day, it.open, it.close, cafe) }.forEach { cafe.addOpenHour(it) }
         form.priceList.map { Price(it.headCount, it.day, it.price, cafe) }.forEach { cafe.addPrice(it) }
-        return cafeRepository.save(cafe).id
+        return cafeRepository.save(cafe).cafeId
     }
 
     @Transactional
@@ -52,7 +47,7 @@ class CafeService(
                 )
             )
         } else {
-            val result = cafeRepositoryImpl.getListWithGenreName(genreName, pageable)
+            val result = cafeRepository.getListWithGenreName(genreName, pageable)
             return markLike(
                 CafeListResponse(
                     result.toList().map { CafeResponse(it) },
@@ -67,7 +62,7 @@ class CafeService(
         val pageable = PageRequest.of(
             page, size, makeSort(sort)
         )
-        val cafes = cafeRepositoryImpl.getList(keyword, pageable)
+        val cafes = cafeRepository.getList(keyword, pageable)
         return markLike(CafeListResponse(cafes.toList().map { CafeResponse(it) }, cafes.totalElements, cafes.isLast))
     }
 
@@ -75,7 +70,7 @@ class CafeService(
         val pageable = PageRequest.of(
             page, size
         )
-        val userId = userService.getCurrentLoginUser().id
+        val userId = userService.getCurrentLoginUser().userId
         val cafeLikes = cafeLikeRepository.findAllByUserIdOrderByCreatedAtDesc(userId, pageable)
         val cafes = cafeLikes.map { cafeRepository.findById(it.cafeId).get() }
         return CafeListResponse(cafes.toList().map { CafeResponse(it, true) }, cafeLikes.totalElements, cafeLikes.isLast)
@@ -102,7 +97,7 @@ class CafeService(
     }
 
     fun checkLike(cafeId: Long) {
-        val userId = userService.getCurrentLoginUser().id
+        val userId = userService.getCurrentLoginUser().userId
         if (cafeLikeRepository.existsById(UserAndCafe(userId, cafeId))) unlikeCafe(userId, cafeId)
         else likeCafe(userId, cafeId)
     }
@@ -118,7 +113,7 @@ class CafeService(
     }
 
     private fun markLike(cafeListResponse: CafeListResponse): CafeListResponse {
-        val userId = userService.getCurrentLoginUser().id
+        val userId = userService.getCurrentLoginUser().userId
         val likes = cafeLikeRepository.findAllByUserId(userId).map { it.cafeId }
         for (cafeResponse in cafeListResponse.cafeList) {
             if (cafeResponse.cafeId in likes) cafeResponse.isLiked = true
@@ -127,7 +122,7 @@ class CafeService(
     }
 
     private fun markLike(cafeSpecResponse: CafeSpecResponse): CafeSpecResponse {
-        val userId = userService.getCurrentLoginUser().id
+        val userId = userService.getCurrentLoginUser().userId
         val likes = cafeLikeRepository.findAllByUserId(userId).map { it.cafeId }
         if (cafeSpecResponse.cafeId in likes) cafeSpecResponse.isLiked = true
         return cafeSpecResponse

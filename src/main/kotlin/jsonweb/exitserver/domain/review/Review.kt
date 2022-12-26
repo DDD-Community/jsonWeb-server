@@ -25,8 +25,7 @@ class Review(
 ) : BaseTimeEntity() {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "review_id")
-    val id: Long = 0L
+    val reviewId: Long = 0L
 
     var content: String = content
         protected set

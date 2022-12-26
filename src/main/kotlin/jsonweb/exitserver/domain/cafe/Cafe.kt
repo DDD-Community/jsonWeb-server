@@ -16,8 +16,7 @@ class Cafe(
 ) {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "cafe_id")
-    val id: Long = 0L
+    val cafeId: Long = 0L
 
     var name: String = name
         protected set
@@ -100,8 +99,7 @@ class OpenHour(
 ) {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "open_hour_id")
-    val id: Long = 0L
+    val openHourId: Long = 0L
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "cafe_id")
@@ -129,8 +127,7 @@ class Price(
 ) {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "price_id")
-    val id: Long = 0L
+    val priceId: Long = 0L
     var headCount: String = headCount
         protected set
     var day: String = day
@@ -170,6 +167,5 @@ class CafeReport(
 ) {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "report_id")
-    val id: Long = 0L
+    val reportId: Long = 0L
 }

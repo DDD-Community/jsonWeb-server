@@ -23,14 +23,6 @@ class ThemeController(
     fun getThemeSpec(@PathVariable themeId: Long): CommonResponse<ThemeSpecResponse> =
         success(themeService.getThemeSpec(themeId))
 
-//    @PutMapping("/{themeId}")
-//    fun updateTheme(
-//        @PathVariable themeId: Long,
-//        @RequestBody form: UpdateThemeRequest
-//    ): CommonResponse<Any> {
-//
-//    }
-
     @DeleteMapping("/{themeId}")
     fun deleteTheme(@PathVariable themeId: Long): CommonResponse<Any> {
         themeService.deleteTheme(themeId)

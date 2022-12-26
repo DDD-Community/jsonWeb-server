@@ -22,8 +22,7 @@ val INQUIRY_CATEGORIES = mutableListOf(
 class Inquiry(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "inquiry_id")
-    val id: Long = 0L,
+    val inquiryId: Long = 0L,
 
     @ManyToOne
     @JoinColumn(name = "user_id")

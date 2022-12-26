@@ -18,7 +18,7 @@ class PrincipalDetails(private val user: User) : UserDetails {
     }
     override fun getPassword(): String = user.password
     // 유저를 식별할 수 있는 고유값을 넘겨줘야 함 (DB PK)
-    override fun getUsername(): String = user.id.toString()
+    override fun getUsername(): String = user.userId.toString()
     override fun isAccountNonExpired(): Boolean = true
     override fun isAccountNonLocked(): Boolean = true
     override fun isCredentialsNonExpired(): Boolean = true

@@ -54,7 +54,7 @@ class ReviewService(
     }
 
     fun checkLike(reviewId: Long) {
-        val userId = userService.getCurrentLoginUser().id
+        val userId = userService.getCurrentLoginUser().userId
         val review = reviewRepository.findById(reviewId).orElseThrow { throw EntityNotFoundException() }
         if (reviewLikeRepository.existsById(UserAndReview(userId, reviewId))) {
             likeReview(userId, reviewId)
@@ -106,14 +106,14 @@ class ReviewService(
     }
 
     private fun markLike(reviewResponse: ReviewResponse): ReviewResponse {
-        val userId = userService.getCurrentLoginUser().id
+        val userId = userService.getCurrentLoginUser().userId
         val likes = reviewLikeRepository.findAllByUserId(userId).map { it.reviewId }
         if (reviewResponse.reviewId in likes) reviewResponse.isLiked = true
         return reviewResponse
     }
 
     private fun markLike(reviewListResponse: ReviewListResponse): ReviewListResponse {
-        val userId = userService.getCurrentLoginUser().id
+        val userId = userService.getCurrentLoginUser().userId
         val likes = reviewLikeRepository.findAllByUserId(userId).map { it.reviewId }
         for (reviewResponse in reviewListResponse.reviewList) {
             if (reviewResponse.reviewId in likes) reviewResponse.isLiked = true
@@ -134,7 +134,7 @@ class ReviewService(
             incrementCount(review.emotionSecond, emotionCount)
         }
 
-        val maxEmotion = emotionCount.maxWith(Comparator { o1, o2 -> o1.value.compareTo(o2.value) })
+        val maxEmotion = emotionCount.maxWith { o1, o2 -> o1.value.compareTo(o2.value) }
 
         val percentage = 100 * maxEmotion.value / totalReviewCount
         return PopularEmotionResponse(percentage, maxEmotion.key)
