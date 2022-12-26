@@ -24,7 +24,7 @@ class JwtProvider(
     fun generateToken(user: User): String {
         val now = Date(System.currentTimeMillis())
         return Jwts.builder()
-            .setSubject(user.userId.toString())
+            .setSubject(user.id.toString())
             .claim("kakaoId", user.kakaoId)
             .setIssuedAt(now)
             .setExpiration(Date(now.time + accessDurationMils))

@@ -103,7 +103,7 @@ class CafeService(
     }
 
     fun checkLike(cafeId: Long) {
-        val userId = userService.getCurrentLoginUser().userId
+        val userId = userService.getCurrentLoginUser().id
         if (cafeLikeRepository.existsById(UserAndCafe(userId, cafeId))) unlikeCafe(userId, cafeId)
         else likeCafe(userId, cafeId)
     }
@@ -119,7 +119,7 @@ class CafeService(
     }
 
     private fun markLike(cafeListResponse: CafeListResponse): CafeListResponse {
-        val userId = userService.getCurrentLoginUser().userId
+        val userId = userService.getCurrentLoginUser().id
         val likes = cafeLikeRepository.findAllByUserId(userId).map { it.cafeId }
         for (cafeResponse in cafeListResponse.cafeList) {
             if (cafeResponse.cafeId in likes) cafeResponse.isLiked = true
@@ -128,7 +128,7 @@ class CafeService(
     }
 
     private fun markLike(cafeSpecResponse: CafeSpecResponse): CafeSpecResponse {
-        val userId = userService.getCurrentLoginUser().userId
+        val userId = userService.getCurrentLoginUser().id
         val likes = cafeLikeRepository.findAllByUserId(userId).map { it.cafeId }
         if (cafeSpecResponse.cafeId in likes) cafeSpecResponse.isLiked = true
         return cafeSpecResponse

@@ -1,12 +1,8 @@
 package jsonweb.exitserver.domain.cafe
 
 import io.kotest.core.spec.style.AnnotationSpec
-import io.kotest.matchers.shouldBe
 import io.mockk.every
 import io.mockk.mockk
-import jsonweb.exitserver.auth.KakaoClient
-import jsonweb.exitserver.domain.cafe.entity.Cafe
-import jsonweb.exitserver.domain.user.User
 import jsonweb.exitserver.domain.user.UserRepository
 import jsonweb.exitserver.domain.user.UserService
 import java.util.*

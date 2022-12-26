@@ -2,12 +2,9 @@ package jsonweb.exitserver.domain.theme
 
 import io.kotest.core.spec.style.AnnotationSpec
 import io.kotest.matchers.shouldBe
-import io.kotest.mpp.log
 import jsonweb.exitserver.domain.cafe.CafeRepository
-import jsonweb.exitserver.domain.cafe.entity.Cafe
-import jsonweb.exitserver.domain.review.Emotions
-import jsonweb.exitserver.util.ModelMapperConfig
-import jsonweb.exitserver.util.TestConfig
+import jsonweb.exitserver.domain.cafe.Cafe
+import jsonweb.exitserver.config.TestConfig
 
 import org.junit.jupiter.api.Assertions.*
 import org.modelmapper.ModelMapper
@@ -15,7 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.jdbc.EmbeddedDatabaseConnection
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest
-import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.context.annotation.Import
 import org.springframework.test.context.TestPropertySource
 
@@ -40,13 +36,15 @@ class ThemeServiceTest(
     fun `modelMapper 테스트`() {
 //        val themeService = ThemeService(cafeRepository, themeRepository, genreRepository, themeGenreRepository, modelMapper)
         val modelMapper = ModelMapper()
-        val testCafe = cafeRepository.save(Cafe(
+        val testCafe = cafeRepository.save(
+            Cafe(
             "nameC",
             "addressC",
             "telC",
             "homeC",
             "urlC"
-        ))
+        )
+        )
         println("cafeId: " + testCafe.cafeId)
         val testRequest = RegisterThemeRequest(
             testCafe.cafeId,

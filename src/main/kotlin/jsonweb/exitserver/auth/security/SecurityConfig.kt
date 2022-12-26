@@ -1,11 +1,13 @@
 package jsonweb.exitserver.auth.security
 
+import jsonweb.exitserver.auth.jwt.JwtAccessDeniedHandler
 import jsonweb.exitserver.auth.jwt.JwtAuthenticationEntryPoint
 import jsonweb.exitserver.auth.jwt.JwtFilter
 import jsonweb.exitserver.auth.jwt.JwtProvider
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.security.config.annotation.SecurityConfigurerAdapter
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
 import org.springframework.security.config.http.SessionCreationPolicy
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
@@ -14,9 +16,11 @@ import org.springframework.security.web.SecurityFilterChain
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter
 
 @Configuration
+@EnableGlobalMethodSecurity(prePostEnabled = true)
 class SecurityConfig(
     private val jwtProvider: JwtProvider,
-    private val jwtAuthenticationEntryPoint: JwtAuthenticationEntryPoint
+    private val jwtAuthenticationEntryPoint: JwtAuthenticationEntryPoint,
+    private val jwtAccessDeniedHandler: JwtAccessDeniedHandler
 ) {
 
     @Bean
@@ -34,11 +38,13 @@ class SecurityConfig(
         .and() // JWT 401 예외처리 Entry Point 설정
         .exceptionHandling()
         .authenticationEntryPoint(jwtAuthenticationEntryPoint)
+        .accessDeniedHandler(jwtAccessDeniedHandler)
         .and() // JWT Filter 를 Spring Security Filter Chain 에 등록
         .apply(JwtSecurityConfig(jwtProvider))
         .and()
         .authorizeRequests()
-        .antMatchers("/user/login", "/user/test-login", "/api").permitAll()
+        .antMatchers("/users/login", "/users/test-login", "/api").permitAll()
+        .antMatchers("/admin/**").hasRole("ADMIN")
         // Swagger 설정
         .antMatchers(
             "/docs/**",

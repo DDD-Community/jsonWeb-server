@@ -1,4 +1,4 @@
-package jsonweb.exitserver.domain.cafe.entity
+package jsonweb.exitserver.domain.cafe
 
 import jsonweb.exitserver.common.BaseTimeEntity
 import jsonweb.exitserver.domain.theme.Theme
@@ -62,6 +62,7 @@ class Cafe(
     fun decreaseReviewCount() {
         reviewCount--
     }
+
     fun addReview(star: Double) {
         val totalStar = avgStar * reviewCount + star
         reviewCount++
@@ -84,6 +85,9 @@ class Cafe(
         avgStar = round((totalStar / reviewCount * 10) / 10)
     }
 
+
+    // for test
+    constructor(): this("", "", "", "", "")
 }
 
 @Entity

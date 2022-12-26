@@ -1,7 +1,6 @@
 package jsonweb.exitserver.domain.theme
 
-import jsonweb.exitserver.domain.cafe.entity.Cafe
-import jsonweb.exitserver.domain.review.Review
+import jsonweb.exitserver.domain.cafe.Cafe
 
 data class RegisterThemeRequest(
     val cafeId: Long,

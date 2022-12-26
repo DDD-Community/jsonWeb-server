@@ -56,7 +56,7 @@ class ReviewService(
     }
 
     fun checkLike(reviewId: Long) {
-        val userId = userService.getCurrentLoginUser().userId
+        val userId = userService.getCurrentLoginUser().id
         val review = reviewRepository.findById(reviewId).orElseThrow { throw EntityNotFoundException() }
         if (reviewLikeRepository.existsById(UserAndReview(userId, reviewId))) {
             likeReview(userId, reviewId)
@@ -115,7 +115,7 @@ class ReviewService(
     }
 
     private fun markLike(reviewListResponse: ReviewListResponse): ReviewListResponse {
-        val userId = userService.getCurrentLoginUser().userId
+        val userId = userService.getCurrentLoginUser().id
         val likes = reviewLikeRepository.findAllByUserId(userId).map { it.reviewId }
         for (reviewResponse in reviewListResponse.reviewList) {
             if (reviewResponse.reviewId in likes) reviewResponse.isLiked = true
