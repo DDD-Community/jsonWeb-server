@@ -8,7 +8,8 @@ spring:
     properties:
       hibernate:
         dialect: org.hibernate.dialect.MySQL5Dialect
-        show_sql: false # for test TODO: PR 전 꼭 false 로 변경
+        format_sql: true # fetch join 으로 쿼리 최적화를 위해서 로깅 보기
+        show_sql: true
   profiles:
     active: secret
   servlet:
@@ -21,4 +22,12 @@ server:
   error:
     include-stacktrace: on_param
     include-exception: true
+
+# AWS 연결 오류 로그 안 띄우고 개발 환경에서 부트 빠르게 띄우는 설정
+logging:
+  level:
+    com:
+      amazonaws:
+        util:
+          EC2MetadataUtils: error
 

@@ -16,7 +16,7 @@ class ThemeController(
     @PostMapping("/genre")
     fun registerThemeGenre(@RequestBody form: RegisterThemeGenreRequest): CommonResponse<Any> {
         themeService.registerThemeGenre(form)
-        return success(null)
+        return success()
     }
 
     @GetMapping("/{themeId}")
@@ -34,7 +34,7 @@ class ThemeController(
     @DeleteMapping("/{themeId}")
     fun deleteTheme(@PathVariable themeId: Long): CommonResponse<Any> {
         themeService.deleteTheme(themeId)
-        return success(null)
+        return success()
     }
 
     @GetMapping("/list")

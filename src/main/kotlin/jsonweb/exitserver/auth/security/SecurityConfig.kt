@@ -43,7 +43,7 @@ class SecurityConfig(
         .apply(JwtSecurityConfig(jwtProvider))
         .and()
         .authorizeRequests()
-        .antMatchers("/user/login", "/user/test-login", "/api").permitAll()
+        .antMatchers("/users/login", "/users/test-login", "/api").permitAll()
         .antMatchers("/admin/**").hasRole("ADMIN")
         // Swagger 설정
         .antMatchers(

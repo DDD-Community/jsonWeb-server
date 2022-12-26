@@ -5,7 +5,7 @@ import jsonweb.exitserver.common.success
 import org.springframework.web.bind.annotation.*
 
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/users")
 class UserController(private val userService: UserService) {
 
     @PostMapping("/test-login")
@@ -21,7 +21,7 @@ class UserController(private val userService: UserService) {
         success(userService.getCurrentLoginUserToDto())
 
     @PutMapping
-    fun updateUserInfo(@RequestBody form: UpdateUserInfoRequest): CommonResponse<UserInfoResponse> =
+    fun updateUser(@RequestBody form: UpdateUserInfoRequest): CommonResponse<UserInfoResponse> =
         success(userService.updateUserInfo(form))
 
     @PostMapping("/logout")

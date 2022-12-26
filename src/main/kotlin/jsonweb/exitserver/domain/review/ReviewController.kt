@@ -15,7 +15,7 @@ class ReviewController(
         @RequestBody form: CreateReviewRequest
     ): CommonResponse<Any> {
         reviewService.createReview(themeId, form)
-        return success(null)
+        return success()
     }
 
     @PutMapping("/{reviewId}")
@@ -24,19 +24,19 @@ class ReviewController(
         @RequestBody form: UpdateReviewRequest
     ): CommonResponse<Any> {
         reviewService.updateReview(reviewId, form)
-        return success(null)
+        return success()
     }
 
     @DeleteMapping("/{reviewId}")
     fun deleteReview(@PathVariable("reviewId") reviewId: Long): CommonResponse<Any> {
         reviewService.deleteReview(reviewId)
-        return success(null)
+        return success()
     }
 
     @PutMapping("/{reviewId}/like")
     fun likeReview(@PathVariable("reviewId") reviewId: Long): CommonResponse<Any> {
         reviewService.checkLike(reviewId)
-        return success(null)
+        return success()
     }
 
     @GetMapping("/{themeId}")

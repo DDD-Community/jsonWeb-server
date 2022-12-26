@@ -42,6 +42,9 @@ class Theme(
         reviewCount = reviewList.size
     }
 
+    // for test
+    constructor(): this("", "", "", 0, 0, 0, 0.0, "", Cafe())
+
 }
 
 @Entity

@@ -6,31 +6,29 @@ import org.springframework.security.access.prepost.PreAuthorize
 import org.springframework.web.bind.annotation.*
 
 @RestController
-@RequestMapping("/inquiry")
 class InquiryController(private val inquiryService: InquiryService) {
-    @GetMapping("/category")
+    @GetMapping("/inquires/categories")
     fun getInquiryCategories(): CommonResponse<List<String>> = success(INQUIRY_CATEGORIES)
 
-    @PostMapping
-    fun createInquiry(@RequestBody form: InquiryRequest): CommonResponse<List<InquiryResponse>> =
-        success(inquiryService.createInquiry(form))
+    @GetMapping("/users/me/inquires")
+    fun getUserInquires(): CommonResponse<List<InquiryResponse>> =
+        success(inquiryService.getUserInquires())
 
-    @GetMapping
-    fun getMyInquiries(): CommonResponse<List<InquiryResponse>> =
-        success(inquiryService.getMyInquiries())
-
-    @GetMapping("/{inquiryId}")
+    @GetMapping("/inquires/{inquiryId}")
     fun getInquiry(@PathVariable inquiryId: Long): CommonResponse<InquiryResponse> =
         success(inquiryService.getInquiryToDto(inquiryId))
 
-    @PutMapping("/{inquiryId}")
-    fun deleteInquiry(
+    @PostMapping("/inquires")
+    fun createInquiry(@RequestBody form: InquiryRequest): CommonResponse<List<InquiryResponse>> =
+        success(inquiryService.createInquiry(form))
+
+    @PutMapping("/inquires/{inquiryId}")
+    fun updateInquiry(
         @PathVariable inquiryId: Long,
         @RequestBody form: InquiryRequest
     ): CommonResponse<List<InquiryResponse>> = success(inquiryService.updateInquiry(inquiryId, form))
 
-
-    @DeleteMapping("/{inquiryId}")
+    @DeleteMapping("/inquires/{inquiryId}")
     fun deleteInquiry(@PathVariable inquiryId: Long): CommonResponse<Any> {
         inquiryService.deleteInquiry(inquiryId)
         return success(null)
@@ -39,11 +37,11 @@ class InquiryController(private val inquiryService: InquiryService) {
 
 @RestController
 @PreAuthorize("hasRole('ROLE_ADMIN')")
-@RequestMapping("/admin/inquiry")
+@RequestMapping("/admin/inquires")
 class AdminInquiryController(private val inquiryService: InquiryService) {
 
-    @GetMapping("/all")
-    fun getAllInquiries(): CommonResponse<List<InquiryResponse>> =
+    @GetMapping
+    fun getAllInquiryList(): CommonResponse<List<InquiryResponse>> =
         success(inquiryService.getAllInquiries())
 
     @PostMapping("/{inquiryId}/resolve")
