@@ -4,12 +4,12 @@ spring:
       matching-strategy: ant_path_matcher
   jpa:
     hibernate:
-      ddl-auto: create
+      ddl-auto: update # TODO push, merge 시 꼭 update
     properties:
       hibernate:
         dialect: org.hibernate.dialect.MySQL5Dialect
         format_sql: true # fetch join 으로 쿼리 최적화를 위해서 로깅 보기
-        show_sql: true
+        show_sql: false # TODO push, merge 시 꼭 false
   profiles:
     active: secret
   servlet:

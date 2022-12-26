@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.*
 @RestController
 class CafeController(private val cafeService: CafeService) {
     @PostMapping
-    fun registerCafe(@RequestBody form: RegisterCafeRequest): CommonResponse<Long> =
+    fun registerCafe(@RequestBody form: RegisterCafeRequest): CommonResponse<Any> =
         success(cafeService.registerCafe(form))
 
     @DeleteMapping("/cafe/{cafeId}")

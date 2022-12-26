@@ -17,7 +17,7 @@ class ReviewController(
         return success()
     }
 
-    @PutMapping("/{reviewId}")
+    @PutMapping("/review/{reviewId}")
     fun updateReview(
         @PathVariable("reviewId") reviewId: Long,
         @RequestBody form: UpdateReviewRequest
@@ -26,18 +26,18 @@ class ReviewController(
         return success()
     }
 
-    @DeleteMapping("/{reviewId}")
+    @DeleteMapping("/review/{reviewId}")
     fun deleteReview(@PathVariable("reviewId") reviewId: Long): CommonResponse<Any> {
         reviewService.deleteReview(reviewId)
         return success()
     }
 
-    @GetMapping("/{reviewId}")
+    @GetMapping("/review/{reviewId}")
     fun getReview(@PathVariable("reviewId") reviewId: Long): CommonResponse<ReviewResponse> =
         success(reviewService.getReview(reviewId))
 
 
-    @PutMapping("/{reviewId}/like")
+    @PutMapping("/review/{reviewId}/like")
     fun likeReview(@PathVariable("reviewId") reviewId: Long): CommonResponse<Any> {
         reviewService.checkLike(reviewId)
         return success()
