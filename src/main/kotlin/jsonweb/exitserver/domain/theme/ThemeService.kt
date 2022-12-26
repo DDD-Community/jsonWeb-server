@@ -3,7 +3,6 @@ package jsonweb.exitserver.domain.theme
 import jsonweb.exitserver.domain.cafe.CafeRepository
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
-import java.util.Comparator
 import org.modelmapper.ModelMapper
 import javax.persistence.EntityNotFoundException
 
@@ -21,7 +20,7 @@ class ThemeService(
         val cafe = cafeRepository.findById(form.cafeId).orElseThrow { throw EntityNotFoundException() }
         val theme = modelMapper.map(ThemeWithCafe(form, cafe), Theme::class.java)
         addThemeGenre(theme, form.genreList)
-        return themeRepository.save(theme).themeId
+        return themeRepository.save(theme).id
     }
 
     @Transactional

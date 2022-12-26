@@ -21,7 +21,8 @@ class Theme(
 ) {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    val themeId: Long = 0L
+    @Column(name = "theme_id")
+    val id: Long = 0L
     var reviewCount: Int = 0
         protected set
     var avgStar: Double = 0.0
@@ -75,7 +76,8 @@ class ThemeGenre(
 ) {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    val themeGenreId: Long = 0L
+    @Column(name = "theme_genre_id")
+    val id: Long = 0L
 }
 
 @Entity
@@ -84,7 +86,8 @@ class Genre(
 ) {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    val genreId: Long = 0L
+    @Column(name = "genre_id")
+    val id: Long = 0L
 }
 
 

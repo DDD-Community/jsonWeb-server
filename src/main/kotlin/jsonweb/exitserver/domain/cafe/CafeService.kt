@@ -1,6 +1,5 @@
 package jsonweb.exitserver.domain.cafe
 
-import jsonweb.exitserver.domain.cafe.entity.*
 import jsonweb.exitserver.domain.theme.GenreRepository
 import jsonweb.exitserver.domain.theme.ThemeGenreRepository
 import jsonweb.exitserver.domain.theme.ThemeResponse
@@ -26,7 +25,7 @@ class CafeService(
         val cafe = makeCafe(form.name, form.address, form.tel, form.homepage)
         form.openHourList.map { OpenHour(it.day, it.open, it.close, cafe) }.forEach { cafe.addOpenHour(it) }
         form.priceList.map { Price(it.headCount, it.day, it.price, cafe) }.forEach { cafe.addPrice(it) }
-        return cafeRepository.save(cafe).cafeId
+        return cafeRepository.save(cafe).id
     }
 
     @Transactional
@@ -76,7 +75,7 @@ class CafeService(
         val pageable = PageRequest.of(
             page, size
         )
-        val userId = userService.getCurrentLoginUser().userId
+        val userId = userService.getCurrentLoginUser().id
         val cafeLikes = cafeLikeRepository.findAllByUserIdOrderByCreatedAtDesc(userId, pageable)
         val cafes = cafeLikes.map { cafeRepository.findById(it.cafeId).get() }
         return CafeListResponse(cafes.toList().map { CafeResponse(it, true) }, cafeLikes.totalElements, cafeLikes.isLast)

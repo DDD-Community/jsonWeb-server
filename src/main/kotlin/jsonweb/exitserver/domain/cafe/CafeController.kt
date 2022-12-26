@@ -26,23 +26,6 @@ class CafeController(private val cafeService: CafeService) {
         return success()
     }
 
-    @PostMapping("/{cafeId}/report")
-    fun reportCafe(
-        @PathVariable("cafeId") cafeId: Long,
-        @RequestBody form: ReportCafeRequest
-    ): CommonResponse<Any> {
-        cafeService.reportCafe(cafeId, form.reportContent)
-        return success()
-    }
-
-    @DeleteMapping("/{reportId}/resolve")
-    fun resolveCafe(
-        @PathVariable("reportId") reportId: Long
-    ): CommonResponse<Any> {
-        cafeService.resolveCafe(reportId)
-        return success()
-    }
-
     @GetMapping("/cafe/list")
     fun getCafeList(
         @RequestParam(defaultValue = "DEFAULT", required = false) sort: String,

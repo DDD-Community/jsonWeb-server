@@ -1,8 +1,6 @@
 package jsonweb.exitserver.domain.review
 
 import jsonweb.exitserver.domain.cafe.CafeRepository
-import jsonweb.exitserver.domain.cafe.entity.Cafe
-import jsonweb.exitserver.domain.theme.Theme
 import jsonweb.exitserver.domain.theme.ThemeRepository
 import jsonweb.exitserver.domain.user.UserService
 import org.modelmapper.ModelMapper
@@ -108,7 +106,7 @@ class ReviewService(
     }
 
     private fun markLike(reviewResponse: ReviewResponse): ReviewResponse {
-        val userId = userService.getCurrentLoginUser().userId
+        val userId = userService.getCurrentLoginUser().id
         val likes = reviewLikeRepository.findAllByUserId(userId).map { it.reviewId }
         if (reviewResponse.reviewId in likes) reviewResponse.isLiked = true
         return reviewResponse

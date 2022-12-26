@@ -25,7 +25,8 @@ class Review(
 ) : BaseTimeEntity() {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    val reviewId: Long = 0L
+    @Column(name = "review_id")
+    val id: Long = 0L
 
     var content: String = content
         protected set
@@ -64,14 +65,6 @@ class Review(
         this.difficulty = difficulty
     }
 }
-
-//@Entity
-//class ReviewEmotion(
-//    @Id
-//    @GeneratedValue(strategy = GenerationType.IDENTITY)
-//    val emotionId: Long = 0L,
-//    val emotion: String
-//)
 
 @Embeddable
 data class UserAndReview(

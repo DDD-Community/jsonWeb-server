@@ -15,7 +15,7 @@ class InquiryService(
 ) {
 
     private fun getInquiry(id: Long): Inquiry = userService.getCurrentLoginUser().inquiryList
-        .find { it.inquiryId == id } ?: throw EntityNotFoundException()
+        .find { it.id == id } ?: throw EntityNotFoundException()
 
     /**
      * 사용자

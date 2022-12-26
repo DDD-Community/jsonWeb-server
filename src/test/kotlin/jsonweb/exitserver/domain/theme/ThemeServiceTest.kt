@@ -45,9 +45,9 @@ class ThemeServiceTest(
             "urlC"
         )
         )
-        println("cafeId: " + testCafe.cafeId)
+        println("cafeId: " + testCafe.id)
         val testRequest = RegisterThemeRequest(
-            testCafe.cafeId,
+            testCafe.id,
             "name",
             "desc",
             "url",
@@ -61,15 +61,15 @@ class ThemeServiceTest(
 
         val testDTO = ThemeWithCafe(testRequest, testCafe)
 
-        testDTO.cafe.cafeId shouldBe 1L
+        testDTO.cafe.id shouldBe 1L
 
         val theme = modelMapper.map(testDTO, Theme::class.java)
         theme.name shouldBe "name"
 
-        theme.cafe.cafeId shouldBe 1L
+        theme.cafe.id shouldBe 1L
 
         val testTheme = themeRepository.save(theme)
 
-        testTheme.cafe.cafeId shouldBe testCafe.cafeId
+        testTheme.cafe.id shouldBe testCafe.id
     }
 }

@@ -80,7 +80,7 @@ data class ThemeResponse(
     val genreList: List<Genre>
 ) {
     constructor(theme: Theme): this(
-        themeId = theme.themeId,
+        themeId = theme.id,
         name = theme.name,
         imageUrl = theme.imageUrl,
         minPlayerCount = theme.minPlayerCount,
@@ -105,7 +105,7 @@ data class ThemeSpecResponse(
     val genreList: List<Genre>
 ) {
     constructor(theme: Theme): this(
-        themeId = theme.themeId,
+        themeId = theme.id,
         name = theme.name,
         description = theme.description,
         imageUrl = theme.imageUrl,

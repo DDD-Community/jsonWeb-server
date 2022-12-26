@@ -54,7 +54,7 @@ class CafeRepositoryTest(
         val result = cafeRepository.findAll(pageable).toList()
         val answer = listOf(5L, 4L, 3L, 2L, 1L)
         for (i in 0..4) {
-            result[i].cafeId shouldBe answer[i]
+            result[i].id shouldBe answer[i]
         }
     }
 
@@ -73,7 +73,7 @@ class CafeRepositoryTest(
 
         val answer = listOf(5L, 4L, 3L)
         for (i in 0..2) {
-            result.toList()[i].cafeId shouldBe answer[i]
+            result.toList()[i].id shouldBe answer[i]
         }
     }
 
@@ -92,7 +92,7 @@ class CafeRepositoryTest(
 
         val answer = listOf(2L, 1L)
         for (i in 0..1) {
-            result.toList()[i].cafeId shouldBe answer[i]
+            result.toList()[i].id shouldBe answer[i]
         }
     }
 
