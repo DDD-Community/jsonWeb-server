@@ -61,8 +61,9 @@ class BoastServiceTest : AnnotationSpec() {
     @Test
     fun `인증 작성 성공`() {
         // given
-        every { themeRepository.findById(1L) } returns Optional.of(Theme())
-        every { boastRepository.save(any()) } returns Boast(user = mockUser, theme = Theme())
+        val theme = Theme()
+        every { themeRepository.findById(1L) } returns Optional.of(theme)
+        every { boastRepository.save(any()) } returns Boast(user = mockUser, theme = theme)
         val imageUrls = mutableListOf("https://image.com/1", "https://image.com/2")
         val hashtags = mutableListOf("해시태그1", "해시태그2")
         val form = BoastRequest(1L, imageUrls, hashtags)
@@ -82,6 +83,7 @@ class BoastServiceTest : AnnotationSpec() {
     fun `인증 수정 성공`() {
         // given
         val oldBoast = Boast(user = mockUser, theme = Theme())
+        mockUser.addMyBoast(oldBoast)
         every { boastRepository.findById(1L) } returns Optional.of(oldBoast)
         every { themeRepository.findById(1L) } returns Optional.of(Theme())
         val imageUrls = mutableListOf("https://image.com/3", "https://image.com/4")
@@ -93,6 +95,7 @@ class BoastServiceTest : AnnotationSpec() {
 
         // then
         assertSoftly(mockUser.myBoastList) {
+            size shouldBe 1
             first().boastImageList[0].imageUrl shouldBe imageUrls[0]
             first().hashtagList[0].hashtag shouldBe "#${hashtags[0]}"
         }

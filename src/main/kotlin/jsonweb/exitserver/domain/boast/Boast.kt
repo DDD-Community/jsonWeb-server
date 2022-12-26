@@ -55,7 +55,7 @@ class Boast(
             addImage(BoastImage(imageUrl = it, boast = this))
         }
         form.hashtags.forEach {
-            addHashtag(BoastHashtag(hashtag = it, boast = this))
+            addHashtag(BoastHashtag(hashtag = "#$it", boast = this))
         }
     }
 
