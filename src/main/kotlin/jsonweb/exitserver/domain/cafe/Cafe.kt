@@ -60,6 +60,9 @@ class Cafe(
     fun decreaseReviewCount() {
         reviewCount--
     }
+
+    // for test
+    constructor(): this("", "", "", "", "")
 }
 
 @Entity

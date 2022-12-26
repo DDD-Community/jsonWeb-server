@@ -87,18 +87,7 @@ class BoastService(
 
     @Transactional
     fun deleteBoast(id: Long) {
-        val boast = boastRepository.findById(id).orElseThrow()
-        boastRepository.delete(boast)
-    }
-
-    @Transactional
-    fun likeBoast(userId: Long, boastId: Long) {
-        boastLikeRepository.save(BoastLike(userId, boastId))
-    }
-
-    @Transactional
-    fun unlikeBoast(userId: Long, boastId: Long) {
-        boastLikeRepository.deleteById(BoastLikeId(userId, boastId))
+        boastRepository.deleteById(id)
     }
 
     @Transactional
@@ -106,10 +95,10 @@ class BoastService(
         val userId = userService.getCurrentLoginUser().id
         val boast = boastRepository.findById(boastId).orElseThrow()
         if (!boastLikeRepository.existsById(BoastLikeId(userId, boast.id))) {
-            likeBoast(userId, boastId)
+            boastLikeRepository.save(BoastLike(userId, boastId))
             boast.plusLike()
         } else {
-            unlikeBoast(userId, boastId)
+            boastLikeRepository.deleteById(BoastLikeId(userId, boastId))
             boast.minusLike()
         }
     }

@@ -69,4 +69,8 @@ class User(
     fun addMyBoast(boast: Boast) {
         myBoastMutableList.add(boast)
     }
+
+    fun clearMyBoast() {
+        myBoastMutableList.clear()
+    }
 }
