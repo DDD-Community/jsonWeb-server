@@ -5,39 +5,36 @@ import jsonweb.exitserver.common.success
 import org.springframework.web.bind.annotation.*
 
 @RestController
-@RequestMapping("/boast")
 class BoastController(private val boastService: BoastService) {
-
-    // 정렬 기준 : 최신순, 인기순
-    @GetMapping
-    fun getBoastList(
+    @GetMapping("/boasts")
+    fun getAllBoasts(
         @RequestParam(defaultValue = "DATE", required = false) sort: String,
         @RequestParam(defaultValue = "0", required = false) page: Int,
         @RequestParam(defaultValue = "16", required = false) size: Int,
-    ): CommonResponse<BoastListResponse> = success(boastService.getBoastList(sort, page, size))
+    ): CommonResponse<BoastListResponse> = success(boastService.getAllBoasts(sort, page, size))
 
-    @GetMapping("/user")
-    fun getUserBoastList(
+    @GetMapping("/users/me/boasts")
+    fun getUserBoasts(
         @RequestParam(defaultValue = "DATE", required = false) sort: String,
         @RequestParam(defaultValue = "0", required = false) page: Int,
         @RequestParam(defaultValue = "16", required = false) size: Int
-    ): CommonResponse<BoastListResponse> = success(boastService.getUserBoastList(sort, page, size))
+    ): CommonResponse<BoastListResponse> = success(boastService.getUserBoasts(sort, page, size))
 
-    @GetMapping("/theme/{themeId}")
-    fun getBoastsByTheme(
+    @GetMapping("/themes/{themeId}/boasts")
+    fun getThemeBoasts(
         @PathVariable("themeId") themeId: Long,
         @RequestParam(defaultValue = "DATE", required = false) sort: String,
         @RequestParam(defaultValue = "0", required = false) page: Int,
         @RequestParam(defaultValue = "16", required = false) size: Int
-    ): CommonResponse<BoastListResponse> = success(boastService.getThemeBoastList(themeId, sort, page, size))
+    ): CommonResponse<BoastListResponse> = success(boastService.getThemeBoasts(themeId, sort, page, size))
 
-    @PostMapping
+    @PostMapping("/boasts")
     fun createBoast(@RequestBody form: BoastRequest): CommonResponse<Any> {
         boastService.createBoast(form)
         return success()
     }
 
-    @PutMapping("/{boastId}")
+    @PutMapping("/boasts/{boastId}")
     fun updateBoast(
         @PathVariable("boastId") id: Long,
         @RequestBody form: BoastRequest
@@ -46,13 +43,13 @@ class BoastController(private val boastService: BoastService) {
         return success()
     }
 
-    @DeleteMapping("/{boastId}")
+    @DeleteMapping("/boasts/{boastId}")
     fun deleteBoast(@PathVariable("boastId") id: Long): CommonResponse<Any> {
         boastService.deleteBoast(id)
         return success()
     }
 
-    @PutMapping("/{boastId}/like")
+    @PutMapping("/boasts/{boastId}/like")
     fun likeBoast(@PathVariable("boastId") reviewId: Long): CommonResponse<Any> {
         boastService.checkLike(reviewId)
         return success()

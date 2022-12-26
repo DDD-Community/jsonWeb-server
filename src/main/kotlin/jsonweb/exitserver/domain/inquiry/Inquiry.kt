@@ -7,6 +7,7 @@ import javax.persistence.*
 enum class InquiryStatus(private val type: String) {
     WAITING("waiting"),
     RESOLVED("resolved");
+
     fun type() = type
 }
 
@@ -29,13 +30,14 @@ class Inquiry(
     category: String,
     title: String,
     content: String
-): BaseTimeEntity() {
+) : BaseTimeEntity() {
     var category: String = category
         protected set
     var title: String = title
         protected set
     var content: String = content
         protected set
+
     @Enumerated(value = EnumType.STRING)
     var status: InquiryStatus = InquiryStatus.WAITING
         protected set

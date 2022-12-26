@@ -31,7 +31,7 @@ class BoastServiceTest : AnnotationSpec() {
         // given
 
         // when
-        val boastList = boastService.getBoastList("DATE", 0, 16)
+        val boastList = boastService.getAllBoasts("DATE", 0, 16)
 
         // then
     }

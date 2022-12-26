@@ -9,6 +9,10 @@ import jsonweb.exitserver.domain.cafe.Cafe
 import jsonweb.exitserver.domain.cafe.CafeRepository
 import jsonweb.exitserver.domain.cafe.OpenHour
 import jsonweb.exitserver.domain.cafe.Price
+import jsonweb.exitserver.domain.inquiry.INQUIRY_CATEGORIES
+import jsonweb.exitserver.domain.inquiry.InquiryRepository
+import jsonweb.exitserver.domain.inquiry.InquiryRequest
+import jsonweb.exitserver.domain.inquiry.InquiryService
 import jsonweb.exitserver.domain.review.ReviewRepository
 import jsonweb.exitserver.domain.theme.*
 import jsonweb.exitserver.domain.user.User
@@ -29,6 +33,8 @@ class DataGenerator(
     private val boastService: BoastService,
     private val passwordEncoder: BCryptPasswordEncoder,
     private val userRepository: UserRepository,
+    private val inquiryRepository: InquiryRepository,
+    private val inquiryService: InquiryService
 ) {
 
     @PostConstruct
@@ -163,5 +169,17 @@ class DataGenerator(
                 boastService.createDummyBoast(form, randomIds[(randomIds.indices).random()])
             }
         }
+
+        /**
+         * 문의 글 세팅
+         */
+        if (inquiryRepository.count().toInt() != 0) return
+        repeat(10) {
+            val randomCategory = INQUIRY_CATEGORIES[(0 until INQUIRY_CATEGORIES.size).random()]
+            val form = InquiryRequest(randomCategory, "문의 제목$it", "문의 내용$it")
+            inquiryService.createDummyInquiry(form, TEST_ADMIN_KAKAO_ID)
+        }
+
+
     }
 }

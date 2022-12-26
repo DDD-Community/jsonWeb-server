@@ -19,12 +19,12 @@ data class InquiryResponse(
     val createdAt: String,
     val answer: String
 ) {
-    constructor(inquiry: Inquiry): this(
+    constructor(inquiry: Inquiry) : this(
         id = inquiry.inquiryId,
         category = inquiry.category,
         title = inquiry.title,
         content = inquiry.content,
-        status = when(inquiry.status) {
+        status = when (inquiry.status) {
             InquiryStatus.RESOLVED -> "해결"
             else -> "미해결"
         },

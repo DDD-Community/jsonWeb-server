@@ -43,20 +43,20 @@ class BoastService(
         return result
     }
 
-    fun getBoastList(sortType: String, page: Int, size: Int): BoastListResponse {
+    fun getAllBoasts(sortType: String, page: Int, size: Int): BoastListResponse {
         val pageable = PageRequest.of(page, size, sortType.toSort())
         val boasts = boastRepository.findAll(pageable)
         return boasts.toBoastListResponse()
     }
 
-    fun getUserBoastList(sortType: String, page: Int, size: Int): BoastListResponse {
+    fun getUserBoasts(sortType: String, page: Int, size: Int): BoastListResponse {
         val user = userService.getCurrentLoginUser()
         val pageable = PageRequest.of(page, size, sortType.toSort())
         val boasts = boastRepository.findAllByUser(user, pageable)
         return boasts.toBoastListResponse()
     }
 
-    fun getThemeBoastList(themeId: Long, sortType: String, page: Int, size: Int): BoastListResponse {
+    fun getThemeBoasts(themeId: Long, sortType: String, page: Int, size: Int): BoastListResponse {
         val theme = themeRepository.findById(themeId).orElseThrow()
         val pageable = PageRequest.of(page, size, sortType.toSort())
         val boasts = boastRepository.findAllByTheme(theme, pageable)
@@ -66,20 +66,6 @@ class BoastService(
     @Transactional
     fun createBoast(form: BoastRequest) {
         val user = userService.getCurrentLoginUser()
-        val theme = themeRepository.findById(form.themeId).orElseThrow()
-        val boast = boastRepository.save(Boast(user = user, theme = theme))
-        form.imageUrls.forEach {
-            boast.addImage(BoastImage(imageUrl = it, boast = boast))
-        }
-        form.hashtags.forEach {
-            boast.addHashtag(BoastHashtag(hashtag = "#$it", boast = boast))
-        }
-        user.addMyBoast(boast)
-    }
-
-    @Transactional
-    fun createDummyBoast(form: BoastRequest, dummyKakaoId: Long) {
-        val user = userService.getTestUser(dummyKakaoId)
         val theme = themeRepository.findById(form.themeId).orElseThrow()
         val boast = boastRepository.save(Boast(user = user, theme = theme))
         form.imageUrls.forEach {
@@ -125,6 +111,23 @@ class BoastService(
             unlikeBoast(userId, boastId)
             boast.minusLike()
         }
+    }
+
+    /**
+     * 테스트용
+     */
+    @Transactional
+    fun createDummyBoast(form: BoastRequest, dummyKakaoId: Long) {
+        val user = userService.getTestUser(dummyKakaoId)
+        val theme = themeRepository.findById(form.themeId).orElseThrow()
+        val boast = boastRepository.save(Boast(user = user, theme = theme))
+        form.imageUrls.forEach {
+            boast.addImage(BoastImage(imageUrl = it, boast = boast))
+        }
+        form.hashtags.forEach {
+            boast.addHashtag(BoastHashtag(hashtag = "#$it", boast = boast))
+        }
+        user.addMyBoast(boast)
     }
 
 }

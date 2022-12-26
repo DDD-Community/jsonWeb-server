@@ -16,7 +16,7 @@ class Boast(
     @JoinColumn(name = "user_id")
     val user: User,
     theme: Theme,
-): BaseTimeEntity() {
+) : BaseTimeEntity() {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "theme_id")
     var theme: Theme = theme
@@ -39,6 +39,7 @@ class Boast(
     fun addImage(image: BoastImage) {
         boastImageMutableList.add(image)
     }
+
     fun addHashtag(hashtag: BoastHashtag) {
         hashtagMutableList.add(hashtag)
     }

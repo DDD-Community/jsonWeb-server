@@ -20,7 +20,7 @@ class InquiryService(
     /**
      * 사용자
      */
-    fun getMyInquiries(): List<InquiryResponse> =
+    fun getUserInquires(): List<InquiryResponse> =
         userService.getCurrentLoginUser().inquiryList
             .map { InquiryResponse(it) }
 
@@ -74,5 +74,22 @@ class InquiryService(
         } else {
             throw InquiryException(INQUIRY_CANCEL_ERROR)
         }
+    }
+
+    /**
+     * 테스트용
+     */
+    @Transactional
+    fun createDummyInquiry(form: InquiryRequest, dummyKakaoId: Long): List<InquiryResponse> {
+        val user = userService.getTestUser(dummyKakaoId)
+        val inquiry = Inquiry(
+            category = form.category,
+            user = user,
+            title = form.title,
+            content = form.content
+        )
+        user.addInquiry(inquiry)
+        inquiryRepository.flush()
+        return user.inquiryList.map { InquiryResponse(it) }
     }
 }
