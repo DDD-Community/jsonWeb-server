@@ -1,5 +1,6 @@
 package jsonweb.exitserver.domain.review
 
+import jsonweb.exitserver.domain.theme.Genre
 import jsonweb.exitserver.domain.theme.Theme
 import jsonweb.exitserver.domain.user.User
 import org.springframework.data.domain.Sort
@@ -57,17 +58,25 @@ data class ReviewResponse(
     val modifiedAt: String,
     val star: Double,
     val difficulty: Double,
-    val content: String
+    val emotionFirst: String,
+    val emotionSecond: String,
+    val content: String,
+    val themeName: String,
+    val themeGenre: List<String>
 ) {
     constructor(review: Review) : this(
         reviewId = review.reviewId,
-        isLiked = false, // TODO: 관련 작업 후 수정
+        isLiked = false,
         likeCount = review.likeCount,
         writerNickname = review.user.nickname,
         modifiedAt = review.modifiedAt,
         star = review.star,
         difficulty = review.difficulty,
-        content = review.content
+        emotionFirst = review.emotionFirst,
+        emotionSecond = review.emotionSecond,
+        content = review.content,
+        themeName = review.theme.name,
+        themeGenre = review.theme.themeGenreList.map { it.genre.genreName }
     )
 }
 

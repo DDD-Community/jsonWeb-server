@@ -3,6 +3,7 @@ package jsonweb.exitserver.domain.theme
 import jsonweb.exitserver.domain.cafe.Cafe
 import jsonweb.exitserver.domain.review.Review
 import javax.persistence.*
+import kotlin.math.round
 
 @Entity
 class Theme(
@@ -39,12 +40,27 @@ class Theme(
 
     fun addReview(review: Review) {
         reviewList.add(review)
+        val totalStar = avgStar * reviewCount + review.star
         reviewCount = reviewList.size
+        avgStar = round((totalStar / reviewCount * 10) / 10)
+    }
+
+
+    fun deleteReview(review: Review) {
+        if (reviewCount == 1) {
+            reviewList.remove(review)
+            reviewCount = 0
+            avgStar = 0.0
+        } else {
+            val totalStar = avgStar * reviewCount - review.star
+            reviewList.remove(review)
+            reviewCount = reviewList.size
+            avgStar = round((totalStar / reviewCount * 10) / 10)
+        }
     }
 
     // for test
     constructor(): this("", "", "", 0, 0, 0, 0.0, "", Cafe())
-
 }
 
 @Entity

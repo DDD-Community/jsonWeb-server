@@ -1,5 +1,7 @@
 package jsonweb.exitserver.domain.cafe
 
+import jsonweb.exitserver.domain.cafe.entity.Cafe
+import jsonweb.exitserver.domain.theme.Theme
 import com.querydsl.jpa.impl.JPAQueryFactory
 import jsonweb.exitserver.domain.theme.QTheme
 import org.springframework.data.domain.Page

@@ -3,6 +3,7 @@ package jsonweb.exitserver.domain.theme
 import jsonweb.exitserver.domain.cafe.CafeRepository
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
+import java.util.Comparator
 import org.modelmapper.ModelMapper
 import javax.persistence.EntityNotFoundException
 
@@ -36,9 +37,9 @@ class ThemeService(
 
     fun getThemeList(cafeId: Long): ThemeListResponse {
         val cafe = cafeRepository.findById(cafeId).orElseThrow { throw EntityNotFoundException() }
-        val themeList = themeRepository.findAllByCafe(cafe).map { ThemeResponse(it) }
-        // TODO: 정렬 알고리즘 추가
-        return ThemeListResponse(themeList)
+        val themes = themeRepository.findAllByCafe(cafe)
+        sortTheme(themes)
+        return ThemeListResponse(themes.map { ThemeResponse(it) })
     }
 
     fun getThemeSpec(themeId: Long): ThemeSpecResponse {
@@ -52,9 +53,8 @@ class ThemeService(
         // TODO: update 로직 어떻게 처리할지 고민
     }
 
-    fun sortTheme(themeList: List<Theme>): List<Theme> {
-        // TODO: 정렬 알고리즘 고안
-        return themeList
+    fun sortTheme(themes: List<Theme>){
+        themes.sortedWith(kotlin.Comparator { o1, o2 -> (o2.avgStar.toInt() * o2.reviewCount) - (o1.avgStar.toInt() * o1.reviewCount)})
     }
 
     private fun addGenre(genreList: List<String>) {

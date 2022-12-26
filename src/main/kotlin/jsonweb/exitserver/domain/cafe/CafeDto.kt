@@ -12,6 +12,10 @@ enum class CafeSort(private val sort: String, private val direction: Sort.Direct
     fun getDirection() = direction
 }
 
+data class CafeThemeListResponse(
+    val themeList: List<ThemeResponse>
+)
+
 data class CafeListResponse(
     val cafeList: List<CafeResponse>,
     val totalNumber: Long,
@@ -36,6 +40,16 @@ data class CafeResponse(
         imageUrl = cafe.imageUrl,
         reviewCount = cafe.reviewCount
     )
+
+    constructor(cafe: Cafe, like: Boolean): this(
+        cafeId = cafe.cafeId,
+        name = cafe.name,
+        isLiked = like,
+        avgStar = cafe.avgStar,
+        address = cafe.address,
+        imageUrl = cafe.imageUrl,
+        reviewCount = cafe.reviewCount
+    )
 }
 
 data class CafeSpecResponse(
@@ -49,9 +63,8 @@ data class CafeSpecResponse(
     val openHourList: List<OpenHourResponse>,
     val priceList: List<PriceResponse>,
     val themeCount: Int,
-    val themeList: List<ThemeResponse>,
-    val reviewCount: Int
-//    val reviewList: MutableList<ReviewResponse> // TODO: 관련 작업 후 수정 (무한스크롤 구현을 위해 review 따로 request)
+    val reviewCount: Int,
+    val imageUrl: String
 ) {
     constructor(cafe: Cafe): this(
         cafeId = cafe.cafeId,
@@ -64,8 +77,8 @@ data class CafeSpecResponse(
         openHourList = cafe.openHourList.map { OpenHourResponse(it) },
         priceList = cafe.priceList.map { PriceResponse(it) },
         themeCount = cafe.themeCount,
-        themeList = cafe.themeList.map { ThemeResponse(it) }, // TODO: 정렬 알고리즘 추가
-        reviewCount = cafe.reviewCount
+        reviewCount = cafe.reviewCount,
+        imageUrl = cafe.imageUrl
     )
 }
 

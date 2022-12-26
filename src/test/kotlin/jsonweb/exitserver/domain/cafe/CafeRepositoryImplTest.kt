@@ -2,6 +2,9 @@ package jsonweb.exitserver.domain.cafe
 
 import io.kotest.core.spec.style.AnnotationSpec
 import io.kotest.matchers.shouldBe
+import jsonweb.exitserver.domain.cafe.entity.Cafe
+import jsonweb.exitserver.domain.theme.*
+import jsonweb.exitserver.util.TestConfig
 import jsonweb.exitserver.domain.theme.Theme
 import jsonweb.exitserver.domain.theme.ThemeRepository
 import jsonweb.exitserver.config.TestConfig
@@ -27,30 +30,65 @@ class CafeRepositoryImplTest(
     @Autowired
     private val cafeRepository: CafeRepository,
     @Autowired
-    private val themeRepository: ThemeRepository
+    private val themeRepository: ThemeRepository,
+    @Autowired
+    private val genreRepository: GenreRepository,
+    @Autowired
+    private val themeGenreRepository: ThemeGenreRepository
 ) : AnnotationSpec() {
 
     @BeforeAll
     fun `초기 설정`() {
-        for (i in 4..6) {
+
+//        val genres: Array<String> = arrayOf("장르1", "장르2", "장르3", "장르4", "장르5", "장르6", "장르7", "장르8")
+//        val genreEntities = arrayOfNulls<Genre>(8)
+//        for (i: Int in 0..7) {
+//            genreEntities[i] = genreRepository.save(Genre(genres[i]))
+//        }
+        val genre1 = genreRepository.save(Genre("장르1"))
+        val genre2 = genreRepository.save(Genre("장르2"))
+
+        for (i in 4..7) {
             val tempCafe = Cafe("카페$i", "주소$i", "0", "asdf.net", "")
             for (j in 1..5) {
+                val theme = Theme(
+                    "테마$j",
+                    "설명",
+                    "",
+                    100,
+                    2,
+                    5,
+                    0.0,
+                    "",
+                    tempCafe
+                )
+
+                if (i <= 6) {
+                    theme.addThemeGenre(ThemeGenre(theme, genre1))
+                } else {
+                    theme.addThemeGenre(ThemeGenre(theme, genre2))
+                }
+
                 tempCafe.addTheme(
-                    Theme(
-                        "테마$j",
-                        "설명",
-                        "",
-                        100,
-                        2,
-                        5,
-                        0.0,
-                        "",
-                        tempCafe
-                    )
+                    theme
                 )
             }
             cafeRepository.save(tempCafe)
         }
+    }
+
+    @Test
+    fun `querydsl 장르 검색 잘하는지`() {
+        val pageable = PageRequest.of(
+            0,
+            2,
+            Sort.by(CafeSort.valueOf("REVIEW").getDirection(), CafeSort.valueOf("REVIEW").getSortBy())
+                .and(Sort.by("cafeId"))
+        )
+        val cafeList = cafeRepositoryImpl.getListWithGenreName("장르1", pageable)
+        cafeList.count() shouldBe 2
+        cafeList.totalElements shouldBe 3L
+        cafeList.isLast shouldBe false
     }
 
     @Test

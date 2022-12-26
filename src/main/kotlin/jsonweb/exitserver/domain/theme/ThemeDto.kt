@@ -74,22 +74,18 @@ data class ThemeResponse(
     val themeId: Long,
     val name: String,
     val imageUrl: String,
-    val time: Int,
     val minPlayerCount: Int,
     val maxPlayerCount: Int,
     val difficulty: Double,
-    val ageLimit: String,
     val genreList: List<Genre>
 ) {
     constructor(theme: Theme): this(
         themeId = theme.themeId,
         name = theme.name,
         imageUrl = theme.imageUrl,
-        time = theme.time,
         minPlayerCount = theme.minPlayerCount,
         maxPlayerCount = theme.maxPlayerCount,
         difficulty = theme.difficulty,
-        ageLimit = theme.ageLimit,
         genreList = theme.themeGenreList.map { it.genre }
     )
 }
@@ -104,6 +100,8 @@ data class ThemeSpecResponse(
     val maxPlayerCount: Int,
     val difficulty: Double,
     val ageLimit: String,
+    val avgStar: Double,
+    val reviewCount: Int,
     val genreList: List<Genre>
 ) {
     constructor(theme: Theme): this(
@@ -116,6 +114,8 @@ data class ThemeSpecResponse(
         maxPlayerCount = theme.maxPlayerCount,
         difficulty = theme.difficulty,
         ageLimit = theme.ageLimit,
+        avgStar = theme.avgStar,
+        reviewCount = theme.reviewCount,
         genreList = theme.themeGenreList.map { it.genre }
     )
 }
