@@ -34,7 +34,7 @@ class NicknameGenerator(private val userRepository: UserRepository) {
     fun getRandomNickname(): String {
         while (true) {
             val nickname = randomNicknameList.removeAt(0)
-            if (randomNicknameList.isEmpty()) getRandomNickname()
+            if (randomNicknameList.isEmpty()) generateNickname()
             if (!userRepository.existsByNickname(nickname)) return nickname
         }
     }

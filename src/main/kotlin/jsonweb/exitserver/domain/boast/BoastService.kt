@@ -46,7 +46,7 @@ class BoastService(
 
     fun getAllBoasts(sortType: String, page: Int, size: Int): BoastListResponse {
         val pageable = PageRequest.of(page, size, sortType.toSort())
-        val boasts = boastRepository.findAll(pageable)
+        val boasts = boastRepository.findAllBoasts(pageable)
         return boasts.toBoastListResponse()
     }
 

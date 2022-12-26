@@ -2,10 +2,10 @@ package jsonweb.exitserver.domain.cafe
 
 import io.kotest.core.spec.style.AnnotationSpec
 import io.kotest.matchers.shouldBe
+import jsonweb.exitserver.config.TestConfig
 import jsonweb.exitserver.domain.review.ReviewRepository
 import jsonweb.exitserver.domain.theme.GenreRepository
 import jsonweb.exitserver.domain.theme.ThemeRepository
-import jsonweb.exitserver.config.TestConfig
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.jdbc.EmbeddedDatabaseConnection
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase
@@ -54,7 +54,7 @@ class CafeRepositoryTest(
         val result = cafeRepository.findAll(pageable).toList()
         val answer = listOf(5L, 4L, 3L, 2L, 1L)
         for (i in 0..4) {
-            result[i].id shouldBe answer[i]
+            result[i].cafeId shouldBe answer[i]
         }
     }
 
@@ -73,7 +73,7 @@ class CafeRepositoryTest(
 
         val answer = listOf(5L, 4L, 3L)
         for (i in 0..2) {
-            result.toList()[i].id shouldBe answer[i]
+            result.toList()[i].cafeId shouldBe answer[i]
         }
     }
 
@@ -92,7 +92,7 @@ class CafeRepositoryTest(
 
         val answer = listOf(2L, 1L)
         for (i in 0..1) {
-            result.toList()[i].id shouldBe answer[i]
+            result.toList()[i].cafeId shouldBe answer[i]
         }
     }
 

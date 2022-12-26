@@ -2,10 +2,9 @@ package jsonweb.exitserver.domain.theme
 
 import io.kotest.core.spec.style.AnnotationSpec
 import io.kotest.matchers.shouldBe
-import jsonweb.exitserver.domain.cafe.CafeRepository
-import jsonweb.exitserver.domain.cafe.Cafe
 import jsonweb.exitserver.config.TestConfig
-
+import jsonweb.exitserver.domain.cafe.Cafe
+import jsonweb.exitserver.domain.cafe.CafeRepository
 import org.junit.jupiter.api.Assertions.*
 import org.modelmapper.ModelMapper
 import org.springframework.beans.factory.annotation.Autowired
@@ -45,9 +44,9 @@ class ThemeServiceTest(
             "urlC"
         )
         )
-        println("cafeId: " + testCafe.id)
+        println("cafeId: " + testCafe.cafeId)
         val testRequest = RegisterThemeRequest(
-            testCafe.id,
+            testCafe.cafeId,
             "name",
             "desc",
             "url",
@@ -61,15 +60,15 @@ class ThemeServiceTest(
 
         val testDTO = ThemeWithCafe(testRequest, testCafe)
 
-        testDTO.cafe.id shouldBe 1L
+        testDTO.cafe.cafeId shouldBe 1L
 
         val theme = modelMapper.map(testDTO, Theme::class.java)
         theme.name shouldBe "name"
 
-        theme.cafe.id shouldBe 1L
+        theme.cafe.cafeId shouldBe 1L
 
         val testTheme = themeRepository.save(theme)
 
-        testTheme.cafe.id shouldBe testCafe.id
+        testTheme.cafe.cafeId shouldBe testCafe.cafeId
     }
 }
