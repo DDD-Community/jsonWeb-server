@@ -5,7 +5,7 @@ import jsonweb.exitserver.common.success
 import org.springframework.web.bind.annotation.*
 
 @RestController
-@RequestMapping("/image")
+@RequestMapping("/images")
 class S3Controller(private val s3Service: S3Service) {
     @PostMapping("/{type}")
     fun uploadImage(
