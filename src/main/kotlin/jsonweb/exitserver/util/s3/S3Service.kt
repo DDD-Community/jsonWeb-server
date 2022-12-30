@@ -51,7 +51,7 @@ class S3Service(
     }
 
     private fun generateImageName(type: String): String {
-        var generatedImageName = "";
+        var generatedImageName = ""
         generatedImageName += LocalDateTime.now().format(dateFormat)
         generatedImageName += ("_" + generateRandomNumber())
         generatedImageName += S3TypeDir.valueOf(type.uppercase()).getSuffix()

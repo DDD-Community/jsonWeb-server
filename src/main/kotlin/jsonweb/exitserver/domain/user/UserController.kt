@@ -3,11 +3,13 @@ package jsonweb.exitserver.domain.user
 import jsonweb.exitserver.common.CommonResponse
 import jsonweb.exitserver.common.success
 import org.springframework.web.bind.annotation.*
+import springfox.documentation.annotations.ApiIgnore
 
 @RestController
 @RequestMapping("/users")
 class UserController(private val userService: UserService) {
 
+    @ApiIgnore
     @PostMapping("/test-login")
     fun testLogin(): CommonResponse<JwtDto> =
         success(userService.testLogin())
@@ -20,7 +22,7 @@ class UserController(private val userService: UserService) {
     fun getCurrentLoginUser(): CommonResponse<UserInfoResponse> =
         success(userService.getCurrentLoginUserToDto())
 
-    @PutMapping
+    @PutMapping("/me")
     fun updateUser(@RequestBody form: UpdateUserInfoRequest): CommonResponse<UserInfoResponse> =
         success(userService.updateUserInfo(form))
 
@@ -28,7 +30,7 @@ class UserController(private val userService: UserService) {
     fun logout(): CommonResponse<Boolean> =
         success(userService.logout())
 
-    @DeleteMapping
+    @DeleteMapping("/me")
     fun deleteUser(): CommonResponse<Boolean> =
         success(userService.deleteUser())
 }
