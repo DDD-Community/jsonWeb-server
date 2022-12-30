@@ -32,10 +32,10 @@ class KakaoClient(
         log.info("OS : {}", os)
         return if (os.contains("Win")) {
             // local window
-            "http://localhost:8080/user/login"
+            "http://localhost:8080/users/login"
         } else {
             // deploy linux
-            "http://localhost:3000/user/login"
+            "http://localhost:3000/users/login"
         }
     }
 
