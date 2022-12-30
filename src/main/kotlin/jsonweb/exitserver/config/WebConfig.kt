@@ -10,5 +10,6 @@ class WebConfig : WebMvcConfigurer {
         registry.addMapping("/**")
             .allowedMethods("*")
             .allowedOrigins("*")
+            .allowCredentials(true)
     }
 }
