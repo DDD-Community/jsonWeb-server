@@ -6,6 +6,14 @@ import jsonweb.exitserver.domain.review.Review
 import javax.persistence.*
 
 enum class Role { ROLE_USER, ROLE_ADMIN }
+enum class UserLevel(private val levelName: String, private val needExp: Int) {
+    LEVEL_1("초보", 100),
+    LEVEL_2("중수", 200),
+    LEVEL_3("고수", 300),
+    LEVEL_4("초고수", 400);
+    fun getLevelName() = levelName
+    fun getNeedExp() = needExp
+}
 
 @Entity
 class User(
@@ -22,6 +30,8 @@ class User(
     var profileImageUrl: String = ""
         protected set
     var exp: Int = 0
+        protected set
+    var level: String = UserLevel.LEVEL_1.getLevelName()
         protected set
 
     @OneToMany(mappedBy = "user", cascade = [CascadeType.ALL], orphanRemoval = true)
@@ -44,11 +54,30 @@ class User(
     /**
      * methods
      */
+    // user
+    @PostUpdate
+    fun checkUserLevel() {
+        level = if (exp >= UserLevel.LEVEL_4.getNeedExp()) {
+            UserLevel.LEVEL_4.getLevelName()
+        } else if (exp >= UserLevel.LEVEL_3.getNeedExp()) {
+            UserLevel.LEVEL_3.getLevelName()
+        } else if (exp >= UserLevel.LEVEL_2.getNeedExp()) {
+            UserLevel.LEVEL_2.getLevelName()
+        } else {
+            UserLevel.LEVEL_1.getLevelName()
+        }
+    }
+
     fun updateUserInfo(newNickname: String? = null, newProfileImageUrl: String? = null) {
         newNickname?.let { nickname = newNickname }
         newProfileImageUrl?.let { profileImageUrl = newProfileImageUrl }
     }
 
+    fun setAdmin() {
+        role = Role.ROLE_ADMIN
+    }
+
+    // inquiry
     fun addInquiry(inquiry: Inquiry) {
        inquiryMutableList.add(inquiry)
     }
@@ -61,10 +90,7 @@ class User(
         inquiryMutableList.clear()
     }
 
-    fun setAdmin() {
-        role = Role.ROLE_ADMIN
-    }
-
+    // boast
     fun addMyBoast(boast: Boast) {
         myBoastMutableList.add(boast)
     }
@@ -72,4 +98,6 @@ class User(
     fun clearMyBoast() {
         myBoastMutableList.clear()
     }
+
+
 }
