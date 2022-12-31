@@ -5,31 +5,33 @@ import jsonweb.exitserver.common.success
 import org.springframework.web.bind.annotation.*
 
 @RestController
-@RequestMapping("/theme")
 class ThemeController(
     private val themeService: ThemeService
 ) {
-    @PostMapping
+    @PostMapping("/theme")
     fun registerTheme(@RequestBody form: RegisterThemeRequest): CommonResponse<Long> =
         success(themeService.registerTheme(form))
 
-    @PostMapping("/genre")
+    @PostMapping("/theme/genre")
     fun registerThemeGenre(@RequestBody form: RegisterThemeGenreRequest): CommonResponse<Any> {
         themeService.registerThemeGenre(form)
         return success()
     }
 
-    @GetMapping("/{themeId}")
+    @GetMapping("/theme/{themeId}")
     fun getThemeSpec(@PathVariable themeId: Long): CommonResponse<ThemeSpecResponse> =
         success(themeService.getThemeSpec(themeId))
 
-    @DeleteMapping("/{themeId}")
+    @DeleteMapping("/theme/{themeId}")
     fun deleteTheme(@PathVariable themeId: Long): CommonResponse<Any> {
         themeService.deleteTheme(themeId)
         return success()
     }
 
-    @GetMapping("/list")
-    fun getThemeList(@RequestParam(required = true) cafeId: Long): CommonResponse<ThemeListResponse> =
-        success(themeService.getThemeList(cafeId))
+    @GetMapping("/themes")
+    fun getThemeList(
+        @RequestParam(required = true) cafeId: Long,
+        @RequestParam(required = true) sort: String
+    ): CommonResponse<ThemeListResponse> =
+        success(themeService.getThemeList(cafeId, sort))
 }

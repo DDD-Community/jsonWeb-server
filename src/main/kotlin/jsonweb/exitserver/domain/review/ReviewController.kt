@@ -43,7 +43,7 @@ class ReviewController(
         return success()
     }
 
-    @GetMapping("/theme/{themeId}/review/list")
+    @GetMapping("/theme/{themeId}/reviews")
     fun getReviewList(
         @PathVariable("themeId") themeId: Long,
         @RequestParam(defaultValue = "DATE", required = false) sort: String,
@@ -51,7 +51,7 @@ class ReviewController(
         @RequestParam(defaultValue = "16", required = false) size: Int
     ): CommonResponse<ReviewListResponse> = success(reviewService.getReviewList(themeId, page, size, sort))
 
-    @GetMapping("/user/review/list")
+    @GetMapping("/users/me/reviews")
     fun getUserReviewList(
         @RequestParam(defaultValue = "DATE", required = false) sort: String,
         @RequestParam(defaultValue = "0", required = false) page: Int,

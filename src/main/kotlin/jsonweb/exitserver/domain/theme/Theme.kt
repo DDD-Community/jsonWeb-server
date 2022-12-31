@@ -15,7 +15,7 @@ class Theme(
     var maxPlayerCount: Int,
     var difficulty: Double,
     var ageLimit: String,
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "cafe_id")
     var cafe: Cafe
 ) {
@@ -65,11 +65,11 @@ class Theme(
 
 @Entity
 class ThemeGenre(
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "theme_id")
     val theme: Theme,
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "genre_id")
     val genre: Genre,
 ) {

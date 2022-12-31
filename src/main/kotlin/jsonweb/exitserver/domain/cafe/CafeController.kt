@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.*
 
 @RestController
 class CafeController(private val cafeService: CafeService) {
-    @PostMapping
+    @PostMapping("/cafe")
     fun registerCafe(@RequestBody form: RegisterCafeRequest): CommonResponse<Any> =
         success(cafeService.registerCafe(form))
 
@@ -26,7 +26,7 @@ class CafeController(private val cafeService: CafeService) {
         return success()
     }
 
-    @GetMapping("/cafe/list")
+    @GetMapping("/cafes")
     fun getCafeList(
         @RequestParam(defaultValue = "DEFAULT", required = false) sort: String,
         @RequestParam(defaultValue = "0", required = false) page: Int,
@@ -39,31 +39,10 @@ class CafeController(private val cafeService: CafeService) {
         } ?: return success(cafeService.getCafeList(genre, page, size, sort))
     }
 
-    @GetMapping("/user/cafe/list")
+    @GetMapping("/users/me/cafes")
     fun getLikeCafeList(
         @RequestParam(defaultValue = "0", required = false) page: Int,
         @RequestParam(defaultValue = "16", required = false) size: Int
     ): CommonResponse<CafeListResponse> = success(cafeService.getLikeCafeList(page, size))
-
-    @GetMapping("/cafe/{cafeId}/theme")
-    fun getThemeListOfCafe(@PathVariable("cafeId") cafeId: Long): CommonResponse<CafeThemeListResponse> =
-        success(cafeService.getThemeListOfCafe(cafeId))
-
-//    @PostMapping("/{cafeId}/report")
-//    fun reportCafe(
-//        @PathVariable("cafeId") cafeId: Long,
-//        @RequestBody form: ReportCafeRequest
-//    ): CommonResponse<Any> {
-//        cafeService.reportCafe(cafeId, form.reportContent)
-//        return success(null)
-//    }
-
-//    @DeleteMapping("{reportId}/resolve")
-//    fun resolveCafe(
-//        @PathVariable("reportId") reportId: Long
-//    ): CommonResponse<Any> {
-//        cafeService.resolveCafe(reportId)
-//        return success(null)
-//    }
 
 }
