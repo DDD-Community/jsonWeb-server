@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*
 class ReviewController(
     private val reviewService: ReviewService
 ) {
-    @PostMapping("/theme/{themeId}/review")
+    @PostMapping("/themes/{themeId}/reviews")
     fun createReview(
         @PathVariable("themeId") themeId: Long,
         @RequestBody form: CreateReviewRequest
@@ -17,7 +17,7 @@ class ReviewController(
         return success()
     }
 
-    @PutMapping("/review/{reviewId}")
+    @PutMapping("/reviews/{reviewId}")
     fun updateReview(
         @PathVariable("reviewId") reviewId: Long,
         @RequestBody form: UpdateReviewRequest
@@ -26,24 +26,24 @@ class ReviewController(
         return success()
     }
 
-    @DeleteMapping("/review/{reviewId}")
+    @DeleteMapping("/reviews/{reviewId}")
     fun deleteReview(@PathVariable("reviewId") reviewId: Long): CommonResponse<Any> {
         reviewService.deleteReview(reviewId)
         return success()
     }
 
-    @GetMapping("/review/{reviewId}")
+    @GetMapping("/reviews/{reviewId}")
     fun getReview(@PathVariable("reviewId") reviewId: Long): CommonResponse<ReviewResponse> =
         success(reviewService.getReview(reviewId))
 
 
-    @PutMapping("/review/{reviewId}/like")
+    @PutMapping("/reviews/{reviewId}/like")
     fun likeReview(@PathVariable("reviewId") reviewId: Long): CommonResponse<Any> {
         reviewService.checkLike(reviewId)
         return success()
     }
 
-    @GetMapping("/theme/{themeId}/reviews")
+    @GetMapping("/themes/{themeId}/reviews")
     fun getReviewList(
         @PathVariable("themeId") themeId: Long,
         @RequestParam(defaultValue = "DATE", required = false) sort: String,
@@ -58,7 +58,7 @@ class ReviewController(
         @RequestParam(defaultValue = "16", required = false) size: Int
     ): CommonResponse<ReviewListResponse> = success(reviewService.getUserReviewList(page, size, sort))
 
-    @GetMapping("/theme/{themeId}/review/popular-emotion")
+    @GetMapping("/themes/{themeId}/reviews/popular-emotion")
     fun getPopularEmotion(@PathVariable("themeId") themeId: Long): CommonResponse<PopularEmotionResponse> =
         success(reviewService.getPopularEmotion(themeId))
 

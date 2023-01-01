@@ -8,21 +8,21 @@ import org.springframework.web.bind.annotation.*
 class ThemeController(
     private val themeService: ThemeService
 ) {
-    @PostMapping("/theme")
+    @PostMapping("/themes")
     fun registerTheme(@RequestBody form: RegisterThemeRequest): CommonResponse<Long> =
         success(themeService.registerTheme(form))
 
-    @PostMapping("/theme/genre")
+    @PostMapping("/themes/genre")
     fun registerThemeGenre(@RequestBody form: RegisterThemeGenreRequest): CommonResponse<Any> {
         themeService.registerThemeGenre(form)
         return success()
     }
 
-    @GetMapping("/theme/{themeId}")
+    @GetMapping("/themes/{themeId}")
     fun getThemeSpec(@PathVariable themeId: Long): CommonResponse<ThemeSpecResponse> =
         success(themeService.getThemeSpec(themeId))
 
-    @DeleteMapping("/theme/{themeId}")
+    @DeleteMapping("/themes/{themeId}")
     fun deleteTheme(@PathVariable themeId: Long): CommonResponse<Any> {
         themeService.deleteTheme(themeId)
         return success()
