@@ -34,10 +34,14 @@ class ThemeService(
         themeRepository.deleteById(themeId)
     }
 
-    fun getThemeList(cafeId: Long): ThemeListResponse {
+    fun getThemeList(cafeId: Long, sort: String): ThemeListResponse {
         val cafe = cafeRepository.findById(cafeId).orElseThrow { throw EntityNotFoundException() }
         val themes = themeRepository.findAllByCafe(cafe)
-        sortTheme(themes)
+        if (sort == "POPULAR") {
+            sortTheme(themes)
+        } else {
+            themes.sortedBy { it.name }
+        }
         return ThemeListResponse(themes.map { ThemeResponse(it) })
     }
 
