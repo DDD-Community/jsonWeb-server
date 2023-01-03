@@ -35,7 +35,7 @@ class KakaoClient(
             "http://localhost:8080/users/login"
         } else {
             // deploy linux
-            "http://exitnow.netlify.app/users/login"
+            "http://localhost:3000/users/login"
         }
     }
 
