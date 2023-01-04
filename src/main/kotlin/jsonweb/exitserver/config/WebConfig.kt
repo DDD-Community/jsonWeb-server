@@ -9,7 +9,7 @@ class WebConfig : WebMvcConfigurer {
     override fun addCorsMappings(registry: CorsRegistry) {
         registry.addMapping("/**")
             .allowedMethods("*")
-            .allowedOrigins("https://exitnow.netlify.app/**", "http://localhost:3000/**")
-            .allowCredentials(true)
+            .allowedOrigins("*")
+//            .allowCredentials(true)
     }
 }
