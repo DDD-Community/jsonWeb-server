@@ -3,13 +3,11 @@ package jsonweb.exitserver.domain.user
 import jsonweb.exitserver.common.CommonResponse
 import jsonweb.exitserver.common.success
 import org.springframework.web.bind.annotation.*
-import springfox.documentation.annotations.ApiIgnore
 
 @RestController
 @RequestMapping("/users")
 class UserController(private val userService: UserService) {
 
-    @ApiIgnore
     @PostMapping("/test-login")
     fun testLogin(): CommonResponse<JwtDto> =
         success(userService.testLogin())
