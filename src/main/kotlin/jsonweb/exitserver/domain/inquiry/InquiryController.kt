@@ -4,6 +4,7 @@ import jsonweb.exitserver.common.CommonResponse
 import jsonweb.exitserver.common.success
 import org.springframework.security.access.prepost.PreAuthorize
 import org.springframework.web.bind.annotation.*
+import javax.validation.Valid
 
 @RestController
 class InquiryController(private val inquiryService: InquiryService) {
@@ -19,13 +20,13 @@ class InquiryController(private val inquiryService: InquiryService) {
         success(inquiryService.getInquiryToDto(inquiryId))
 
     @PostMapping("/inquires")
-    fun createInquiry(@RequestBody form: InquiryRequest): CommonResponse<List<InquiryResponse>> =
+    fun createInquiry(@Valid @RequestBody form: InquiryRequest): CommonResponse<List<InquiryResponse>> =
         success(inquiryService.createInquiry(form))
 
     @PutMapping("/inquires/{inquiryId}")
     fun updateInquiry(
         @PathVariable inquiryId: Long,
-        @RequestBody form: InquiryRequest
+        @Valid @RequestBody form: InquiryRequest
     ): CommonResponse<List<InquiryResponse>> = success(inquiryService.updateInquiry(inquiryId, form))
 
     @DeleteMapping("/inquires/{inquiryId}")
