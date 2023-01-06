@@ -13,6 +13,7 @@ import jsonweb.exitserver.domain.inquiry.INQUIRY_CATEGORIES
 import jsonweb.exitserver.domain.inquiry.InquiryRepository
 import jsonweb.exitserver.domain.inquiry.InquiryRequest
 import jsonweb.exitserver.domain.inquiry.InquiryService
+import jsonweb.exitserver.domain.review.Review
 import jsonweb.exitserver.domain.review.ReviewRepository
 import jsonweb.exitserver.domain.theme.*
 import jsonweb.exitserver.domain.user.User
@@ -65,6 +66,8 @@ class DataGenerator(
 
         if (cafeRepository.count().toInt() != 0) return
 
+        val emotions: Array<String> = arrayOf("재미있어요", "무서워요", "신선해요", "슬퍼요", "여운이남아요")
+
         val genres: Array<String> = arrayOf("장르1", "장르2", "장르3", "장르4", "장르5", "장르6", "장르7", "장르8")
 //        val genreEntities = emptyArray<Genre>()
         val genreEntities = arrayOfNulls<Genre>(8)
@@ -105,6 +108,8 @@ class DataGenerator(
                 val b = ((1..7).random() + a) % 8
                 genreEntities[a]?.let { it1 -> ThemeGenre(themeI, it1) }?.let { it2 -> themeI.addThemeGenre(it2) }
                 genreEntities[b]?.let { it1 -> ThemeGenre(themeI, it1) }?.let { it2 -> themeI.addThemeGenre(it2) }
+                themeI.addReview(Review("예시 리뷰 내용 1", 5.0, 3.2, emotions[a%5], "", dummyUser, themeI))
+                themeI.addReview(Review("예시 리뷰 내용 2", 4.2, 1.7, emotions[b%5], emotions[(b+3)%5], dummyUser, themeI))
             }
 
             // 가격 3회씩 반복
