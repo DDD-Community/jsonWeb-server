@@ -14,6 +14,7 @@ data class BoastRequest(
 
 data class BoastResponse(
     val boastId: Long,
+    val themeName: String,
     val userNickname: String,
     val userProfileImage: String,
     val userLevel: String = "1", // TODO
@@ -27,6 +28,7 @@ data class BoastResponse(
 ) {
     constructor(boast: Boast) : this(
         boastId = boast.id,
+        themeName = boast.theme.name,
         userNickname = boast.user.nickname,
         userProfileImage = boast.user.profileImageUrl,
 //        userLevel = boast.user.level.toString(), TODO
