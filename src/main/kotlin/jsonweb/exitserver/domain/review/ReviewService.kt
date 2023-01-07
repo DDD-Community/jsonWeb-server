@@ -128,10 +128,12 @@ class ReviewService(
 
         if (totalReviewCount == 0) return PopularEmotionResponse(0, "No Review")
 
-        var emotionCount = mutableMapOf<String, Int>()
+        val emotionCount = mutableMapOf<String, Int>()
         val emotionEmoji = mutableMapOf<String, String>()
+        val emotionPastTense = mutableMapOf<String, String>()
         Emotions.values().forEach { emotionCount[it.getEmotion()] = 0 }
-        Emotions.values().forEach { emotionEmoji[it.getEmotion()] = it.getEmoji()}
+        Emotions.values().forEach { emotionEmoji[it.getEmotion()] = it.getEmoji() }
+        Emotions.values().forEach { emotionEmoji[it.getEmotion()] = it.getPastTense() }
 
         for (review in reviews) {
             incrementCount(review.emotionFirst, emotionCount)
@@ -141,7 +143,7 @@ class ReviewService(
         val maxEmotion = emotionCount.maxWith { o1, o2 -> o1.value.compareTo(o2.value) }
 
         val percentage = 100 * maxEmotion.value / totalReviewCount
-        return PopularEmotionResponse(percentage, maxEmotion.key + emotionEmoji[maxEmotion.key])
+        return PopularEmotionResponse(percentage, emotionPastTense[maxEmotion.key] + emotionEmoji[maxEmotion.key])
     }
 
     private fun incrementCount(emotion: String, emotionCount: MutableMap<String, Int>) {
