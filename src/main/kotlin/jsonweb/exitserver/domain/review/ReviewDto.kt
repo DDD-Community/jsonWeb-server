@@ -73,8 +73,8 @@ data class ReviewResponse(
         modifiedAt = review.modifiedAt,
         star = review.star,
         difficulty = review.difficulty,
-        emotionFirst = review.emotionFirst,
-        emotionSecond = review.emotionSecond,
+        emotionFirst = review.emotionFirst + Emotions.findByEmotion(review.emotionFirst)!!.getEmotion(),
+        emotionSecond = review.emotionSecond + Emotions.findByEmotion(review.emotionSecond)!!.getEmotion(),
         content = review.content,
         themeName = review.theme.name,
         themeGenre = review.theme.themeGenreList.map { it.genre.genreName }
