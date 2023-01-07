@@ -126,6 +126,8 @@ class ReviewService(
         val reviews = reviewRepository.findAllByTheme(theme)
         val totalReviewCount = reviews.count()
 
+        if (totalReviewCount == 0) return PopularEmotionResponse(0, "No Review")
+
         var emotionCount = mutableMapOf<String, Int>()
         Emotions.values().forEach { emotionCount[it.getEmotion()] = 0 }
 
