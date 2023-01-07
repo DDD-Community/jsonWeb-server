@@ -170,7 +170,7 @@ class DataGenerator(
                 repeat((0..3).random()) {
                     hashtags.add(randomHashtags[(randomHashtags.indices).random()])
                 }
-                val form = BoastRequest(themeId.toLong() + 1, imageUrls, hashtags)
+                val form = BoastRequest(themeId.toLong() + 1, imageUrls[0], hashtags)
                 boastService.createDummyBoast(form, randomIds[(randomIds.indices).random()])
             }
         }
