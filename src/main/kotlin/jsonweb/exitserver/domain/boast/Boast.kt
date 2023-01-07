@@ -16,6 +16,7 @@ class Boast(
     @JoinColumn(name = "user_id")
     val user: User,
     theme: Theme,
+    imageUrl: String
 ) : BaseTimeEntity() {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "theme_id")
@@ -25,12 +26,11 @@ class Boast(
     var likeCount: Int = 0
         protected set
 
-    var visibility: Boolean = true
+    var imageUrl: String = imageUrl
         protected set
 
-    @OneToMany(mappedBy = "boast", cascade = [CascadeType.ALL], orphanRemoval = true)
-    protected val boastImageMutableList: MutableList<BoastImage> = mutableListOf()
-    val boastImageList: List<BoastImage> get() = boastImageMutableList.toList()
+    var visibility: Boolean = true
+        protected set
 
     @OneToMany(mappedBy = "boast", cascade = [CascadeType.ALL], orphanRemoval = true)
     protected val hashtagMutableList: MutableList<BoastHashtag> = mutableListOf()
@@ -39,8 +39,8 @@ class Boast(
     /**
      * methods
      */
-    fun addImage(image: BoastImage) {
-        boastImageMutableList.add(image)
+    fun addImage(imageUrl: String) {
+        this.imageUrl = imageUrl
     }
 
     fun addHashtag(hashtag: BoastHashtag) {
@@ -48,12 +48,9 @@ class Boast(
     }
 
     fun update(form: BoastRequest, theme: Theme) {
-        boastImageMutableList.clear()
         hashtagMutableList.clear()
         this.theme = theme
-        form.imageUrls.forEach {
-            addImage(BoastImage(imageUrl = it, boast = this))
-        }
+        this.imageUrl = form.imageUrl
         form.hashtags.forEach {
             addHashtag(BoastHashtag(hashtag = "#$it", boast = this))
         }
@@ -75,19 +72,6 @@ class Boast(
         visibility = true
     }
 }
-
-@Entity
-class BoastImage(
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "boast_image_id")
-    val id: Long = 0L,
-
-    val imageUrl: String,
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "boast_id")
-    val boast: Boast,
-)
 
 @Entity
 class BoastHashtag(

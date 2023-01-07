@@ -3,6 +3,7 @@ package jsonweb.exitserver.domain.boast
 import jsonweb.exitserver.common.CommonResponse
 import jsonweb.exitserver.common.success
 import org.springframework.web.bind.annotation.*
+import javax.validation.Valid
 
 @RestController
 class BoastController(private val boastService: BoastService) {
@@ -29,7 +30,7 @@ class BoastController(private val boastService: BoastService) {
     ): CommonResponse<BoastListResponse> = success(boastService.getThemeBoasts(themeId, sort, page, size))
 
     @PostMapping("/boasts")
-    fun createBoast(@RequestBody form: BoastRequest): CommonResponse<Any> {
+    fun createBoast(@Valid @RequestBody form: BoastRequest): CommonResponse<Any> {
         boastService.createBoast(form)
         return success()
     }
@@ -37,7 +38,7 @@ class BoastController(private val boastService: BoastService) {
     @PutMapping("/boasts/{boastId}")
     fun updateBoast(
         @PathVariable("boastId") id: Long,
-        @RequestBody form: BoastRequest
+        @Valid @RequestBody form: BoastRequest
     ): CommonResponse<Any> {
         boastService.updateBoast(id, form)
         return success()

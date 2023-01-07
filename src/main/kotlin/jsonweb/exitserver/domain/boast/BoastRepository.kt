@@ -3,7 +3,6 @@ package jsonweb.exitserver.domain.boast
 import com.querydsl.jpa.impl.JPAQueryFactory
 import jsonweb.exitserver.domain.boast.QBoast.boast
 import jsonweb.exitserver.domain.boast.QBoastHashtag.boastHashtag
-import jsonweb.exitserver.domain.boast.QBoastImage.boastImage
 import jsonweb.exitserver.domain.theme.QTheme
 import jsonweb.exitserver.domain.theme.Theme
 import jsonweb.exitserver.domain.user.QUser
@@ -34,7 +33,6 @@ class BoastRepositoryImpl(
 ) : BoastRepositoryCustom, QuerydslRepositorySupport(Boast::class.java) {
     override fun findAllBoasts(pageable: Pageable): Page<Boast> {
         val query = jpaQueryFactory.selectFrom(boast)
-            .leftJoin(boast.boastImageMutableList, boastImage)
             .leftJoin(boast.hashtagMutableList, boastHashtag)
             .fetchJoin()
             .where(boast.visibility.eq(true))
@@ -47,7 +45,6 @@ class BoastRepositoryImpl(
     override fun findAllByUser(user: User, pageable: Pageable): Page<Boast> {
         val query = jpaQueryFactory.selectFrom(boast)
             .leftJoin(boast.user, QUser.user)
-            .leftJoin(boast.boastImageMutableList, boastImage)
             .leftJoin(boast.hashtagMutableList, boastHashtag)
             .fetchJoin()
             .where(boast.visibility.eq(true))
@@ -60,7 +57,6 @@ class BoastRepositoryImpl(
     override fun findAllByTheme(theme: Theme, pageable: Pageable): Page<Boast> {
         val query = jpaQueryFactory.selectFrom(boast)
             .leftJoin(boast.theme, QTheme.theme)
-            .leftJoin(boast.boastImageMutableList, boastImage)
             .leftJoin(boast.hashtagMutableList, boastHashtag)
             .fetchJoin()
             .where(boast.visibility.eq(true))

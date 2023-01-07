@@ -68,10 +68,11 @@ class BoastService(
     fun createBoast(form: BoastRequest) {
         val user = userService.getCurrentLoginUser()
         val theme = themeRepository.findById(form.themeId).orElseThrow()
-        val boast = boastRepository.save(Boast(user = user, theme = theme))
-        form.imageUrls.forEach {
-            boast.addImage(BoastImage(imageUrl = it, boast = boast))
-        }
+        val boast = boastRepository.save(Boast(
+            user = user,
+            theme = theme,
+            imageUrl = form.imageUrl
+        ))
         form.hashtags.forEach {
             boast.addHashtag(BoastHashtag(hashtag = "#$it", boast = boast))
         }
@@ -117,10 +118,10 @@ class BoastService(
     fun createDummyBoast(form: BoastRequest, dummyKakaoId: Long) {
         val user = userService.getTestUser(dummyKakaoId)
         val theme = themeRepository.findById(form.themeId).orElseThrow()
-        val boast = boastRepository.save(Boast(user = user, theme = theme))
-        form.imageUrls.forEach {
-            boast.addImage(BoastImage(imageUrl = it, boast = boast))
-        }
+        val boast = boastRepository.save(Boast(
+            user = user,
+            theme = theme,
+            imageUrl = form.imageUrl))
         form.hashtags.forEach {
             boast.addHashtag(BoastHashtag(hashtag = "#$it", boast = boast))
         }

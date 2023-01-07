@@ -60,7 +60,6 @@ class KakaoClient(
             kakaoTokenRequest,
             String::class.java
         )
-
         return JSONObject(response.body).getString("access_token")
     }
 
