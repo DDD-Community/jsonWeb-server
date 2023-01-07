@@ -8,6 +8,7 @@ import org.springframework.data.domain.PageRequest
 import org.springframework.data.domain.Sort
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
+import java.util.EnumMap
 import javax.persistence.EntityNotFoundException
 
 @Service
@@ -81,6 +82,8 @@ class ReviewService(
             page, size, makeSort(sort)
         )
         val reviews = reviewRepository.findAllByTheme(theme, pageable)
+
+
         return markLike(
             ReviewListResponse(
                 reviews.toList().map { ReviewResponse(it) },
@@ -129,11 +132,7 @@ class ReviewService(
         if (totalReviewCount == 0) return PopularEmotionResponse(0, "No Review")
 
         val emotionCount = mutableMapOf<String, Int>()
-        val emotionEmoji = mutableMapOf<String, String>()
-        val emotionPastTense = mutableMapOf<String, String>()
         Emotions.values().forEach { emotionCount[it.getEmotion()] = 0 }
-        Emotions.values().forEach { emotionEmoji[it.getEmotion()] = it.getEmoji() }
-        Emotions.values().forEach { emotionPastTense[it.getEmotion()] = it.getPastTense() }
 
         for (review in reviews) {
             incrementCount(review.emotionFirst, emotionCount)
@@ -143,7 +142,10 @@ class ReviewService(
         val maxEmotion = emotionCount.maxWith { o1, o2 -> o1.value.compareTo(o2.value) }
 
         val percentage = 100 * maxEmotion.value / totalReviewCount
-        return PopularEmotionResponse(percentage, emotionPastTense[maxEmotion.key] + emotionEmoji[maxEmotion.key])
+        return PopularEmotionResponse(percentage,
+            Emotions.findByEmotion(maxEmotion.key)!!.getPastTense() + Emotions.findByEmotion(maxEmotion.key)!!
+                .getEmoji()
+        )
     }
 
     private fun incrementCount(emotion: String, emotionCount: MutableMap<String, Int>) {
