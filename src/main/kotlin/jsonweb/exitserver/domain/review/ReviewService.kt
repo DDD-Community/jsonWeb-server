@@ -83,7 +83,6 @@ class ReviewService(
         )
         val reviews = reviewRepository.findAllByTheme(theme, pageable)
 
-
         return markLike(
             ReviewListResponse(
                 reviews.toList().map { ReviewResponse(it) },
