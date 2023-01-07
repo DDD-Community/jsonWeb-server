@@ -133,7 +133,7 @@ class ReviewService(
         val emotionPastTense = mutableMapOf<String, String>()
         Emotions.values().forEach { emotionCount[it.getEmotion()] = 0 }
         Emotions.values().forEach { emotionEmoji[it.getEmotion()] = it.getEmoji() }
-        Emotions.values().forEach { emotionEmoji[it.getEmotion()] = it.getPastTense() }
+        Emotions.values().forEach { emotionPastTense[it.getEmotion()] = it.getPastTense() }
 
         for (review in reviews) {
             incrementCount(review.emotionFirst, emotionCount)
