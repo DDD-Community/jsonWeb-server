@@ -43,7 +43,7 @@ class DataGenerator(
         /**
          * 테스트 회원 세팅
          */
-//        if (userRepository.count().toInt() != 0) return
+        if (userRepository.count().toInt() != 0) return
         val dummyAdmin = User(
             kakaoId = TEST_ADMIN_KAKAO_ID,
             nickname = "어드민",
@@ -64,12 +64,11 @@ class DataGenerator(
         userRepository.save(dummyUser)
         userRepository.flush()
 
-//        if (cafeRepository.count().toInt() != 0) return
+        if (cafeRepository.count().toInt() != 0) return
 
         val emotions: Array<String> = arrayOf("재미있어요", "무서워요", "신선해요", "슬퍼요", "여운이남아요")
 
         val genres: Array<String> = arrayOf("장르1", "장르2", "장르3", "장르4", "장르5", "장르6", "장르7", "장르8")
-//        val genreEntities = emptyArray<Genre>()
         val genreEntities = arrayOfNulls<Genre>(8)
         for (i: Int in 0..7) {
             genreEntities[i] = genreRepository.save(Genre(genres[i]))
