@@ -96,6 +96,7 @@ class CafeService(
         ).and(Sort.by("cafeId"))
     }
 
+    @Transactional
     fun checkLike(cafeId: Long) {
         val userId = userService.getCurrentLoginUser().userId
         if (cafeLikeRepository.existsById(UserAndCafe(userId, cafeId))) unlikeCafe(userId, cafeId)

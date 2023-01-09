@@ -54,10 +54,11 @@ class ReviewService(
         return markLike(ReviewResponse(review))
     }
 
+    @Transactional
     fun checkLike(reviewId: Long) {
         val userId = userService.getCurrentLoginUser().userId
         val review = reviewRepository.findById(reviewId).orElseThrow { throw EntityNotFoundException() }
-        if (reviewLikeRepository.existsById(UserAndReview(userId, reviewId))) {
+        if (!reviewLikeRepository.existsById(UserAndReview(userId, reviewId))) {
             likeReview(userId, reviewId)
             review.plusLike()
         } else {
