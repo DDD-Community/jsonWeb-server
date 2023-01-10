@@ -2,6 +2,7 @@ package jsonweb.exitserver.domain.review
 
 import jsonweb.exitserver.domain.theme.Theme
 import jsonweb.exitserver.domain.user.User
+import jsonweb.exitserver.util.toDotFormat
 import org.springframework.data.domain.Sort
 
 enum class ReviewSort(private val sort: String, private val direction: Sort.Direction) {
@@ -72,7 +73,7 @@ data class ReviewResponse(
         writerNickname = review.user.nickname,
         writerProfile = review.user.profileImageUrl,
         writerLevel = review.user.level,
-        modifiedAt = review.modifiedAt,
+        modifiedAt = review.modifiedAt.toDotFormat(),
         star = review.star,
         difficulty = review.difficulty,
         emotionFirst = review.emotionFirst + Emotions.findByEmotion(review.emotionFirst)!!.getEmoji(),

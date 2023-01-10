@@ -1,5 +1,6 @@
 package jsonweb.exitserver.domain.boast
 
+import jsonweb.exitserver.util.toDotFormat
 import javax.validation.constraints.Size
 
 data class BoastRequest(
@@ -31,7 +32,7 @@ data class BoastResponse(
         writerProfileImage = boast.user.profileImageUrl,
 //        userBadge = boast.user.badge.toString(), TODO
         genre = boast.theme.themeGenreList.map { it.genre.genreName },
-        modifiedAt = boast.modifiedAt,
+        modifiedAt = boast.modifiedAt.toDotFormat(),
         likeCount = boast.likeCount,
         boastImage = boast.imageUrl,
         hashtags = boast.hashtagList.map { it.hashtag }
