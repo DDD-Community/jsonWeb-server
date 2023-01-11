@@ -14,6 +14,10 @@ class NicknameGenerator(private val userRepository: UserRepository) {
     val log = logger()
     private var randomNicknameList: MutableList<String> = mutableListOf()
 
+    companion object {
+        private const val MAX_LENGTH = 6
+    }
+
     @PostConstruct
     private fun generateNickname() {
         try {
@@ -22,7 +26,12 @@ class NicknameGenerator(private val userRepository: UserRepository) {
                 String::class.java
             )
             JSONObject(response.body).getJSONArray("words")
-                .forEach { randomNicknameList.add("$it 탈출러${Random.nextInt(1000)}") }
+                .forEach {
+                    it as String
+                    val generatedNickname = "${it.split(" ")[0]}${Random.nextInt(1000)}"
+                    if (generatedNickname.length <= MAX_LENGTH)
+                        randomNicknameList.add(generatedNickname)
+                }
         } catch (e: Exception) {
             log.warn(
                 "[{}] random nickname auto generation fail, DETAIL {}",
@@ -38,4 +47,6 @@ class NicknameGenerator(private val userRepository: UserRepository) {
             if (!userRepository.existsByNickname(nickname)) return nickname
         }
     }
+
+
 }
