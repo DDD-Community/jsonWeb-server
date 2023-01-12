@@ -1,7 +1,9 @@
 package jsonweb.exitserver.domain.review
 
+import jsonweb.exitserver.common.logger
 import jsonweb.exitserver.domain.theme.ThemeRepository
 import jsonweb.exitserver.domain.user.UserService
+import jsonweb.exitserver.util.badge.BadgeEnum
 import jsonweb.exitserver.util.Exp
 import org.modelmapper.ModelMapper
 import org.springframework.data.domain.PageRequest
@@ -20,6 +22,8 @@ class ReviewService(
     private val modelMapper: ModelMapper
 ) {
 
+    val log = logger()
+
     @Exp(20)
     @Transactional
     fun createReview(themeId: Long, form: CreateReviewRequest) {
@@ -29,6 +33,12 @@ class ReviewService(
         reviewRepository.save(review)
         theme.addReview(review)
         theme.cafe.addReview(form.star)
+        
+        // 첫 리뷰이면 엑시터 뱃지 획득
+        if (user.reviewList.size == 1) {
+            log.info("${user.nickname}님이 '엑시터' 뱃지를 획득.")
+            user.addBadge(BadgeEnum.EIXTER)
+        }
     }
 
     @Transactional

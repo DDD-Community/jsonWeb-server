@@ -3,6 +3,8 @@ package jsonweb.exitserver.domain.user
 import jsonweb.exitserver.domain.boast.Boast
 import jsonweb.exitserver.domain.inquiry.Inquiry
 import jsonweb.exitserver.domain.review.Review
+import jsonweb.exitserver.util.badge.Badge
+import jsonweb.exitserver.util.badge.BadgeEnum
 import javax.persistence.*
 
 enum class Role { ROLE_USER, ROLE_ADMIN }
@@ -46,6 +48,11 @@ class User(
     protected val inquiryMutableList: MutableList<Inquiry> = mutableListOf()
     val inquiryList: List<Inquiry> get() = inquiryMutableList.toList()
 
+    @OneToMany(mappedBy = "user", cascade = [CascadeType.ALL], orphanRemoval = true)
+    protected val badgeMutableSet: MutableSet<Badge> = mutableSetOf()
+    val badgeList: List<Badge> get() = badgeMutableSet.toList()
+
+
     @Enumerated(EnumType.STRING)
     var role: Role = Role.ROLE_USER
         protected set
@@ -69,8 +76,17 @@ class User(
     }
 
     fun addExp(amount: Int) {
-        this.exp += amount
+        exp += amount
     }
+
+    fun addBadge(badgeEnum: BadgeEnum) {
+        badgeMutableSet.add(badgeEnum.toEntity(this))
+    }
+    
+    fun isNotGotten(badgeEnum: BadgeEnum): Boolean = badgeMutableSet
+        .none { it.badge == badgeEnum.kor() }
+
+    
 
     fun updateUserInfo(newNickname: String? = null, newProfileImageUrl: String? = null) {
         newNickname?.let { nickname = newNickname }

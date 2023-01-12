@@ -16,14 +16,17 @@ abstract class BaseTimeEntity {
     var createdAt: String = ""
     var modifiedAt: String = ""
 
+    private fun dateFormat(): String = LocalDateTime.now()
+        .format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))
+
     @PrePersist
     fun prePersist() {
-        this.createdAt = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))
-        this.modifiedAt = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))
+        createdAt = dateFormat()
+        modifiedAt = dateFormat()
     }
 
     @PreUpdate
     fun preUpdate() {
-        this.modifiedAt = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"))
+        modifiedAt = dateFormat()
     }
 }

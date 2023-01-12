@@ -8,14 +8,6 @@ import org.springframework.web.bind.annotation.RestController
 import springfox.documentation.annotations.ApiIgnore
 
 
-
-@ApiIgnore
-@RestController
-class HelloController {
-    @GetMapping
-    fun hello() = "hello!"
-}
-
 @SpringBootApplication
 @EnableAspectJAutoProxy
 class JsonWebServerApplication
