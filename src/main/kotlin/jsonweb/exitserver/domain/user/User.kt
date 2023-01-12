@@ -68,6 +68,10 @@ class User(
         }
     }
 
+    fun addExp(amount: Int) {
+        this.exp += amount
+    }
+
     fun updateUserInfo(newNickname: String? = null, newProfileImageUrl: String? = null) {
         newNickname?.let { nickname = newNickname }
         newProfileImageUrl?.let { profileImageUrl = newProfileImageUrl }

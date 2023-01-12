@@ -1,14 +1,13 @@
 package jsonweb.exitserver.domain.review
 
-import jsonweb.exitserver.domain.cafe.CafeRepository
 import jsonweb.exitserver.domain.theme.ThemeRepository
 import jsonweb.exitserver.domain.user.UserService
+import jsonweb.exitserver.util.Exp
 import org.modelmapper.ModelMapper
 import org.springframework.data.domain.PageRequest
 import org.springframework.data.domain.Sort
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
-import java.util.EnumMap
 import javax.persistence.EntityNotFoundException
 
 @Service
@@ -17,11 +16,11 @@ class ReviewService(
     private val reviewRepository: ReviewRepository,
     private val reviewLikeRepository: ReviewLikeRepository,
     private val themeRepository: ThemeRepository,
-    private val cafeRepository: CafeRepository,
     private val userService: UserService,
     private val modelMapper: ModelMapper
 ) {
 
+    @Exp(20)
     @Transactional
     fun createReview(themeId: Long, form: CreateReviewRequest) {
         val user = userService.getCurrentLoginUser()
@@ -149,7 +148,7 @@ class ReviewService(
     }
 
     private fun incrementCount(emotion: String, emotionCount: MutableMap<String, Int>) {
-        if (!emotion.isNullOrEmpty()) {
+        if (emotion.isNotEmpty()) {
             val curCount = emotionCount[emotion]
             emotionCount[emotion] = curCount!! + 1
         }

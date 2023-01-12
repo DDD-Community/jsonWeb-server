@@ -2,6 +2,7 @@ package jsonweb.exitserver.domain.boast
 
 import jsonweb.exitserver.domain.theme.ThemeRepository
 import jsonweb.exitserver.domain.user.UserService
+import jsonweb.exitserver.util.Exp
 import org.springframework.data.domain.Page
 import org.springframework.data.domain.PageRequest
 import org.springframework.data.domain.Sort
@@ -64,6 +65,7 @@ class BoastService(
         return boasts.toBoastListResponse()
     }
 
+    @Exp(20)
     @Transactional
     fun createBoast(form: BoastRequest) {
         val user = userService.getCurrentLoginUser()
@@ -114,6 +116,7 @@ class BoastService(
     /**
      * 테스트용
      */
+    @Exp(20)
     @Transactional
     fun createDummyBoast(form: BoastRequest, dummyKakaoId: Long) {
         val user = userService.getTestUser(dummyKakaoId)
