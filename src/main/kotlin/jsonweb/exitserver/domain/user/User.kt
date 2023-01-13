@@ -86,6 +86,9 @@ class User(
     fun isNotGotten(badgeEnum: BadgeEnum): Boolean = badgeMutableSet
         .none { it.badge == badgeEnum.kor() }
 
+    fun clearBadge() {
+        badgeMutableSet.clear()
+    }
     
 
     fun updateUserInfo(newNickname: String? = null, newProfileImageUrl: String? = null) {
