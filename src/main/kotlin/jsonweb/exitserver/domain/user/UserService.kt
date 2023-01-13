@@ -4,8 +4,6 @@ import jsonweb.exitserver.auth.KakaoClient
 import jsonweb.exitserver.auth.jwt.JwtProvider
 import jsonweb.exitserver.auth.security.getCurrentLoginUserId
 import jsonweb.exitserver.common.TEST_ADMIN_KAKAO_ID
-import jsonweb.exitserver.common.USER_NOT_FOUND
-import jsonweb.exitserver.common.UserException
 import jsonweb.exitserver.util.NicknameGenerator
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
 import org.springframework.security.core.context.SecurityContextHolder
@@ -22,9 +20,9 @@ class UserService(
     private val passwordEncoder: BCryptPasswordEncoder,
     private val nicknameGenerator: NicknameGenerator
 ) {
-
-    fun getCurrentLoginUser(): User = userRepository.findById(getCurrentLoginUserId())
-        .orElseThrow { UserException(USER_NOT_FOUND) }
+    fun getCurrentLoginUser(): User = userRepository
+        .findById(getCurrentLoginUserId())
+        .orElseThrow()
 
     fun getCurrentLoginUserToDto() = UserInfoResponse(getCurrentLoginUser())
 

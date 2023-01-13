@@ -4,9 +4,8 @@ import io.kotest.core.spec.style.AnnotationSpec
 import io.kotest.matchers.shouldBe
 import io.mockk.every
 import io.mockk.mockk
-import jsonweb.exitserver.domain.mockReview
-import jsonweb.exitserver.domain.mockTheme
-import jsonweb.exitserver.domain.mockUser
+import jsonweb.exitserver.domain.getMockReview
+import jsonweb.exitserver.domain.getMockUser
 import jsonweb.exitserver.domain.review.CreateReviewRequest
 import jsonweb.exitserver.domain.review.Review
 import jsonweb.exitserver.domain.review.ReviewService
@@ -30,6 +29,10 @@ class ReviewBadgeTest : AnnotationSpec() {
         userService,
         modelMapper
     )
+
+    private val mockUser = getMockUser()
+    private val mockReview = getMockReview()
+    private val mockTheme = Theme()
 
     private lateinit var factory: AspectJProxyFactory
     private lateinit var reviewServiceProxy: ReviewService
@@ -62,10 +65,7 @@ class ReviewBadgeTest : AnnotationSpec() {
     @Test
     fun `공포매니아 - 공포 장르 리뷰 3개 작성`() {
         // given
-        val theme = Theme()
-        theme.addThemeGenre(ThemeGenre(mockTheme, Genre(GenreEnum.HORROR.kor())))
-        val review = Review("", 3.0, 3.0, "", "", mockUser, theme)
-        every { modelMapper.map(any(), any<Class<*>>()) } returns review
+        every { modelMapper.map(any(), any<Class<*>>()) } returns getMockReview(GenreEnum.HORROR)
         val form = CreateReviewRequest("", "", 1.0, 1.0, "")
 
         // when
@@ -82,10 +82,7 @@ class ReviewBadgeTest : AnnotationSpec() {
     @Test
     fun `미스터리러버 - 미스터리 장르 리뷰 3개 작성`() {
         // given
-        val theme = Theme()
-        theme.addThemeGenre(ThemeGenre(mockTheme, Genre(GenreEnum.MYSTERY.kor())))
-        val review = Review("", 3.0, 3.0, "", "", mockUser, theme)
-        every { modelMapper.map(any(), any<Class<*>>()) } returns review
+        every { modelMapper.map(any(), any<Class<*>>()) } returns getMockReview(GenreEnum.MYSTERY)
         val form = CreateReviewRequest("", "", 1.0, 1.0, "")
 
         // when
@@ -102,10 +99,7 @@ class ReviewBadgeTest : AnnotationSpec() {
     @Test
     fun `로맨스홀릭 - 로맨스 장르 리뷰 3개 작성`() {
         // given
-        val theme = Theme()
-        theme.addThemeGenre(ThemeGenre(mockTheme, Genre(GenreEnum.ROMANCE.kor())))
-        val review = Review("", 3.0, 3.0, "", "", mockUser, theme)
-        every { modelMapper.map(any(), any<Class<*>>()) } returns review
+        every { modelMapper.map(any(), any<Class<*>>()) } returns getMockReview(GenreEnum.ROMANCE)
         val form = CreateReviewRequest("", "", 1.0, 1.0, "")
 
         // when

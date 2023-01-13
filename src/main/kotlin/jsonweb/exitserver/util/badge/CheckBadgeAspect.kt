@@ -1,7 +1,7 @@
 package jsonweb.exitserver.util.badge
 
 import jsonweb.exitserver.common.logger
-import jsonweb.exitserver.domain.inquiry.InquiryStatus
+import jsonweb.exitserver.domain.inquiry.InquiryCategoryEnum
 import jsonweb.exitserver.domain.theme.GenreEnum
 import jsonweb.exitserver.domain.user.User
 import jsonweb.exitserver.domain.user.UserService
@@ -92,10 +92,9 @@ class CheckBadgeAspect(private val userService: UserService) {
     }
 
     private fun checkInquiryBadge(user: User) {
-        // 카페 등록 요청 5번 승낙, 트렌드세터
+        // 카페 등록 요청 5번 등록 요청, 트렌드세터
         val condition = user.inquiryList
-            .filter { it.status == InquiryStatus.RESOLVED }
-            .filter { it.category == "카페 등록 문의" }
+            .filter { it.category == InquiryCategoryEnum.CAFE.kor() }
             .size
 
         if (user.isNotGotten(BadgeEnum.TREND_SETTER) &&

@@ -35,7 +35,7 @@ class ThemeService(
     }
 
     fun getThemeList(cafeId: Long, sort: String): ThemeListResponse {
-        val cafe = cafeRepository.findById(cafeId).orElseThrow { throw EntityNotFoundException() }
+        val cafe = cafeRepository.findById(cafeId).orElseThrow()
         val themes = themeRepository.findAllByCafe(cafe)
         if (sort == "POPULAR") {
             sortTheme(themes)
@@ -56,26 +56,18 @@ class ThemeService(
         // TODO: update 로직 어떻게 처리할지 고민
     }
 
-    fun sortTheme(themes: List<Theme>){
-        themes.sortedWith(kotlin.Comparator { o1, o2 -> (o2.avgStar.toInt() * o2.reviewCount) - (o1.avgStar.toInt() * o1.reviewCount)})
-    }
-
-    private fun addGenre(genreList: List<String>) {
-        for (genreName in genreList) {
-            genreRepository.save(Genre(genreName))
-        }
+    fun sortTheme(themes: List<Theme>) {
+        themes.sortedWith { o1, o2 -> (o2.avgStar.toInt() * o2.reviewCount) - (o1.avgStar.toInt() * o1.reviewCount) }
     }
 
     private fun addThemeGenre(theme: Theme, genreList: List<String>) {
         for (genreName in genreList) {
             val genre = genreRepository.findGenreByGenreName(genreName)
-                .orElse(addGenre(genreName))
+                .orElse(genreRepository.save(Genre(genreName)))
             val themeGenre = themeGenreRepository.save(ThemeGenre(theme, genre))
             theme.addThemeGenre(themeGenre)
         }
     }
 
-    private fun getTheme(themeId: Long): Theme = themeRepository.findById(themeId).orElseThrow { throw EntityNotFoundException() }
-
-    private fun addGenre(genreName: String): Genre = genreRepository.save(Genre(genreName))
+    private fun getTheme(themeId: Long): Theme = themeRepository.findById(themeId).orElseThrow()
 }

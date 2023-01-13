@@ -8,14 +8,7 @@ import jsonweb.exitserver.util.badge.BadgeEnum
 import javax.persistence.*
 
 enum class Role { ROLE_USER, ROLE_ADMIN }
-enum class UserLevel(private val levelName: String, private val needExp: Int) {
-    LEVEL_1("초보", 100),
-    LEVEL_2("중수", 200),
-    LEVEL_3("고수", 300),
-    LEVEL_4("초고수", 400);
-    fun getLevelName() = levelName
-    fun getNeedExp() = needExp
-}
+
 
 @Entity
 class User(
@@ -33,7 +26,7 @@ class User(
         protected set
     var exp: Int = 0
         protected set
-    var level: String = UserLevel.LEVEL_1.getLevelName()
+    var level: String = UserLevelEnum.LEVEL_1.getLevelName()
         protected set
 
     @OneToMany(mappedBy = "user", cascade = [CascadeType.ALL], orphanRemoval = true)
@@ -64,14 +57,14 @@ class User(
     // user
     @PostUpdate
     fun checkUserLevel() {
-        level = if (exp >= UserLevel.LEVEL_4.getNeedExp()) {
-            UserLevel.LEVEL_4.getLevelName()
-        } else if (exp >= UserLevel.LEVEL_3.getNeedExp()) {
-            UserLevel.LEVEL_3.getLevelName()
-        } else if (exp >= UserLevel.LEVEL_2.getNeedExp()) {
-            UserLevel.LEVEL_2.getLevelName()
+        level = if (exp >= UserLevelEnum.LEVEL_4.getNeedExp()) {
+            UserLevelEnum.LEVEL_4.getLevelName()
+        } else if (exp >= UserLevelEnum.LEVEL_3.getNeedExp()) {
+            UserLevelEnum.LEVEL_3.getLevelName()
+        } else if (exp >= UserLevelEnum.LEVEL_2.getNeedExp()) {
+            UserLevelEnum.LEVEL_2.getLevelName()
         } else {
-            UserLevel.LEVEL_1.getLevelName()
+            UserLevelEnum.LEVEL_1.getLevelName()
         }
     }
 

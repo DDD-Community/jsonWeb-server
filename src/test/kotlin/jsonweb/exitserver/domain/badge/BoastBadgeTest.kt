@@ -8,8 +8,7 @@ import jsonweb.exitserver.domain.boast.Boast
 import jsonweb.exitserver.domain.boast.BoastRepository
 import jsonweb.exitserver.domain.boast.BoastRequest
 import jsonweb.exitserver.domain.boast.BoastService
-import jsonweb.exitserver.domain.mockTheme
-import jsonweb.exitserver.domain.mockUser
+import jsonweb.exitserver.domain.getMockUser
 import jsonweb.exitserver.domain.theme.Theme
 import jsonweb.exitserver.domain.theme.ThemeRepository
 import jsonweb.exitserver.domain.user.UserService
@@ -29,6 +28,9 @@ class BoastBadgeTest : AnnotationSpec() {
         mockk(),
         mockk()
     )
+
+    private val mockUser = getMockUser()
+    private val mockTheme = Theme()
 
     private lateinit var factory: AspectJProxyFactory
     private lateinit var boastServiceProxy: BoastService
