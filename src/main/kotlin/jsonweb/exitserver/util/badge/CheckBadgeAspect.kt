@@ -64,7 +64,7 @@ class CheckBadgeAspect(private val userService: UserService) {
         if (user.isNotGotten(badge) &&
             genreCount == 3
         ) {
-            log.info("${user.nickname}님이 ${genre.kor()} 뱃지 획득!")
+            log.info("${user.nickname}님이 ${badge.kor()} 뱃지 획득!")
             user.addBadge(badge)
         }
     }

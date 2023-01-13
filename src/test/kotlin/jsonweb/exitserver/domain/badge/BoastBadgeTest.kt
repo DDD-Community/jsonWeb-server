@@ -4,11 +4,14 @@ import io.kotest.core.spec.style.AnnotationSpec
 import io.kotest.matchers.shouldBe
 import io.mockk.every
 import io.mockk.mockk
-import io.mockk.spyk
-import jsonweb.exitserver.domain.boast.*
+import jsonweb.exitserver.domain.boast.Boast
+import jsonweb.exitserver.domain.boast.BoastRepository
+import jsonweb.exitserver.domain.boast.BoastRequest
+import jsonweb.exitserver.domain.boast.BoastService
+import jsonweb.exitserver.domain.mockTheme
+import jsonweb.exitserver.domain.mockUser
 import jsonweb.exitserver.domain.theme.Theme
 import jsonweb.exitserver.domain.theme.ThemeRepository
-import jsonweb.exitserver.domain.user.User
 import jsonweb.exitserver.domain.user.UserService
 import jsonweb.exitserver.util.badge.BadgeEnum
 import jsonweb.exitserver.util.badge.CheckBadgeAspect
@@ -19,22 +22,19 @@ class BoastBadgeTest : AnnotationSpec() {
     private val userService: UserService = mockk()
     private val themeRepository: ThemeRepository = mockk()
     private val boastRepository: BoastRepository = mockk()
-    private val boastLikeRepository: BoastLikeRepository = mockk()
-    private val boastReportRepository: BoastReportRepository = mockk()
-
-    private val boastService: BoastService = spyk(
-        BoastService(userService, themeRepository, boastRepository, boastLikeRepository, boastReportRepository),
-        recordPrivateCalls = true
+    private val boastService = BoastService(
+        userService,
+        themeRepository,
+        boastRepository,
+        mockk(),
+        mockk()
     )
-
-    private val mockUser = User(-1, "pwd", "male", "20~29", "랜덤 닉네임")
-    private val mockTheme = Theme()
 
     private lateinit var factory: AspectJProxyFactory
     private lateinit var boastServiceProxy: BoastService
 
     @BeforeAll
-    fun stub() {
+    fun init() {
         every { userService.getCurrentLoginUser() } returns mockUser
         every { themeRepository.findById(any()) } returns Optional.of(mockTheme)
         every { boastRepository.save(any()) } returns Boast(user = mockUser, theme = mockTheme, imageUrl = "")
@@ -42,13 +42,6 @@ class BoastBadgeTest : AnnotationSpec() {
         factory = AspectJProxyFactory(boastService)
         factory.addAspect(CheckBadgeAspect(userService))
         boastServiceProxy = factory.getProxy()
-    }
-
-    @AfterEach
-    fun clear() {
-        mockUser.clearMyBoast()
-        mockUser.clearBadge()
-        print(mockUser.badgeList)
     }
 
     @Test

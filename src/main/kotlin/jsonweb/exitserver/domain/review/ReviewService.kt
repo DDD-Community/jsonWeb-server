@@ -30,7 +30,7 @@ class ReviewService(
         val user = userService.getCurrentLoginUser()
         val theme = themeRepository.findById(themeId).orElseThrow()
         val review = modelMapper.map(ReviewWithTheme(form, theme, user), Review::class.java)
-        reviewRepository.save(review)
+        user.addReview(review)
         theme.addReview(review)
         theme.cafe.addReview(form.star)
     }

@@ -122,5 +122,9 @@ class User(
         myBoastMutableList.clear()
     }
 
+    // review
+    fun addReview(review: Review) {
+        reviewMutableList.add(review)
+    }
 
 }
