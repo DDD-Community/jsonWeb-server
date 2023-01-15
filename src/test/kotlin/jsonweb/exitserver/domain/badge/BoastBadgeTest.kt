@@ -26,7 +26,7 @@ class BoastBadgeTest : AnnotationSpec() {
         themeRepository,
         boastRepository,
         mockk(),
-        mockk()
+//        mockk()
     )
 
     private val mockUser = getMockUser()

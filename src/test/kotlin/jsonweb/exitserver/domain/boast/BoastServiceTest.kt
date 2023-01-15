@@ -19,10 +19,10 @@ class BoastServiceTest : AnnotationSpec() {
     private val themeRepository: ThemeRepository = mockk()
     private val boastRepository: BoastRepository = mockk()
     private val boastLikeRepository: BoastLikeRepository = mockk()
-    private val boastReportRepository: BoastReportRepository = mockk()
+//    private val boastReportRepository: BoastReportRepository = mockk()
 
     private val boastService: BoastService = spyk(
-        BoastService(userService, themeRepository, boastRepository, boastLikeRepository, boastReportRepository),
+        BoastService(userService, themeRepository, boastRepository, boastLikeRepository),
         recordPrivateCalls = true
     )
 

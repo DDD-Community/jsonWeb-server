@@ -3,6 +3,7 @@ package jsonweb.exitserver.domain.user
 import jsonweb.exitserver.domain.boast.Boast
 import jsonweb.exitserver.domain.inquiry.Inquiry
 import jsonweb.exitserver.domain.review.Review
+import jsonweb.exitserver.domain.theme.GenreEnum
 import jsonweb.exitserver.util.badge.Badge
 import jsonweb.exitserver.util.badge.BadgeEnum
 import javax.persistence.*
@@ -57,15 +58,7 @@ class User(
     // user
     @PostUpdate
     fun checkUserLevel() {
-        level = if (exp >= UserLevelEnum.LEVEL_4.getNeedExp()) {
-            UserLevelEnum.LEVEL_4.getLevelName()
-        } else if (exp >= UserLevelEnum.LEVEL_3.getNeedExp()) {
-            UserLevelEnum.LEVEL_3.getLevelName()
-        } else if (exp >= UserLevelEnum.LEVEL_2.getNeedExp()) {
-            UserLevelEnum.LEVEL_2.getLevelName()
-        } else {
-            UserLevelEnum.LEVEL_1.getLevelName()
-        }
+        level = UserLevelEnum.getLevelName(exp)
     }
 
     fun addExp(amount: Int) {
@@ -75,14 +68,20 @@ class User(
     fun addBadge(badgeEnum: BadgeEnum) {
         badgeMutableSet.add(badgeEnum.toEntity(this))
     }
-    
+
+    fun getReviewGenreCount(genreEnum: GenreEnum) = reviewList
+        .filter {
+            it.theme.themeGenreList
+                .any { theme -> theme.genre.genreName == genreEnum.kor() }
+        }.size
+
     fun isNotGotten(badgeEnum: BadgeEnum): Boolean = badgeMutableSet
         .none { it.badge == badgeEnum.kor() }
 
     fun clearBadge() {
         badgeMutableSet.clear()
     }
-    
+
 
     fun updateUserInfo(newNickname: String? = null, newProfileImageUrl: String? = null) {
         newNickname?.let { nickname = newNickname }
@@ -95,7 +94,7 @@ class User(
 
     // inquiry
     fun addInquiry(inquiry: Inquiry) {
-       inquiryMutableList.add(inquiry)
+        inquiryMutableList.add(inquiry)
     }
 
     fun deleteInquiry(inquiry: Inquiry) {

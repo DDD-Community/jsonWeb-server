@@ -29,6 +29,7 @@ class CheckBadgeAspect(private val userService: UserService) {
     @AfterReturning("@annotation(jsonweb.exitserver.util.badge.CheckBadge)")
     fun checkBadge(joinPoint: JoinPoint) {
         val signature = joinPoint.signature as MethodSignature
+        val params = signature.parameterNames
         val user = userService.getCurrentLoginUser()
         when (signature.method.getAnnotation(CheckBadge::class.java).type) {
             BadgeDomain.BOAST -> checkBoastBadge(user)
@@ -55,20 +56,6 @@ class CheckBadgeAspect(private val userService: UserService) {
         }
     }
 
-    private fun setGenreBadge(genre: GenreEnum, badge: BadgeEnum) {
-        val user = userService.getCurrentLoginUser()
-        val genreCount = user.reviewList
-            .filter { it.theme.themeGenreList
-                .any { theme -> theme.genre.genreName == genre.kor() }
-            }.size
-        if (user.isNotGotten(badge) &&
-            genreCount == 3
-        ) {
-            log.info("${user.nickname}님이 ${badge.kor()} 뱃지 획득!")
-            user.addBadge(badge)
-        }
-    }
-
     private fun checkReviewBadge(user: User) {
         // 첫 리뷰, 엑시터
         if (user.isNotGotten(BadgeEnum.EIXTER) &&
@@ -79,16 +66,30 @@ class CheckBadgeAspect(private val userService: UserService) {
         }
 
         // 공포 장르 리뷰 3개 작성, 공포매니아
-        setGenreBadge(GenreEnum.HORROR, BadgeEnum.HORROR_MANIA)
+        if (user.isNotGotten(BadgeEnum.HORROR_MANIA) &&
+            user.getReviewGenreCount(GenreEnum.HORROR) == GENRE_REVIEW_REQUIREMENT
+        ) {
+            log.info("${user.nickname}님이 ${BadgeEnum.HORROR_MANIA.kor()} 뱃지 획득!")
+            user.addBadge(BadgeEnum.HORROR_MANIA)
+        }
 
         // 미스터리 장르 리뷰 3개 작성, 미스터리 러버
-        setGenreBadge(GenreEnum.MYSTERY, BadgeEnum.MYSTERY_LOVER)
+        if (user.isNotGotten(BadgeEnum.MYSTERY_LOVER) &&
+            user.getReviewGenreCount(GenreEnum.MYSTERY) == GENRE_REVIEW_REQUIREMENT
+        ) {
+            log.info("${user.nickname}님이 ${BadgeEnum.MYSTERY_LOVER.kor()} 뱃지 획득!")
+            user.addBadge(BadgeEnum.MYSTERY_LOVER)
+        }
 
         // 로맨스 장르 리뷰 3개 작성, 로맨스 홀릭
-        setGenreBadge(GenreEnum.ROMANCE, BadgeEnum.ROMANCE_HOLIC)
+        if (user.isNotGotten(BadgeEnum.ROMANCE_HOLIC) &&
+            user.getReviewGenreCount(GenreEnum.ROMANCE) == GENRE_REVIEW_REQUIREMENT
+        ) {
+            log.info("${user.nickname}님이 ${BadgeEnum.ROMANCE_HOLIC.kor()} 뱃지 획득!")
+            user.addBadge(BadgeEnum.ROMANCE_HOLIC)
+        }
 
         // TODO : 리뷰 신고 10개 처리, 엑시트 보안관
-
     }
 
     private fun checkInquiryBadge(user: User) {

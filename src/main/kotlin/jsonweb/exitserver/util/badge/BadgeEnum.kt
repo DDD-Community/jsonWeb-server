@@ -2,6 +2,8 @@ package jsonweb.exitserver.util.badge
 
 import jsonweb.exitserver.domain.user.User
 
+const val GENRE_REVIEW_REQUIREMENT = 3
+
 enum class BadgeEnum(private val kor: String, private val requirement: String) {
     EIXTER(
         "엑시터", "첫 리뷰 작성"
