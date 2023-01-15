@@ -44,8 +44,3 @@ data class BoastListResponse(
     val totalNumber: Long,
     val isLast: Boolean
 )
-
-data class ReportBoastRequest(
-    val boastId: Long,
-    val reportContent: String
-)
