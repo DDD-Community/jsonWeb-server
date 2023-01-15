@@ -4,12 +4,19 @@ import io.kotest.core.spec.style.AnnotationSpec
 import io.kotest.matchers.shouldBe
 import io.mockk.every
 import io.mockk.mockk
+import jsonweb.exitserver.domain.boast.BoastRepository
 import jsonweb.exitserver.domain.getMockReview
 import jsonweb.exitserver.domain.getMockUser
+import jsonweb.exitserver.domain.report.ReportEnum
+import jsonweb.exitserver.domain.report.ReportRepository
+import jsonweb.exitserver.domain.report.ReportService
+import jsonweb.exitserver.domain.report.ReviewReportRequest
 import jsonweb.exitserver.domain.review.CreateReviewRequest
-import jsonweb.exitserver.domain.review.Review
+import jsonweb.exitserver.domain.review.ReviewRepository
 import jsonweb.exitserver.domain.review.ReviewService
-import jsonweb.exitserver.domain.theme.*
+import jsonweb.exitserver.domain.theme.GenreEnum
+import jsonweb.exitserver.domain.theme.Theme
+import jsonweb.exitserver.domain.theme.ThemeRepository
 import jsonweb.exitserver.domain.user.UserService
 import jsonweb.exitserver.util.badge.BadgeEnum
 import jsonweb.exitserver.util.badge.CheckBadgeAspect
@@ -30,12 +37,24 @@ class ReviewBadgeTest : AnnotationSpec() {
         modelMapper
     )
 
+
+    private val reviewRepository: ReviewRepository = mockk()
+    private val boastRepository: BoastRepository = mockk()
+    private val reportRepository: ReportRepository = mockk()
+
+    private val reportService = ReportService(
+        userService,
+        reviewRepository,
+        boastRepository,
+        reportRepository
+    )
+
     private val mockUser = getMockUser()
     private val mockReview = getMockReview()
     private val mockTheme = Theme()
 
-    private lateinit var factory: AspectJProxyFactory
     private lateinit var reviewServiceProxy: ReviewService
+    private lateinit var reportServiceProxy: ReportService
 
     @BeforeAll
     fun init() {
@@ -43,9 +62,13 @@ class ReviewBadgeTest : AnnotationSpec() {
         every { userService.getCurrentLoginUser() } returns mockUser
         every { themeRepository.findById(any()) } returns Optional.of(mockTheme)
 
-        factory = AspectJProxyFactory(reviewService)
-        factory.addAspect(CheckBadgeAspect(userService))
-        reviewServiceProxy = factory.getProxy()
+        val reviewFactory = AspectJProxyFactory(reviewService)
+        reviewFactory.addAspect(CheckBadgeAspect(userService))
+        reviewServiceProxy = reviewFactory.getProxy()
+
+        val reportFactory = AspectJProxyFactory(reportService)
+        reportFactory.addAspect(CheckBadgeAspect(userService))
+        reportServiceProxy = reportFactory.getProxy()
     }
 
     @Test
@@ -113,5 +136,20 @@ class ReviewBadgeTest : AnnotationSpec() {
         } shouldBe true
     }
 
-    // TODO : 엑시트보안관
+    @Test
+    fun `엑시트보안관 - 리뷰 신고 10개 작성`() {
+        // given
+        every { reviewRepository.findById(any()) } returns Optional.of(mockReview)
+        val form = ReviewReportRequest(1L, ReportEnum.IRRELEVANT.kor())
+
+        // when
+        repeat(10) {
+            reportServiceProxy.createReviewReport(form)
+        }
+
+        // then
+        mockUser.badgeList.any {
+            it.badge == BadgeEnum.EXIT_SHERIFF.kor()
+        } shouldBe true
+    }
 }

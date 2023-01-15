@@ -2,6 +2,7 @@ package jsonweb.exitserver.util.badge
 
 import jsonweb.exitserver.common.logger
 import jsonweb.exitserver.domain.inquiry.InquiryCategoryEnum
+import jsonweb.exitserver.domain.report.ReviewReport
 import jsonweb.exitserver.domain.theme.GenreEnum
 import jsonweb.exitserver.domain.user.User
 import jsonweb.exitserver.domain.user.UserService
@@ -41,7 +42,7 @@ class CheckBadgeAspect(private val userService: UserService) {
     private fun checkBoastBadge(user: User) {
         // 인증 글 10개 작성, 탈출중독
         if (user.isNotGotten(BadgeEnum.ADDICTED_ESCAPE) &&
-            user.myBoastList.size == 10
+            user.boastList.size == 10
         ) {
             log.info("${user.nickname}님이 ${BadgeEnum.ADDICTED_ESCAPE.kor()} 뱃지 획득!")
             user.addBadge(BadgeEnum.ADDICTED_ESCAPE)
@@ -49,7 +50,7 @@ class CheckBadgeAspect(private val userService: UserService) {
 
         // 첫 난이도 5 탈출 인증 작성, 천상계
         if (user.isNotGotten(BadgeEnum.HIGHEST_REALM) &&
-            user.myBoastList.any { it.theme.difficulty == 5.0 }
+            user.boastList.any { it.theme.difficulty == 5.0 }
         ) {
             log.info("${user.nickname}님이 ${BadgeEnum.HIGHEST_REALM.kor()} 뱃지 획득!")
             user.addBadge(BadgeEnum.HIGHEST_REALM)
@@ -89,7 +90,13 @@ class CheckBadgeAspect(private val userService: UserService) {
             user.addBadge(BadgeEnum.ROMANCE_HOLIC)
         }
 
-        // TODO : 리뷰 신고 10개 처리, 엑시트 보안관
+        // 리뷰 신고 10개 작성, 엑시트 보안관
+        if (user.isNotGotten(BadgeEnum.EXIT_SHERIFF) &&
+            user.reportList.filterIsInstance<ReviewReport>().size == 10
+        ) {
+            log.info("${user.nickname}님이 ${BadgeEnum.EXIT_SHERIFF.kor()} 뱃지 획득!")
+            user.addBadge(BadgeEnum.EXIT_SHERIFF)
+        }
     }
 
     private fun checkInquiryBadge(user: User) {

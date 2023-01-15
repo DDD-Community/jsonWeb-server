@@ -2,6 +2,7 @@ package jsonweb.exitserver.domain.user
 
 import jsonweb.exitserver.domain.boast.Boast
 import jsonweb.exitserver.domain.inquiry.Inquiry
+import jsonweb.exitserver.domain.report.Report
 import jsonweb.exitserver.domain.review.Review
 import jsonweb.exitserver.domain.theme.GenreEnum
 import jsonweb.exitserver.util.badge.Badge
@@ -31,8 +32,8 @@ class User(
         protected set
 
     @OneToMany(mappedBy = "user", cascade = [CascadeType.ALL], orphanRemoval = true)
-    protected val myBoastMutableList: MutableList<Boast> = mutableListOf()
-    val myBoastList: List<Boast> get() = myBoastMutableList.toList()
+    protected val boastMutableList: MutableList<Boast> = mutableListOf()
+    val boastList: List<Boast> get() = boastMutableList.toList()
 
     @OneToMany(mappedBy = "user", cascade = [CascadeType.ALL], orphanRemoval = true)
     protected val reviewMutableList: MutableList<Review> = mutableListOf()
@@ -45,6 +46,10 @@ class User(
     @OneToMany(mappedBy = "user", cascade = [CascadeType.ALL], orphanRemoval = true)
     protected val badgeMutableSet: MutableSet<Badge> = mutableSetOf()
     val badgeList: List<Badge> get() = badgeMutableSet.toList()
+
+    @OneToMany(mappedBy = "user", cascade = [CascadeType.ALL], orphanRemoval = true)
+    protected val reportMutableList: MutableList<Report> = mutableListOf()
+    val reportList: List<Report> get() = reportMutableList.toList()
 
 
     @Enumerated(EnumType.STRING)
@@ -107,16 +112,21 @@ class User(
 
     // boast
     fun addMyBoast(boast: Boast) {
-        myBoastMutableList.add(boast)
+        boastMutableList.add(boast)
     }
 
     fun clearMyBoast() {
-        myBoastMutableList.clear()
+        boastMutableList.clear()
     }
 
     // review
     fun addReview(review: Review) {
         reviewMutableList.add(review)
+    }
+
+    // report
+    fun addReport(report: Report) {
+        reportMutableList.add(report)
     }
 
 }

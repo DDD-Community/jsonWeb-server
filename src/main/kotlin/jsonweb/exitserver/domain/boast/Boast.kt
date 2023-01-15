@@ -102,16 +102,3 @@ class BoastLike(
     val boastId: Long,
 )
 
-@Entity
-class BoastReport(
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "boast_report_id")
-    val id: Long = 0L,
-
-    val reportContent: String,
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "boast_id")
-    val boast: Boast
-)
-

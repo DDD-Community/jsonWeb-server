@@ -1,6 +1,5 @@
 package jsonweb.exitserver.domain.boast
 
-import jsonweb.exitserver.common.logger
 import jsonweb.exitserver.domain.theme.ThemeRepository
 import jsonweb.exitserver.domain.user.UserService
 import jsonweb.exitserver.util.Exp
@@ -18,12 +17,8 @@ class BoastService(
     private val userService: UserService,
     private val themeRepository: ThemeRepository,
     private val boastRepository: BoastRepository,
-    private val boastLikeRepository: BoastLikeRepository,
-    private val boastReportRepository: BoastReportRepository
+    private val boastLikeRepository: BoastLikeRepository
 ) {
-
-    val log = logger()
-
     private fun String.toSort(): Sort {
         return if (this == "DATE") {
             Sort.by(Sort.Direction.DESC, "modifiedAt")
@@ -77,11 +72,13 @@ class BoastService(
     fun createBoast(form: BoastRequest) {
         val user = userService.getCurrentLoginUser()
         val theme = themeRepository.findById(form.themeId).orElseThrow()
-        val boast = boastRepository.save(Boast(
-            user = user,
-            theme = theme,
-            imageUrl = form.imageUrl
-        ))
+        val boast = boastRepository.save(
+            Boast(
+                user = user,
+                theme = theme,
+                imageUrl = form.imageUrl
+            )
+        )
         form.hashtags.forEach {
             boast.addHashtag(BoastHashtag(hashtag = "#$it", boast = boast))
         }
@@ -113,14 +110,6 @@ class BoastService(
         }
     }
 
-    @Exp(20)
-    @Transactional
-    fun reportBoast(boastId: Long, form: ReportBoastRequest) {
-        val boast = boastRepository.findById(boastId).orElseThrow()
-        boastReportRepository.save(BoastReport(boast = boast, reportContent = form.reportContent))
-        boast.setInvisible()
-    }
-
     /**
      * 테스트용
      */
@@ -129,10 +118,13 @@ class BoastService(
     fun createDummyBoast(form: BoastRequest, dummyKakaoId: Long) {
         val user = userService.getTestUser(dummyKakaoId)
         val theme = themeRepository.findById(form.themeId).orElseThrow()
-        val boast = boastRepository.save(Boast(
-            user = user,
-            theme = theme,
-            imageUrl = form.imageUrl))
+        val boast = boastRepository.save(
+            Boast(
+                user = user,
+                theme = theme,
+                imageUrl = form.imageUrl
+            )
+        )
         form.hashtags.forEach {
             boast.addHashtag(BoastHashtag(hashtag = "#$it", boast = boast))
         }
