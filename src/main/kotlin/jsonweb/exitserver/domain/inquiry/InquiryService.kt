@@ -3,6 +3,9 @@ package jsonweb.exitserver.domain.inquiry
 import jsonweb.exitserver.common.INQUIRY_CANCEL_ERROR
 import jsonweb.exitserver.common.InquiryException
 import jsonweb.exitserver.domain.user.UserService
+import jsonweb.exitserver.util.Exp
+import jsonweb.exitserver.util.badge.BadgeDomain
+import jsonweb.exitserver.util.badge.CheckBadge
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 import javax.persistence.EntityNotFoundException
@@ -26,6 +29,8 @@ class InquiryService(
 
     fun getInquiryToDto(id: Long) = InquiryResponse(getInquiry(id))
 
+    @Exp(30)
+    @CheckBadge(BadgeDomain.INQUIRY)
     @Transactional
     fun createInquiry(form: InquiryRequest): List<InquiryResponse> {
         val user = userService.getCurrentLoginUser()

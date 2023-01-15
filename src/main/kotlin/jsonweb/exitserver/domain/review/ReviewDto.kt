@@ -76,8 +76,8 @@ data class ReviewResponse(
         modifiedAt = review.modifiedAt.toDotFormat(),
         star = review.star,
         difficulty = review.difficulty,
-        emotionFirst = review.emotionFirst + Emotions.findByEmotion(review.emotionFirst)!!.getEmoji(),
-        emotionSecond = review.emotionSecond + Emotions.findByEmotion(review.emotionSecond)!!.getEmoji(),
+        emotionFirst = review.emotionFirst + EmotionEnum.findByEmotion(review.emotionFirst)!!.emoji(),
+        emotionSecond = review.emotionSecond + EmotionEnum.findByEmotion(review.emotionSecond)!!.emoji(),
         content = review.content,
         themeName = review.theme.name,
         themeGenre = review.theme.themeGenreList.map { it.genre.genreName }

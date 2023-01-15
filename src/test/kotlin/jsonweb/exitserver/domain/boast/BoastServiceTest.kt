@@ -19,10 +19,9 @@ class BoastServiceTest : AnnotationSpec() {
     private val themeRepository: ThemeRepository = mockk()
     private val boastRepository: BoastRepository = mockk()
     private val boastLikeRepository: BoastLikeRepository = mockk()
-    private val boastReportRepository: BoastReportRepository = mockk()
 
     private val boastService: BoastService = spyk(
-        BoastService(userService, themeRepository, boastRepository, boastLikeRepository, boastReportRepository),
+        BoastService(userService, themeRepository, boastRepository, boastLikeRepository),
         recordPrivateCalls = true
     )
 
@@ -77,7 +76,7 @@ class BoastServiceTest : AnnotationSpec() {
         boastService.createBoast(form)
 
         // then
-        assertSoftly(mockUser.myBoastList) {
+        assertSoftly(mockUser.boastList) {
             size shouldBe 1
             first().imageUrl shouldBe imageUrl
             first().hashtagList.first().hashtag shouldBe "#${hashtags.first()}"
@@ -102,7 +101,7 @@ class BoastServiceTest : AnnotationSpec() {
         boastService.updateBoast(1L ,form)
 
         // then
-        assertSoftly(mockUser.myBoastList) {
+        assertSoftly(mockUser.boastList) {
             size shouldBe 1
             first().imageUrl shouldBe "https://image.com/4"
             first().hashtagList[0].hashtag shouldBe "#${hashtags[0]}"

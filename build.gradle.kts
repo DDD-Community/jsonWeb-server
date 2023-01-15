@@ -47,7 +47,7 @@ dependencies {
     implementation("io.jsonwebtoken:jjwt-impl:0.11.5")
     implementation("io.jsonwebtoken:jjwt-jackson:0.11.5")
 
-    //querydsl
+    // querydsl
     implementation("com.querydsl:querydsl-jpa:5.0.0")
     kapt("com.querydsl:querydsl-apt:5.0.0:jpa")
 
@@ -60,6 +60,9 @@ dependencies {
     testImplementation("com.h2database:h2:2.1.214")
 
     implementation("io.github.microutils:kotlin-logging:1.12.5")
+
+    // aop
+    implementation("org.springframework.boot:spring-boot-starter-aop")
 }
 
 allOpen {

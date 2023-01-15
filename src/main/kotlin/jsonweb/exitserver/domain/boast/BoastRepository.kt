@@ -19,9 +19,6 @@ interface BoastRepository : JpaRepository<Boast, Long>, BoastRepositoryCustom {
 interface BoastLikeRepository : JpaRepository<BoastLike, BoastLikeId> {
 }
 
-interface BoastReportRepository : JpaRepository<BoastReport, Long> {
-}
-
 interface BoastRepositoryCustom {
     fun findAllBoasts(pageable: Pageable): Page<Boast>
     fun findAllByUser(user: User, pageable: Pageable): Page<Boast>

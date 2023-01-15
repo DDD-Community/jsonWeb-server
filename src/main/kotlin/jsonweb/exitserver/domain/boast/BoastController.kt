@@ -6,7 +6,9 @@ import org.springframework.web.bind.annotation.*
 import javax.validation.Valid
 
 @RestController
-class BoastController(private val boastService: BoastService) {
+class BoastController(
+    private val boastService: BoastService
+) {
     @GetMapping("/boasts")
     fun getAllBoasts(
         @RequestParam(defaultValue = "DATE", required = false) sort: String,
@@ -53,15 +55,6 @@ class BoastController(private val boastService: BoastService) {
     @PutMapping("/boasts/{boastId}/likes")
     fun likeBoast(@PathVariable("boastId") id: Long): CommonResponse<Any> {
         boastService.checkLike(id)
-        return success()
-    }
-
-    @PostMapping("/boasts/{boastId}/reports")
-    fun reportBoast(
-        @PathVariable("boastId") id: Long,
-        @RequestBody form: ReportBoastRequest
-    ): CommonResponse<Any> {
-        boastService.reportBoast(id, form)
         return success()
     }
 }

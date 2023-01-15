@@ -61,6 +61,8 @@ class Theme(
 
     // for test
     constructor(): this("", "", "", 0, 0, 0, 0.0, "", Cafe())
+    constructor(difficulty: Double): this("", "", "", 0, 0, 0, difficulty, "", Cafe())
+
 }
 
 @Entity

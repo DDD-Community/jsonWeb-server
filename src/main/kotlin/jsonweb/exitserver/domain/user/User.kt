@@ -2,18 +2,15 @@ package jsonweb.exitserver.domain.user
 
 import jsonweb.exitserver.domain.boast.Boast
 import jsonweb.exitserver.domain.inquiry.Inquiry
+import jsonweb.exitserver.domain.report.Report
 import jsonweb.exitserver.domain.review.Review
+import jsonweb.exitserver.domain.theme.GenreEnum
+import jsonweb.exitserver.util.badge.Badge
+import jsonweb.exitserver.util.badge.BadgeEnum
 import javax.persistence.*
 
 enum class Role { ROLE_USER, ROLE_ADMIN }
-enum class UserLevel(private val levelName: String, private val needExp: Int) {
-    LEVEL_1("초보", 100),
-    LEVEL_2("중수", 200),
-    LEVEL_3("고수", 300),
-    LEVEL_4("초고수", 400);
-    fun getLevelName() = levelName
-    fun getNeedExp() = needExp
-}
+
 
 @Entity
 class User(
@@ -31,12 +28,12 @@ class User(
         protected set
     var exp: Int = 0
         protected set
-    var level: String = UserLevel.LEVEL_1.getLevelName()
+    var level: String = UserLevelEnum.LEVEL_1.getLevelName()
         protected set
 
     @OneToMany(mappedBy = "user", cascade = [CascadeType.ALL], orphanRemoval = true)
-    protected val myBoastMutableList: MutableList<Boast> = mutableListOf()
-    val myBoastList: List<Boast> get() = myBoastMutableList.toList()
+    protected val boastMutableList: MutableList<Boast> = mutableListOf()
+    val boastList: List<Boast> get() = boastMutableList.toList()
 
     @OneToMany(mappedBy = "user", cascade = [CascadeType.ALL], orphanRemoval = true)
     protected val reviewMutableList: MutableList<Review> = mutableListOf()
@@ -45,6 +42,15 @@ class User(
     @OneToMany(mappedBy = "user", cascade = [CascadeType.ALL], orphanRemoval = true)
     protected val inquiryMutableList: MutableList<Inquiry> = mutableListOf()
     val inquiryList: List<Inquiry> get() = inquiryMutableList.toList()
+
+    @OneToMany(mappedBy = "user", cascade = [CascadeType.ALL], orphanRemoval = true)
+    protected val badgeMutableSet: MutableSet<Badge> = mutableSetOf()
+    val badgeList: List<Badge> get() = badgeMutableSet.toList()
+
+    @OneToMany(mappedBy = "user", cascade = [CascadeType.ALL], orphanRemoval = true)
+    protected val reportMutableList: MutableList<Report> = mutableListOf()
+    val reportList: List<Report> get() = reportMutableList.toList()
+
 
     @Enumerated(EnumType.STRING)
     var role: Role = Role.ROLE_USER
@@ -57,16 +63,30 @@ class User(
     // user
     @PostUpdate
     fun checkUserLevel() {
-        level = if (exp >= UserLevel.LEVEL_4.getNeedExp()) {
-            UserLevel.LEVEL_4.getLevelName()
-        } else if (exp >= UserLevel.LEVEL_3.getNeedExp()) {
-            UserLevel.LEVEL_3.getLevelName()
-        } else if (exp >= UserLevel.LEVEL_2.getNeedExp()) {
-            UserLevel.LEVEL_2.getLevelName()
-        } else {
-            UserLevel.LEVEL_1.getLevelName()
-        }
+        level = UserLevelEnum.getLevelName(exp)
     }
+
+    fun addExp(amount: Int) {
+        exp += amount
+    }
+
+    fun addBadge(badgeEnum: BadgeEnum) {
+        badgeMutableSet.add(badgeEnum.toEntity(this))
+    }
+
+    fun getReviewGenreCount(genreEnum: GenreEnum) = reviewList
+        .filter {
+            it.theme.themeGenreList
+                .any { theme -> theme.genre.genreName == genreEnum.kor() }
+        }.size
+
+    fun isNotGotten(badgeEnum: BadgeEnum): Boolean = badgeMutableSet
+        .none { it.badge == badgeEnum.kor() }
+
+    fun clearBadge() {
+        badgeMutableSet.clear()
+    }
+
 
     fun updateUserInfo(newNickname: String? = null, newProfileImageUrl: String? = null) {
         newNickname?.let { nickname = newNickname }
@@ -79,7 +99,7 @@ class User(
 
     // inquiry
     fun addInquiry(inquiry: Inquiry) {
-       inquiryMutableList.add(inquiry)
+        inquiryMutableList.add(inquiry)
     }
 
     fun deleteInquiry(inquiry: Inquiry) {
@@ -92,12 +112,21 @@ class User(
 
     // boast
     fun addMyBoast(boast: Boast) {
-        myBoastMutableList.add(boast)
+        boastMutableList.add(boast)
     }
 
     fun clearMyBoast() {
-        myBoastMutableList.clear()
+        boastMutableList.clear()
     }
 
+    // review
+    fun addReview(review: Review) {
+        reviewMutableList.add(review)
+    }
+
+    // report
+    fun addReport(report: Report) {
+        reportMutableList.add(report)
+    }
 
 }
