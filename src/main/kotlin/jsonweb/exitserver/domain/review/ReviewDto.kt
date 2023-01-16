@@ -64,7 +64,7 @@ data class ReviewResponse(
     val emotionSecond: String,
     val content: String,
     val themeName: String,
-    val themeGenre: List<String>
+    val genre: List<String>
 ) {
     constructor(review: Review) : this(
         reviewId = review.reviewId,
@@ -80,7 +80,7 @@ data class ReviewResponse(
         emotionSecond = review.emotionSecond + EmotionEnum.findByEmotion(review.emotionSecond)!!.emoji(),
         content = review.content,
         themeName = review.theme.name,
-        themeGenre = review.theme.themeGenreList.map { it.genre.genreName }
+        genre = review.theme.themeGenreList.map { it.genre.genreName }
     )
 }
 

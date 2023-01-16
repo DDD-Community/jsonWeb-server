@@ -37,16 +37,6 @@ data class ThemeWithCafe(
         ageLimit = form.ageLimit,
         cafe = cafe
     )
-//    constructor(form: RegisterThemeRequest): this(
-//        name = form.name,
-//        description = form.description,
-//        imageUrl = form.imageUrl,
-//        time = form.time,
-//        minPlayerCount = form.minPlayerCount,
-//        maxPlayerCount = form.maxPlayerCount,
-//        difficulty = form.difficulty,
-//        ageLimit = form.ageLimit
-//    )
 }
 
 data class UpdateThemeRequest(
