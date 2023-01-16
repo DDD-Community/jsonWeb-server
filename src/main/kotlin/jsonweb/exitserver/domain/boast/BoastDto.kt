@@ -16,7 +16,7 @@ data class BoastResponse(
     val themeName: String,
     val writerNickname: String,
     val writerProfileImage: String,
-    val writerBadge: String = "초보", // TODO
+    val writerLevel: String,
     val genre: List<String>,
     val modifiedAt: String,
     var isLiked: Boolean = false,
@@ -30,7 +30,7 @@ data class BoastResponse(
         themeName = boast.theme.name,
         writerNickname = boast.user.nickname,
         writerProfileImage = boast.user.profileImageUrl,
-//        userBadge = boast.user.badge.toString(), TODO
+        writerLevel = boast.user.level,
         genre = boast.theme.themeGenreList.map { it.genre.genreName },
         modifiedAt = boast.modifiedAt.toDotFormat(),
         likeCount = boast.likeCount,
