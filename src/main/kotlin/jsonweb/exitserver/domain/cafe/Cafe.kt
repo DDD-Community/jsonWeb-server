@@ -159,13 +159,3 @@ class CafeLike(
     @Id
     val cafeId: Long
 ) : BaseTimeEntity()
-
-@Entity
-class CafeReport(
-    private val cafeId: Long,
-    private val reportContent: String
-) {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    val reportId: Long = 0L
-}

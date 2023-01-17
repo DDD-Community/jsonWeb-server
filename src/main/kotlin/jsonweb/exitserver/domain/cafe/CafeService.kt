@@ -1,12 +1,10 @@
 package jsonweb.exitserver.domain.cafe
 
-import jsonweb.exitserver.domain.theme.ThemeResponse
 import jsonweb.exitserver.domain.user.UserService
 import org.springframework.data.domain.PageRequest
 import org.springframework.data.domain.Sort
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
-import javax.persistence.EntityNotFoundException
 
 @Service
 @Transactional(readOnly = true)
@@ -17,9 +15,19 @@ class CafeService(
 ) {
     @Transactional
     fun registerCafe(form: RegisterCafeRequest): Long {
-        val cafe = makeCafe(form.name, form.address, form.tel, form.homepage)
-        form.openHourList.map { OpenHour(it.day, it.open, it.close, cafe) }.forEach { cafe.addOpenHour(it) }
-        form.priceList.map { Price(it.headCount, it.day, it.price, cafe) }.forEach { cafe.addPrice(it) }
+        val cafe = Cafe(
+            name = form.name,
+            address = form.address,
+            tel = form.tel,
+            homepage = form.homepage,
+            imageUrl = form.imageUrl
+        )
+        form.openHourList
+            .map { OpenHour(it.day, it.open, it.close, cafe) }
+            .forEach { cafe.addOpenHour(it) }
+        form.priceList
+            .map { Price(it.headCount, it.day, it.price, cafe) }
+            .forEach { cafe.addPrice(it) }
         return cafeRepository.save(cafe).cafeId
     }
 
@@ -29,7 +37,7 @@ class CafeService(
     }
 
     fun getCafeSpec(cafeId: Long): CafeSpecResponse {
-        val cafe = cafeRepository.findById(cafeId).orElseThrow { throw EntityNotFoundException() }
+        val cafe = cafeRepository.findById(cafeId).orElseThrow()
         return markLike(CafeSpecResponse(cafe))
     }
 
@@ -73,18 +81,11 @@ class CafeService(
         val userId = userService.getCurrentLoginUser().userId
         val cafeLikes = cafeLikeRepository.findAllByUserIdOrderByCreatedAtDesc(userId, pageable)
         val cafes = cafeLikes.map { cafeRepository.findById(it.cafeId).get() }
-        return CafeListResponse(cafes.toList().map { CafeResponse(it, true) }, cafeLikes.totalElements, cafeLikes.isLast)
-    }
-
-    fun getThemeListOfCafe(cafeId: Long): CafeThemeListResponse {
-        val cafe = cafeRepository.findById(cafeId).orElseThrow { throw EntityNotFoundException() }
-        val cafeThemeListResponse = CafeThemeListResponse(cafe.themeList.map { ThemeResponse(it) })
-        cafeThemeListResponse.themeList.sortedBy { it.name }
-        return cafeThemeListResponse
-    }
-
-    private fun makeCafe(name: String, address: String, tel: String, homepage: String): Cafe {
-        return Cafe(name, address, tel, homepage, "")
+        return CafeListResponse(
+            cafes.toList().map { CafeResponse(it, true) },
+            cafeLikes.totalElements,
+            cafeLikes.isLast
+        )
     }
 
     private fun makeSort(sort: String): Sort {
@@ -128,15 +129,4 @@ class CafeService(
         if (cafeSpecResponse.cafeId in likes) cafeSpecResponse.isLiked = true
         return cafeSpecResponse
     }
-
-//    @Transactional
-//    fun reportCafe(cafeId: Long, reportContent: String) {
-//        cafeReportRepository.save(CafeReport(cafeId, reportContent))
-//    }
-
-//    @Transactional
-//    fun resolveCafe(reportId: Long) {
-//        cafeReportRepository.deleteById(reportId)
-//    }
-
 }

@@ -111,6 +111,7 @@ data class RegisterCafeRequest(
     val address: String,
     val tel: String,
     val homepage: String,
+    val imageUrl: String,
     val openHourList: List<OpenHourRequest>,
     val priceList: List<PriceRequest>
 )
@@ -125,8 +126,4 @@ data class PriceRequest(
     val day: String,
     val headCount: String,
     val price: Int
-)
-
-data class ReportCafeRequest(
-    val reportContent: String
 )
