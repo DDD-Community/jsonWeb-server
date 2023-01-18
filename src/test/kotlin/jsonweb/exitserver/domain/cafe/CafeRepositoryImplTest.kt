@@ -78,7 +78,7 @@ class CafeRepositoryImplTest(
             Sort.by(CafeSort.valueOf("REVIEW").getDirection(), CafeSort.valueOf("REVIEW").getSortBy())
                 .and(Sort.by("cafeId"))
         )
-        val cafeList = cafeRepository.getListWithGenreName("장르1", pageable)
+        val cafeList = cafeRepository.findAllByGenre("장르1", pageable)
         cafeList.count() shouldBe 2
         cafeList.totalElements shouldBe 3L
         cafeList.isLast shouldBe false
@@ -92,7 +92,7 @@ class CafeRepositoryImplTest(
             Sort.by(CafeSort.valueOf("REVIEW").getDirection(), CafeSort.valueOf("REVIEW").getSortBy())
                 .and(Sort.by("cafeId"))
         )
-        val cafeList = cafeRepository.getList("카페", pageable)
+        val cafeList = cafeRepository.findAllCafes("카페", pageable)
         cafeList.count() shouldBe 2
         cafeList.isLast shouldBe false
         cafeList.totalElements shouldBe 3L
@@ -106,7 +106,7 @@ class CafeRepositoryImplTest(
             Sort.by(CafeSort.valueOf("REVIEW").getDirection(), CafeSort.valueOf("REVIEW").getSortBy())
                 .and(Sort.by("cafeId"))
         )
-        val cafeList = cafeRepository.getList("카페", pageable)
+        val cafeList = cafeRepository.findAllCafes("카페", pageable)
         cafeList.count() shouldBe 1
         cafeList.isLast shouldBe true
         cafeList.totalElements shouldBe 3L
@@ -120,7 +120,7 @@ class CafeRepositoryImplTest(
             Sort.by(CafeSort.valueOf("REVIEW").getDirection(), CafeSort.valueOf("REVIEW").getSortBy())
                 .and(Sort.by("cafeId"))
         )
-        val cafeList = cafeRepository.getList("6", pageable)
+        val cafeList = cafeRepository.findAllCafes("6", pageable)
         cafeList.count() shouldBe 1
         cafeList.isLast shouldBe true
     }
@@ -133,7 +133,7 @@ class CafeRepositoryImplTest(
             Sort.by(CafeSort.valueOf("REVIEW").getDirection(), CafeSort.valueOf("REVIEW").getSortBy())
                 .and(Sort.by("cafeId"))
         )
-        val cafeList = cafeRepository.getList("주소5", pageable)
+        val cafeList = cafeRepository.findAllCafes("주소5", pageable)
         cafeList.count() shouldBe 1
         cafeList.isLast shouldBe true
     }
@@ -146,7 +146,7 @@ class CafeRepositoryImplTest(
             Sort.by(CafeSort.valueOf("REVIEW").getDirection(), CafeSort.valueOf("REVIEW").getSortBy())
                 .and(Sort.by("cafeId"))
         )
-        val cafeList = cafeRepository.getList("테마3", pageable)
+        val cafeList = cafeRepository.findAllCafes("테마3", pageable)
         cafeList.count() shouldBe 2
         cafeList.isLast shouldBe false
         cafeList.totalElements shouldBe 3L

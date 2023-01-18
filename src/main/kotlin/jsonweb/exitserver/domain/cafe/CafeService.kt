@@ -55,7 +55,7 @@ class CafeService(
                 )
             )
         } else {
-            val result = cafeRepository.getListWithGenreName(genreName, pageable)
+            val result = cafeRepository.findAllByGenre(genreName, pageable)
             return markLike(
                 CafeListResponse(
                     result.toList().map { CafeResponse(it) },
@@ -70,14 +70,12 @@ class CafeService(
         val pageable = PageRequest.of(
             page, size, makeSort(sort)
         )
-        val cafes = cafeRepository.getList(keyword, pageable)
+        val cafes = cafeRepository.findAllCafes(keyword, pageable)
         return markLike(CafeListResponse(cafes.toList().map { CafeResponse(it) }, cafes.totalElements, cafes.isLast))
     }
 
     fun getLikeCafeList(page: Int, size: Int): CafeListResponse {
-        val pageable = PageRequest.of(
-            page, size
-        )
+        val pageable = PageRequest.of(page, size)
         val userId = userService.getCurrentLoginUser().userId
         val cafeLikes = cafeLikeRepository.findAllByUserIdOrderByCreatedAtDesc(userId, pageable)
         val cafes = cafeLikes.map { cafeRepository.findById(it.cafeId).get() }
@@ -100,18 +98,10 @@ class CafeService(
     @Transactional
     fun checkLike(cafeId: Long) {
         val userId = userService.getCurrentLoginUser().userId
-        if (cafeLikeRepository.existsById(UserAndCafe(userId, cafeId))) unlikeCafe(userId, cafeId)
-        else likeCafe(userId, cafeId)
-    }
-
-    @Transactional
-    fun likeCafe(userId: Long, cafeId: Long) {
-        cafeLikeRepository.save(CafeLike(userId, cafeId))
-    }
-
-    @Transactional
-    fun unlikeCafe(userId: Long, cafeId: Long) {
-        cafeLikeRepository.deleteById(UserAndCafe(userId, cafeId))
+        if (!cafeLikeRepository.existsById(UserAndCafe(userId, cafeId)))
+            cafeLikeRepository.save(CafeLike(userId, cafeId))
+        else
+            cafeLikeRepository.deleteById(UserAndCafe(userId, cafeId))
     }
 
     private fun markLike(cafeListResponse: CafeListResponse): CafeListResponse {

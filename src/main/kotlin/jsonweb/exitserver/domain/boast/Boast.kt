@@ -3,6 +3,7 @@ package jsonweb.exitserver.domain.boast
 import jsonweb.exitserver.common.BaseTimeEntity
 import jsonweb.exitserver.domain.theme.Theme
 import jsonweb.exitserver.domain.user.User
+import org.hibernate.annotations.BatchSize
 import java.io.Serializable
 import javax.persistence.*
 
@@ -32,6 +33,7 @@ class Boast(
     var visibility: Boolean = true
         protected set
 
+    @BatchSize(size = 100)
     @OneToMany(mappedBy = "boast", cascade = [CascadeType.ALL], orphanRemoval = true)
     protected val hashtagMutableList: MutableList<BoastHashtag> = mutableListOf()
     val hashtagList: List<BoastHashtag> get() = hashtagMutableList.toList()

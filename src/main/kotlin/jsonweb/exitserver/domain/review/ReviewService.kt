@@ -46,9 +46,11 @@ class ReviewService(
 
     @Transactional
     fun deleteReview(reviewId: Long) {
+        val user = userService.getCurrentLoginUser()
         val review = reviewRepository.findById(reviewId).orElseThrow()
-        review.theme.addReview(review)
+        review.theme.deleteReview(review)
         review.theme.cafe.deleteReview(review.star)
+        user.deleteReview(review)
         reviewRepository.deleteById(reviewId)
     }
 
@@ -62,22 +64,12 @@ class ReviewService(
         val userId = userService.getCurrentLoginUser().userId
         val review = reviewRepository.findById(reviewId).orElseThrow()
         if (!reviewLikeRepository.existsById(UserAndReview(userId, reviewId))) {
-            likeReview(userId, reviewId)
+            reviewLikeRepository.save(ReviewLike(userId, reviewId))
             review.plusLike()
         } else {
-            unlikeReview(userId, reviewId)
+            reviewLikeRepository.deleteById(UserAndReview(userId, reviewId))
             review.minusLike()
         }
-    }
-
-    @Transactional
-    fun likeReview(userId: Long, reviewId: Long) {
-        reviewLikeRepository.save(ReviewLike(userId, reviewId))
-    }
-
-    @Transactional
-    fun unlikeReview(userId: Long, cafeId: Long) {
-        reviewLikeRepository.deleteById(UserAndReview(userId, cafeId))
     }
 
     fun getReviewList(themeId: Long, page: Int, size: Int, sort: String): ReviewListResponse {

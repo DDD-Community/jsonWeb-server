@@ -124,6 +124,10 @@ class User(
         reviewMutableList.add(review)
     }
 
+    fun deleteReview(review: Review) {
+        reviewMutableList.removeIf { it.reviewId == review.reviewId }
+    }
+
     // report
     fun addReport(report: Report) {
         reportMutableList.add(report)
