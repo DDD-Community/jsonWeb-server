@@ -63,7 +63,7 @@ class SecurityConfig(
             "/csrf",
             "/error"
         ).permitAll()
-        .antMatchers("/cafe/**").permitAll()
+        .antMatchers("/images/**", "/cafes").permitAll()
         .anyRequest()
         .authenticated()
         .and()
