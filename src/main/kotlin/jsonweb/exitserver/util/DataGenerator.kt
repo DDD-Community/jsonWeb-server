@@ -136,8 +136,7 @@ class DataGenerator(
                 tempCafe.addOpenHour(
                     OpenHour(
                         days[i],
-                        "11:00",
-                        "22:00",
+                        "11:00 ~ 22:00",
                         tempCafe
                     )
                 )

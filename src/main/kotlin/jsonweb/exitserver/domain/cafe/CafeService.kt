@@ -23,7 +23,7 @@ class CafeService(
             imageUrl = form.imageUrl
         )
         form.openHourList
-            .map { OpenHour(it.day, it.open, it.close, cafe) }
+            .map { OpenHour(it.day, it.time, cafe) }
             .forEach { cafe.addOpenHour(it) }
         form.priceList
             .map { Price(it.headCount, it.day, it.price, cafe) }

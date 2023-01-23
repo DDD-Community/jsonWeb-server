@@ -84,13 +84,11 @@ data class CafeSpecResponse(
 
 data class OpenHourResponse(
     val day: String,
-    val open: String,
-    val close: String
+    val time: String,
 ) {
     constructor(openHour: OpenHour): this(
         day = openHour.day,
-        open = openHour.openHour,
-        close = openHour.closeHour
+        time = openHour.time
     )
 }
 
@@ -118,8 +116,7 @@ data class RegisterCafeRequest(
 
 data class OpenHourRequest(
     val day: String,
-    val open: String,
-    val close: String
+    val time: String
 )
 
 data class PriceRequest(

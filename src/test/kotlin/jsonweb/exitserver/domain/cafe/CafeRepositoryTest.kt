@@ -2,7 +2,6 @@ package jsonweb.exitserver.domain.cafe
 
 import io.kotest.core.spec.style.AnnotationSpec
 import io.kotest.matchers.shouldBe
-import jsonweb.exitserver.config.TestConfig
 import jsonweb.exitserver.domain.review.ReviewRepository
 import jsonweb.exitserver.domain.theme.GenreRepository
 import jsonweb.exitserver.domain.theme.ThemeRepository

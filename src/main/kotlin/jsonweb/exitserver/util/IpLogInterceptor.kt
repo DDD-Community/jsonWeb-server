@@ -20,7 +20,7 @@ class IpLogInterceptor : HandlerInterceptor {
             ?: this.remoteAddr
 
     override fun preHandle(request: HttpServletRequest, response: HttpServletResponse, handler: Any): Boolean {
-        log.info("IP = ${request.getIp()}")
+        log.info("${request.getIp()} : ${request.method} ${request.requestURI}")
         return true
     }
 }

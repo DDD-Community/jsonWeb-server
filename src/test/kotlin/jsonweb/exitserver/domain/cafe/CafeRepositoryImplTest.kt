@@ -2,7 +2,6 @@ package jsonweb.exitserver.domain.cafe
 
 import io.kotest.core.spec.style.AnnotationSpec
 import io.kotest.matchers.shouldBe
-import jsonweb.exitserver.config.TestConfig
 import jsonweb.exitserver.domain.theme.*
 import mu.KotlinLogging
 import org.springframework.beans.factory.annotation.Autowired

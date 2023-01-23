@@ -93,8 +93,7 @@ class Cafe(
 @Entity
 class OpenHour(
     day: String,
-    openHour: String,
-    closeHour: String,
+    time: String,
     cafe: Cafe
 ) {
     @Id
@@ -108,9 +107,7 @@ class OpenHour(
 
     var day: String = day
         protected set
-    var openHour: String = openHour
-        protected set
-    var closeHour: String = closeHour
+    var time: String = time
         protected set
 
     /**
