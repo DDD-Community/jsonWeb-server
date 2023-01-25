@@ -1,6 +1,6 @@
 package jsonweb.exitserver.common
 
-import jsonweb.exitserver.domain.user.UserService
+import org.springframework.stereotype.Controller
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RestController
 import springfox.documentation.annotations.ApiIgnore
@@ -12,10 +12,10 @@ class HelloController {
     fun hello() = "hello!"
 }
 
-@RestController
-class BadgeController(private val userService: UserService) {
-//    @PostMapping("/badges/{badgeId}")
-//    fun addBadge(@PathVariable badgeId: Long) {
-//        userService.getCurrentLoginUser().addBadge(Badge.EIXTER)
-//    }
+@Controller
+class VueClientRedirector {
+    @GetMapping(value = [
+         "/admin-page/**",
+    ])
+    fun redirect() = "forward:/index.html"
 }

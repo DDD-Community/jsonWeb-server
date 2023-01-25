@@ -117,7 +117,7 @@ class OpenHour(
 
 @Entity
 class Price(
-    headCount: String,
+    headCount: Int,
     day: String,
     price: Int,
     cafe: Cafe
@@ -125,7 +125,7 @@ class Price(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     val priceId: Long = 0L
-    var headCount: String = headCount
+    var headCount: Int = headCount
         protected set
     var day: String = day
         protected set

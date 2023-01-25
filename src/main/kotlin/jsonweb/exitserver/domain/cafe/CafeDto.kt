@@ -94,7 +94,7 @@ data class OpenHourResponse(
 
 data class PriceResponse(
     val day: String,
-    val headCount: String,
+    val headCount: Int,
     val price: Int
 ) {
     constructor(price: Price): this(
@@ -121,6 +121,6 @@ data class OpenHourRequest(
 
 data class PriceRequest(
     val day: String,
-    val headCount: String,
+    val headCount: Int,
     val price: Int
 )

@@ -121,7 +121,7 @@ class DataGenerator(
             repeat(3) {
                 tempCafe.addPrice(
                     Price(
-                        cntHead.toString(),
+                        cntHead,
                         "요일요일",
                         8000 * cntHead,
                         tempCafe

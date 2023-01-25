@@ -4,6 +4,7 @@ import jsonweb.exitserver.auth.jwt.JwtAccessDeniedHandler
 import jsonweb.exitserver.auth.jwt.JwtAuthenticationEntryPoint
 import jsonweb.exitserver.auth.jwt.JwtFilter
 import jsonweb.exitserver.auth.jwt.JwtProvider
+import org.springframework.boot.autoconfigure.security.servlet.PathRequest
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.security.config.annotation.SecurityConfigurerAdapter
@@ -45,6 +46,7 @@ class SecurityConfig(
         .authorizeRequests()
         .antMatchers("/users/login", "/users/test-login", "/api").permitAll()
         .antMatchers("/admin/**").hasRole("ADMIN")
+        .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
         // Swagger 설정
         .antMatchers(
             "/docs/**",
@@ -63,7 +65,7 @@ class SecurityConfig(
             "/csrf",
             "/error"
         ).permitAll()
-        .antMatchers("/images/**", "/cafes").permitAll()
+        .antMatchers("/images/**", "/cafes", "/admin-page/**").permitAll()
         .anyRequest()
         .authenticated()
         .and()
