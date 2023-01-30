@@ -23,7 +23,7 @@ class ReviewService(
 ) {
     val log = logger()
 
-    @Exp(20)
+    @Exp(20, "방탈출 리뷰")
     @CheckBadge(BadgeDomain.REVIEW)
     @Transactional
     fun createReview(themeId: Long, form: CreateReviewRequest) {

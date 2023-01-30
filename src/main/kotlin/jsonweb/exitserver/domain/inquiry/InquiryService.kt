@@ -29,7 +29,7 @@ class InquiryService(
 
     fun getInquiryToDto(id: Long) = InquiryResponse(getInquiry(id))
 
-    @Exp(30)
+    @Exp(30, "문의 작성")
     @CheckBadge(BadgeDomain.INQUIRY)
     @Transactional
     fun createInquiry(form: InquiryRequest): List<InquiryResponse> {

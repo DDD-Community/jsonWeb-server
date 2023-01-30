@@ -10,7 +10,8 @@ import org.springframework.stereotype.Component
 @Target(AnnotationTarget.FUNCTION)
 @Retention(AnnotationRetention.RUNTIME)
 annotation class Exp (
-    val amount: Int = 0
+    val amount: Int = 0,
+    val reason: String = ""
 )
 
 @Aspect
@@ -19,7 +20,9 @@ class ExpAspect(private val userService: UserService) {
     @AfterReturning("@annotation(jsonweb.exitserver.util.Exp)")
     fun addExp(joinPoint: JoinPoint) {
         val signature = joinPoint.signature as MethodSignature
-        val amount = signature.method.getAnnotation(Exp::class.java).amount
-        userService.getCurrentLoginUser().addExp(amount)
+        userService.getCurrentLoginUser().addExp(
+            signature.method.getAnnotation(Exp::class.java).amount,
+            signature.method.getAnnotation(Exp::class.java).reason
+        )
     }
 }

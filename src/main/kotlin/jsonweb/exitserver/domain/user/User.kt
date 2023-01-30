@@ -1,5 +1,6 @@
 package jsonweb.exitserver.domain.user
 
+import jsonweb.exitserver.common.BaseTimeEntity
 import jsonweb.exitserver.domain.boast.Boast
 import jsonweb.exitserver.domain.inquiry.Inquiry
 import jsonweb.exitserver.domain.report.Report
@@ -51,6 +52,10 @@ class User(
     protected val reportMutableList: MutableList<Report> = mutableListOf()
     val reportList: List<Report> get() = reportMutableList.toList()
 
+    @OneToMany(mappedBy = "user", cascade = [CascadeType.ALL], orphanRemoval = true)
+    protected val expLogMutableList: MutableList<ExpLog> = mutableListOf()
+    val expLogList: List<ExpLog> get() = expLogMutableList.toList()
+
 
     @Enumerated(EnumType.STRING)
     var role: Role = Role.ROLE_USER
@@ -66,8 +71,9 @@ class User(
         level = UserLevelEnum.getLevelName(exp)
     }
 
-    fun addExp(amount: Int) {
+    fun addExp(amount: Int, reason: String) {
         exp += amount
+        expLogMutableList.add(ExpLog(user = this, amount = amount, reason = reason))
     }
 
     fun addBadge(badgeEnum: BadgeEnum) {
@@ -134,3 +140,16 @@ class User(
     }
 
 }
+
+@Entity
+class ExpLog(
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    val expLogId: Long = 0L,
+    val reason: String,
+    val amount: Int,
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    val user: User,
+) : BaseTimeEntity()

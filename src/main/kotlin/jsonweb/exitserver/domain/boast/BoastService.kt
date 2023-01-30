@@ -66,7 +66,7 @@ class BoastService(
         return boasts.toBoastListResponse()
     }
 
-    @Exp(20)
+    @Exp(20, "방탈출 인증")
     @CheckBadge(BadgeDomain.BOAST)
     @Transactional
     fun createBoast(form: BoastRequest) {

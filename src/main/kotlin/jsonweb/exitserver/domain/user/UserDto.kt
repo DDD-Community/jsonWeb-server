@@ -1,5 +1,7 @@
 package jsonweb.exitserver.domain.user
 
+import jsonweb.exitserver.util.toDotFormat
+
 data class JwtDto(val accessToken: String)
 
 data class UpdateUserInfoRequest(
@@ -24,5 +26,19 @@ data class UserInfoResponse(
         exp = user.exp,
         userLevel = user.level,
         badges = user.badgeList.map { it.badge }
+    )
+}
+
+data class CheckNicknameResponse(val isDuplicated: Boolean)
+
+data class ExpLogResponse(
+    val createdAt: String,
+    val amount: Int,
+    val reason: String
+) {
+    constructor(expLog: ExpLog): this(
+        createdAt = expLog.createdAt.toDotFormat(),
+        amount = expLog.amount,
+        reason = expLog.reason
     )
 }

@@ -26,6 +26,11 @@ class UserService(
 
     fun getCurrentLoginUserToDto() = UserInfoResponse(getCurrentLoginUser())
 
+    fun getExpLogList() = getCurrentLoginUser().expLogList
+        .map { ExpLogResponse(it) }
+        .toList()
+
+
     @Transactional
     fun login(authorizedCode: String): JwtDto {
         val kakaoUserInfo = kakaoClient.getKakaoUserInfo(authorizedCode)
@@ -70,6 +75,10 @@ class UserService(
         )
         return UserInfoResponse(user)
     }
+
+    fun checkNickname(nickname: String) = CheckNicknameResponse(
+        userRepository.existsByNickname(nickname)
+    )
 
     fun logout(): Boolean = kakaoClient.logout(getCurrentLoginUser().kakaoId)
 
