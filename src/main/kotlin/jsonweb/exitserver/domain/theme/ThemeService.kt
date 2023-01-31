@@ -4,7 +4,6 @@ import jsonweb.exitserver.domain.cafe.CafeRepository
 import org.modelmapper.ModelMapper
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
-import javax.persistence.EntityNotFoundException
 
 @Service
 @Transactional(readOnly = true)
@@ -17,10 +16,12 @@ class ThemeService(
 ) {
     @Transactional
     fun registerTheme(form: RegisterThemeRequest): Long {
-        val cafe = cafeRepository.findById(form.cafeId).orElseThrow { throw EntityNotFoundException() }
-        val theme = modelMapper.map(ThemeWithCafe(form, cafe), Theme::class.java)
+        val cafe = cafeRepository.findById(form.cafeId).orElseThrow()
+        val theme = themeRepository.save(
+            modelMapper.map(ThemeWithCafe(form, cafe), Theme::class.java)
+        )
         addThemeGenre(theme, form.genreList)
-        return themeRepository.save(theme).themeId
+        return theme.themeId
     }
 
     @Transactional
