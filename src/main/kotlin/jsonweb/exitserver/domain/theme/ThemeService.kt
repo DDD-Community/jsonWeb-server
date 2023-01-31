@@ -71,4 +71,9 @@ class ThemeService(
     }
 
     private fun getTheme(themeId: Long): Theme = themeRepository.findById(themeId).orElseThrow()
+
+    fun getThemeGenreList() = GenreEnum.values()
+        .map { GenreResponse(it.kor()) }
+        .toList()
+
 }

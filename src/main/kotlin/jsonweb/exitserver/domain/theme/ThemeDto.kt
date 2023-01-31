@@ -109,3 +109,7 @@ data class ThemeSpecResponse(
         genreList = theme.themeGenreList.map { it.genre }
     )
 }
+
+data class GenreResponse(
+    val genre: String
+)
