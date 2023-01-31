@@ -6,9 +6,6 @@ import org.springframework.web.bind.annotation.*
 
 @RestController
 class CafeController(private val cafeService: CafeService) {
-    @PostMapping("/cafes")
-    fun registerCafe(@RequestBody form: RegisterCafeRequest): CommonResponse<Any> =
-        success(cafeService.registerCafe(form))
 
     @DeleteMapping("/cafes/{cafeId}")
     fun deleteCafe(@PathVariable("cafeId") cafeId: Long): CommonResponse<Any> {
@@ -44,5 +41,17 @@ class CafeController(private val cafeService: CafeService) {
         @RequestParam(defaultValue = "0", required = false) page: Int,
         @RequestParam(defaultValue = "16", required = false) size: Int
     ): CommonResponse<CafeListResponse> = success(cafeService.getLikeCafeList(page, size))
+
+
+    /**
+     * admin
+     */
+    @PostMapping("/admin/cafes")
+    fun registerCafe(@RequestBody form: RegisterCafeRequest): CommonResponse<Any> =
+        success(cafeService.registerCafe(form))
+
+    @GetMapping("/admin/cafes/names")
+    fun getCafeNames(): CommonResponse<List<CafeNameResponse>> =
+        success(cafeService.getCafeNames())
 
 }

@@ -44,8 +44,10 @@ class SecurityConfig(
         .apply(JwtSecurityConfig(jwtProvider))
         .and()
         .authorizeRequests()
-        .antMatchers("/users/login", "/users/test-login", "/api").permitAll()
-        .antMatchers("/admin/**").hasRole("ADMIN")
+        .antMatchers(
+            "/users/login", "/users/test-login",
+            "/api", "/admin/**", "/images/**", "/admin-page/**"
+        ).permitAll()
         .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
         // Swagger 설정
         .antMatchers(
@@ -65,7 +67,6 @@ class SecurityConfig(
             "/csrf",
             "/error"
         ).permitAll()
-        .antMatchers("/images/**", "/cafes", "/admin-page/**").permitAll()
         .anyRequest()
         .authenticated()
         .and()

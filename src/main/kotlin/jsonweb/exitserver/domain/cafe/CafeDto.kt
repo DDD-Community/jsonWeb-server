@@ -124,3 +124,8 @@ data class PriceRequest(
     val headCount: Int,
     val price: Int
 )
+
+data class CafeNameResponse(
+    val cafeId: Long,
+    val name: String
+)

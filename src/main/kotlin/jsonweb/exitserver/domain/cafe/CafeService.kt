@@ -119,4 +119,9 @@ class CafeService(
         if (cafeSpecResponse.cafeId in likes) cafeSpecResponse.isLiked = true
         return cafeSpecResponse
     }
+
+    fun getCafeNames() = cafeRepository.findAll()
+        .map { CafeNameResponse(it.cafeId, it.name) }
+        .toList()
+
 }

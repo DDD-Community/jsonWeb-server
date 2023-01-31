@@ -8,10 +8,6 @@ import org.springframework.web.bind.annotation.*
 class ThemeController(
     private val themeService: ThemeService
 ) {
-    @PostMapping("/themes")
-    fun registerTheme(@RequestBody form: RegisterThemeRequest): CommonResponse<Long> =
-        success(themeService.registerTheme(form))
-
     @PostMapping("/themes/genre")
     fun registerThemeGenre(@RequestBody form: RegisterThemeGenreRequest): CommonResponse<Any> {
         themeService.registerThemeGenre(form)
@@ -32,6 +28,12 @@ class ThemeController(
     fun getThemeList(
         @RequestParam(required = true) cafeId: Long,
         @RequestParam(required = true) sort: String
-    ): CommonResponse<ThemeListResponse> =
-        success(themeService.getThemeList(cafeId, sort))
+    ): CommonResponse<ThemeListResponse> = success(themeService.getThemeList(cafeId, sort))
+
+    /**
+     * admin
+     */
+    @PostMapping("/admin/themes")
+    fun registerTheme(@RequestBody form: RegisterThemeRequest): CommonResponse<Long> =
+        success(themeService.registerTheme(form))
 }
