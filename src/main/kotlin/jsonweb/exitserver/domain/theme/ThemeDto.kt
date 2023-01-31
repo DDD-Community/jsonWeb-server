@@ -110,6 +110,3 @@ data class ThemeSpecResponse(
     )
 }
 
-data class GenreResponse(
-    val genre: String
-)

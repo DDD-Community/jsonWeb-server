@@ -46,7 +46,7 @@ class SecurityConfig(
         .authorizeRequests()
         .antMatchers(
             "/users/login", "/users/test-login",
-            "/api", "/admin/**", "/images/**", "/admin-page/**"
+            "/api", "/admin/**", "/images/**", "/admin-page/**", "/img/**"
         ).permitAll()
         .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
         // Swagger 설정

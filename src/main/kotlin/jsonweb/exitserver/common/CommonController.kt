@@ -18,6 +18,7 @@ class HelloController {
 class VueClientRedirector {
     @GetMapping(
         value = [
+            "/admin",
             "/admin-page/**",
         ]
     )
