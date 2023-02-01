@@ -20,6 +20,7 @@ class ThemeService(
         val theme = themeRepository.save(
             modelMapper.map(ThemeWithCafe(form, cafe), Theme::class.java)
         )
+        cafe.addTheme(theme)
         addThemeGenre(theme, form.genreList)
         return theme.themeId
     }
