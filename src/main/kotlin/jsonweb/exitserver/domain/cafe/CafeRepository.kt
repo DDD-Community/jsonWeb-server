@@ -8,7 +8,6 @@ import org.springframework.data.domain.Page
 import org.springframework.data.domain.Pageable
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.data.support.PageableExecutionUtils
-import org.springframework.stereotype.Repository
 
 interface CafeRepository: JpaRepository<Cafe, Long>, CafeRepositoryCustom {
 }
@@ -18,7 +17,6 @@ interface CafeRepositoryCustom {
     fun findAllByGenre(genreName: String, pageable: Pageable): Page<Cafe>
 }
 
-@Repository
 class CafeRepositoryCustomImpl(
     private val jpaQueryFactory: JPAQueryFactory
 ) : CafeRepositoryCustom {
