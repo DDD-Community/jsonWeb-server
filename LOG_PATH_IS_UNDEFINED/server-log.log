@@ -1,0 +1,354 @@
+23-02-04 19:44:29 INFO  [background-preinit] [Version:21] - HV000001: Hibernate Validator 6.2.5.Final
+23-02-04 19:44:29 INFO  [main] [JsonWebServerApplicationKt:55] - Starting JsonWebServerApplicationKt using Java 17.0.4.1 on Sunwoongs-MacBook-Pro.local with PID 95565 (/Users/wng/git_ws/jsonWeb-server/build/classes/kotlin/main started by wng in /Users/wng/git_ws/jsonWeb-server)
+23-02-04 19:44:29 INFO  [main] [JsonWebServerApplicationKt:640] - The following 1 profile is active: "secret"
+23-02-04 19:44:30 INFO  [main] [RepositoryConfigurationDelegate:132] - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+23-02-04 19:44:30 INFO  [main] [RepositoryConfigurationDelegate:201] - Finished Spring Data repository scanning in 49 ms. Found 12 JPA repository interfaces.
+23-02-04 19:44:39 INFO  [main] [PostProcessorRegistrationDelegate$BeanPostProcessorChecker:376] - Bean '(inner bean)#3a788fe0' of type [com.amazonaws.auth.BasicAWSCredentials] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+23-02-04 19:44:39 INFO  [main] [PostProcessorRegistrationDelegate$BeanPostProcessorChecker:376] - Bean '(inner bean)#6ad6443' of type [com.amazonaws.auth.AWSStaticCredentialsProvider] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+23-02-04 19:44:39 INFO  [main] [PostProcessorRegistrationDelegate$BeanPostProcessorChecker:376] - Bean '(inner bean)#60591e1b' of type [com.amazonaws.auth.profile.ProfileCredentialsProvider] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+23-02-04 19:44:39 INFO  [main] [PostProcessorRegistrationDelegate$BeanPostProcessorChecker:376] - Bean 'credentialsProvider' of type [org.springframework.cloud.aws.core.credentials.CredentialsProviderFactoryBean] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+23-02-04 19:44:39 INFO  [main] [PostProcessorRegistrationDelegate$BeanPostProcessorChecker:376] - Bean 'credentialsProvider' of type [com.amazonaws.auth.AWSCredentialsProviderChain] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+23-02-04 19:44:39 INFO  [main] [TomcatWebServer:108] - Tomcat initialized with port(s): 8080 (http)
+23-02-04 19:44:39 INFO  [main] [Http11NioProtocol:173] - Initializing ProtocolHandler ["http-nio-8080"]
+23-02-04 19:44:39 INFO  [main] [StandardService:173] - Starting service [Tomcat]
+23-02-04 19:44:39 INFO  [main] [StandardEngine:173] - Starting Servlet engine: [Apache Tomcat/9.0.68]
+23-02-04 19:44:39 INFO  [main] [[/]:173] - Initializing Spring embedded WebApplicationContext
+23-02-04 19:44:39 INFO  [main] [ServletWebServerApplicationContext:292] - Root WebApplicationContext: initialization completed in 9913 ms
+23-02-04 19:44:39 INFO  [main] [LogHelper:31] - HHH000204: Processing PersistenceUnitInfo [name: default]
+23-02-04 19:44:39 INFO  [main] [Version:44] - HHH000412: Hibernate ORM core version 5.6.12.Final
+23-02-04 19:44:39 INFO  [main] [Version:56] - HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+23-02-04 19:44:39 INFO  [main] [HikariDataSource:110] - HikariPool-1 - Starting...
+23-02-04 19:44:40 INFO  [main] [HikariDataSource:123] - HikariPool-1 - Start completed.
+23-02-04 19:44:40 INFO  [main] [Dialect:175] - HHH000400: Using dialect: org.hibernate.dialect.MySQL5Dialect
+23-02-04 19:44:41 INFO  [main] [JtaPlatformInitiator:52] - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+23-02-04 19:44:41 INFO  [main] [LocalContainerEntityManagerFactoryBean:437] - Initialized JPA EntityManagerFactory for persistence unit 'default'
+23-02-04 19:44:42 WARN  [main] [JpaBaseConfiguration$JpaWebConfiguration:219] - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+23-02-04 19:44:43 INFO  [main] [DefaultSecurityFilterChain:55] - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@45bedfed, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@7269674d, org.springframework.security.web.context.SecurityContextPersistenceFilter@105fa381, org.springframework.security.web.header.HeaderWriterFilter@62edf11e, org.springframework.security.web.authentication.logout.LogoutFilter@59e5ecab, jsonweb.exitserver.auth.jwt.JwtFilter@187b33de, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@b43db07, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@5bb2f959, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@e39df43, org.springframework.security.web.session.SessionManagementFilter@154c4f66, org.springframework.security.web.access.ExceptionTranslationFilter@4cc40892, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@24a26847]
+23-02-04 19:44:43 INFO  [main] [WelcomePageHandlerMapping:53] - Adding welcome page: class path resource [static/index.html]
+23-02-04 19:44:43 INFO  [main] [Http11NioProtocol:173] - Starting ProtocolHandler ["http-nio-8080"]
+23-02-04 19:44:43 INFO  [main] [TomcatWebServer:220] - Tomcat started on port(s): 8080 (http) with context path ''
+23-02-04 19:44:43 INFO  [main] [JsonWebServerApplicationKt:61] - Started JsonWebServerApplicationKt in 14.316 seconds (JVM running for 14.596)
+23-02-04 19:44:53 INFO  [SpringApplicationShutdownHook] [LocalContainerEntityManagerFactoryBean:651] - Closing JPA EntityManagerFactory for persistence unit 'default'
+23-02-04 19:44:53 INFO  [SpringApplicationShutdownHook] [HikariDataSource:350] - HikariPool-1 - Shutdown initiated...
+23-02-04 19:44:53 INFO  [SpringApplicationShutdownHook] [HikariDataSource:352] - HikariPool-1 - Shutdown completed.
+23-02-04 19:45:52 INFO  [background-preinit] [Version:21] - HV000001: Hibernate Validator 6.2.5.Final
+23-02-04 19:45:52 INFO  [main] [JsonWebServerApplicationKt:55] - Starting JsonWebServerApplicationKt using Java 17.0.4.1 on Sunwoongs-MacBook-Pro.local with PID 96050 (/Users/wng/git_ws/jsonWeb-server/build/classes/kotlin/main started by wng in /Users/wng/git_ws/jsonWeb-server)
+23-02-04 19:45:52 INFO  [main] [JsonWebServerApplicationKt:640] - The following 1 profile is active: "secret"
+23-02-04 19:45:52 INFO  [main] [RepositoryConfigurationDelegate:132] - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+23-02-04 19:45:53 INFO  [main] [RepositoryConfigurationDelegate:201] - Finished Spring Data repository scanning in 46 ms. Found 12 JPA repository interfaces.
+23-02-04 19:46:00 INFO  [main] [PostProcessorRegistrationDelegate$BeanPostProcessorChecker:376] - Bean '(inner bean)#2d130ac4' of type [com.amazonaws.auth.BasicAWSCredentials] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+23-02-04 19:46:00 INFO  [main] [PostProcessorRegistrationDelegate$BeanPostProcessorChecker:376] - Bean '(inner bean)#7b8ea1db' of type [com.amazonaws.auth.AWSStaticCredentialsProvider] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+23-02-04 19:46:00 INFO  [main] [PostProcessorRegistrationDelegate$BeanPostProcessorChecker:376] - Bean '(inner bean)#27898e13' of type [com.amazonaws.auth.profile.ProfileCredentialsProvider] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+23-02-04 19:46:00 INFO  [main] [PostProcessorRegistrationDelegate$BeanPostProcessorChecker:376] - Bean 'credentialsProvider' of type [org.springframework.cloud.aws.core.credentials.CredentialsProviderFactoryBean] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+23-02-04 19:46:00 INFO  [main] [PostProcessorRegistrationDelegate$BeanPostProcessorChecker:376] - Bean 'credentialsProvider' of type [com.amazonaws.auth.AWSCredentialsProviderChain] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+23-02-04 19:46:01 INFO  [main] [TomcatWebServer:108] - Tomcat initialized with port(s): 8080 (http)
+23-02-04 19:46:01 INFO  [main] [Http11NioProtocol:173] - Initializing ProtocolHandler ["http-nio-8080"]
+23-02-04 19:46:01 INFO  [main] [StandardService:173] - Starting service [Tomcat]
+23-02-04 19:46:01 INFO  [main] [StandardEngine:173] - Starting Servlet engine: [Apache Tomcat/9.0.68]
+23-02-04 19:46:01 INFO  [main] [[/]:173] - Initializing Spring embedded WebApplicationContext
+23-02-04 19:46:01 INFO  [main] [ServletWebServerApplicationContext:292] - Root WebApplicationContext: initialization completed in 8827 ms
+23-02-04 19:46:01 INFO  [main] [LogHelper:31] - HHH000204: Processing PersistenceUnitInfo [name: default]
+23-02-04 19:46:01 INFO  [main] [Version:44] - HHH000412: Hibernate ORM core version 5.6.12.Final
+23-02-04 19:46:01 INFO  [main] [Version:56] - HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+23-02-04 19:46:01 INFO  [main] [HikariDataSource:110] - HikariPool-1 - Starting...
+23-02-04 19:46:01 INFO  [main] [HikariDataSource:123] - HikariPool-1 - Start completed.
+23-02-04 19:46:01 INFO  [main] [Dialect:175] - HHH000400: Using dialect: org.hibernate.dialect.MySQL5Dialect
+23-02-04 19:46:03 INFO  [main] [JtaPlatformInitiator:52] - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+23-02-04 19:46:03 INFO  [main] [LocalContainerEntityManagerFactoryBean:437] - Initialized JPA EntityManagerFactory for persistence unit 'default'
+23-02-04 19:46:04 WARN  [main] [JpaBaseConfiguration$JpaWebConfiguration:219] - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+23-02-04 19:46:04 INFO  [main] [DefaultSecurityFilterChain:55] - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@1d0e2c96, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@7fa498b3, org.springframework.security.web.context.SecurityContextPersistenceFilter@c39ebcf, org.springframework.security.web.header.HeaderWriterFilter@43a304ee, org.springframework.security.web.authentication.logout.LogoutFilter@1f7b7ac4, jsonweb.exitserver.auth.jwt.JwtFilter@64cde9a5, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@51edc97d, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@5837b801, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@5efb3259, org.springframework.security.web.session.SessionManagementFilter@e76aa, org.springframework.security.web.access.ExceptionTranslationFilter@4077e676, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@5b7737eb]
+23-02-04 19:46:04 INFO  [main] [WelcomePageHandlerMapping:53] - Adding welcome page: class path resource [static/index.html]
+23-02-04 19:46:04 INFO  [main] [Http11NioProtocol:173] - Starting ProtocolHandler ["http-nio-8080"]
+23-02-04 19:46:04 INFO  [main] [TomcatWebServer:220] - Tomcat started on port(s): 8080 (http) with context path ''
+23-02-04 19:46:05 INFO  [main] [JsonWebServerApplicationKt:61] - Started JsonWebServerApplicationKt in 12.972 seconds (JVM running for 13.265)
+23-02-04 19:46:05 INFO  [http-nio-8080-exec-1] [[/]:173] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+23-02-04 19:46:05 INFO  [http-nio-8080-exec-1] [DispatcherServlet:525] - Initializing Servlet 'dispatcherServlet'
+23-02-04 19:46:05 INFO  [http-nio-8080-exec-1] [DispatcherServlet:547] - Completed initialization in 1 ms
+23-02-04 19:46:05 INFO  [http-nio-8080-exec-1] [IpLogInterceptor:23] - 0:0:0:0:0:0:0:1 : POST /users/test-login
+23-02-04 19:46:21 INFO  [http-nio-8080-exec-3] [IpLogInterceptor:23] - 0:0:0:0:0:0:0:1 : POST /admin/themes
+23-02-04 19:46:21 WARN  [http-nio-8080-exec-3] [GlobalExceptionHandler:17] - [IncorrectResultSizeDataAccessException] handled: query did not return a unique result: 2; nested exception is javax.persistence.NonUniqueResultException: query did not return a unique result: 2
+23-02-04 19:46:34 INFO  [http-nio-8080-exec-5] [IpLogInterceptor:23] - 0:0:0:0:0:0:0:1 : POST /admin/themes
+23-02-04 19:47:07 INFO  [http-nio-8080-exec-6] [IpLogInterceptor:23] - 0:0:0:0:0:0:0:1 : GET /themes
+23-02-04 19:47:22 INFO  [http-nio-8080-exec-7] [IpLogInterceptor:23] - 0:0:0:0:0:0:0:1 : POST /admin/themes
+23-02-04 19:48:22 INFO  [SpringApplicationShutdownHook] [LocalContainerEntityManagerFactoryBean:651] - Closing JPA EntityManagerFactory for persistence unit 'default'
+23-02-04 19:48:22 INFO  [SpringApplicationShutdownHook] [HikariDataSource:350] - HikariPool-1 - Shutdown initiated...
+23-02-04 19:48:22 INFO  [SpringApplicationShutdownHook] [HikariDataSource:352] - HikariPool-1 - Shutdown completed.
+23-02-04 19:48:54 INFO  [background-preinit] [Version:21] - HV000001: Hibernate Validator 6.2.5.Final
+23-02-04 19:48:54 INFO  [main] [JsonWebServerApplicationKt:55] - Starting JsonWebServerApplicationKt using Java 17.0.4.1 on Sunwoongs-MacBook-Pro.local with PID 97078 (/Users/wng/git_ws/jsonWeb-server/build/classes/kotlin/main started by wng in /Users/wng/git_ws/jsonWeb-server)
+23-02-04 19:48:54 INFO  [main] [JsonWebServerApplicationKt:640] - The following 1 profile is active: "secret"
+23-02-04 19:48:55 INFO  [main] [RepositoryConfigurationDelegate:132] - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+23-02-04 19:48:55 INFO  [main] [RepositoryConfigurationDelegate:201] - Finished Spring Data repository scanning in 48 ms. Found 12 JPA repository interfaces.
+23-02-04 19:49:02 INFO  [main] [PostProcessorRegistrationDelegate$BeanPostProcessorChecker:376] - Bean '(inner bean)#70b48eb3' of type [com.amazonaws.auth.BasicAWSCredentials] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+23-02-04 19:49:02 INFO  [main] [PostProcessorRegistrationDelegate$BeanPostProcessorChecker:376] - Bean '(inner bean)#497ed877' of type [com.amazonaws.auth.AWSStaticCredentialsProvider] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+23-02-04 19:49:02 INFO  [main] [PostProcessorRegistrationDelegate$BeanPostProcessorChecker:376] - Bean '(inner bean)#2484dbb7' of type [com.amazonaws.auth.profile.ProfileCredentialsProvider] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+23-02-04 19:49:02 INFO  [main] [PostProcessorRegistrationDelegate$BeanPostProcessorChecker:376] - Bean 'credentialsProvider' of type [org.springframework.cloud.aws.core.credentials.CredentialsProviderFactoryBean] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+23-02-04 19:49:02 INFO  [main] [PostProcessorRegistrationDelegate$BeanPostProcessorChecker:376] - Bean 'credentialsProvider' of type [com.amazonaws.auth.AWSCredentialsProviderChain] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+23-02-04 19:49:02 INFO  [main] [TomcatWebServer:108] - Tomcat initialized with port(s): 8080 (http)
+23-02-04 19:49:02 INFO  [main] [Http11NioProtocol:173] - Initializing ProtocolHandler ["http-nio-8080"]
+23-02-04 19:49:02 INFO  [main] [StandardService:173] - Starting service [Tomcat]
+23-02-04 19:49:02 INFO  [main] [StandardEngine:173] - Starting Servlet engine: [Apache Tomcat/9.0.68]
+23-02-04 19:49:02 INFO  [main] [[/]:173] - Initializing Spring embedded WebApplicationContext
+23-02-04 19:49:02 INFO  [main] [ServletWebServerApplicationContext:292] - Root WebApplicationContext: initialization completed in 7809 ms
+23-02-04 19:49:02 INFO  [main] [LogHelper:31] - HHH000204: Processing PersistenceUnitInfo [name: default]
+23-02-04 19:49:02 INFO  [main] [Version:44] - HHH000412: Hibernate ORM core version 5.6.12.Final
+23-02-04 19:49:02 INFO  [main] [Version:56] - HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+23-02-04 19:49:02 INFO  [main] [HikariDataSource:110] - HikariPool-1 - Starting...
+23-02-04 19:49:03 INFO  [main] [HikariDataSource:123] - HikariPool-1 - Start completed.
+23-02-04 19:49:03 INFO  [main] [Dialect:175] - HHH000400: Using dialect: org.hibernate.dialect.MySQL5Dialect
+23-02-04 19:49:04 INFO  [main] [JtaPlatformInitiator:52] - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+23-02-04 19:49:04 INFO  [main] [LocalContainerEntityManagerFactoryBean:437] - Initialized JPA EntityManagerFactory for persistence unit 'default'
+23-02-04 19:49:05 WARN  [main] [JpaBaseConfiguration$JpaWebConfiguration:219] - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+23-02-04 19:49:05 INFO  [main] [DefaultSecurityFilterChain:55] - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@6ce07db6, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@3d48674, org.springframework.security.web.context.SecurityContextPersistenceFilter@7fb57b7c, org.springframework.security.web.header.HeaderWriterFilter@55c7ba5, org.springframework.security.web.authentication.logout.LogoutFilter@541b89ec, jsonweb.exitserver.auth.jwt.JwtFilter@24555012, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@7f8bc54e, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@2ed4e0e9, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@5b7737eb, org.springframework.security.web.session.SessionManagementFilter@4077e676, org.springframework.security.web.access.ExceptionTranslationFilter@240c170a, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@4ef435f3]
+23-02-04 19:49:05 INFO  [main] [WelcomePageHandlerMapping:53] - Adding welcome page: class path resource [static/index.html]
+23-02-04 19:49:06 INFO  [main] [Http11NioProtocol:173] - Starting ProtocolHandler ["http-nio-8080"]
+23-02-04 19:49:06 INFO  [main] [TomcatWebServer:220] - Tomcat started on port(s): 8080 (http) with context path ''
+23-02-04 19:49:06 INFO  [main] [JsonWebServerApplicationKt:61] - Started JsonWebServerApplicationKt in 11.891 seconds (JVM running for 12.166)
+23-02-04 19:49:29 INFO  [http-nio-8080-exec-1] [[/]:173] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+23-02-04 19:49:29 INFO  [http-nio-8080-exec-1] [DispatcherServlet:525] - Initializing Servlet 'dispatcherServlet'
+23-02-04 19:49:29 INFO  [http-nio-8080-exec-1] [DispatcherServlet:547] - Completed initialization in 2 ms
+23-02-04 19:49:30 INFO  [http-nio-8080-exec-1] [IpLogInterceptor:23] - 0:0:0:0:0:0:0:1 : POST /admin/themes
+23-02-04 19:50:10 INFO  [SpringApplicationShutdownHook] [LocalContainerEntityManagerFactoryBean:651] - Closing JPA EntityManagerFactory for persistence unit 'default'
+23-02-04 19:50:10 INFO  [SpringApplicationShutdownHook] [HikariDataSource:350] - HikariPool-1 - Shutdown initiated...
+23-02-04 19:50:10 INFO  [SpringApplicationShutdownHook] [HikariDataSource:352] - HikariPool-1 - Shutdown completed.
+23-02-04 19:51:07 INFO  [background-preinit] [Version:21] - HV000001: Hibernate Validator 6.2.5.Final
+23-02-04 19:51:07 INFO  [main] [JsonWebServerApplicationKt:55] - Starting JsonWebServerApplicationKt using Java 17.0.4.1 on Sunwoongs-MacBook-Pro.local with PID 97828 (/Users/wng/git_ws/jsonWeb-server/build/classes/kotlin/main started by wng in /Users/wng/git_ws/jsonWeb-server)
+23-02-04 19:51:07 INFO  [main] [JsonWebServerApplicationKt:640] - The following 1 profile is active: "secret"
+23-02-04 19:51:08 INFO  [main] [RepositoryConfigurationDelegate:132] - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+23-02-04 19:51:08 INFO  [main] [RepositoryConfigurationDelegate:201] - Finished Spring Data repository scanning in 47 ms. Found 12 JPA repository interfaces.
+23-02-04 19:51:15 INFO  [main] [PostProcessorRegistrationDelegate$BeanPostProcessorChecker:376] - Bean '(inner bean)#2d130ac4' of type [com.amazonaws.auth.BasicAWSCredentials] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+23-02-04 19:51:15 INFO  [main] [PostProcessorRegistrationDelegate$BeanPostProcessorChecker:376] - Bean '(inner bean)#7b8ea1db' of type [com.amazonaws.auth.AWSStaticCredentialsProvider] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+23-02-04 19:51:15 INFO  [main] [PostProcessorRegistrationDelegate$BeanPostProcessorChecker:376] - Bean '(inner bean)#27898e13' of type [com.amazonaws.auth.profile.ProfileCredentialsProvider] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+23-02-04 19:51:15 INFO  [main] [PostProcessorRegistrationDelegate$BeanPostProcessorChecker:376] - Bean 'credentialsProvider' of type [org.springframework.cloud.aws.core.credentials.CredentialsProviderFactoryBean] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+23-02-04 19:51:15 INFO  [main] [PostProcessorRegistrationDelegate$BeanPostProcessorChecker:376] - Bean 'credentialsProvider' of type [com.amazonaws.auth.AWSCredentialsProviderChain] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+23-02-04 19:51:15 INFO  [main] [TomcatWebServer:108] - Tomcat initialized with port(s): 8080 (http)
+23-02-04 19:51:15 INFO  [main] [Http11NioProtocol:173] - Initializing ProtocolHandler ["http-nio-8080"]
+23-02-04 19:51:15 INFO  [main] [StandardService:173] - Starting service [Tomcat]
+23-02-04 19:51:15 INFO  [main] [StandardEngine:173] - Starting Servlet engine: [Apache Tomcat/9.0.68]
+23-02-04 19:51:15 INFO  [main] [[/]:173] - Initializing Spring embedded WebApplicationContext
+23-02-04 19:51:15 INFO  [main] [ServletWebServerApplicationContext:292] - Root WebApplicationContext: initialization completed in 7897 ms
+23-02-04 19:51:15 INFO  [main] [LogHelper:31] - HHH000204: Processing PersistenceUnitInfo [name: default]
+23-02-04 19:51:15 INFO  [main] [Version:44] - HHH000412: Hibernate ORM core version 5.6.12.Final
+23-02-04 19:51:15 INFO  [main] [Version:56] - HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+23-02-04 19:51:16 INFO  [main] [HikariDataSource:110] - HikariPool-1 - Starting...
+23-02-04 19:51:16 INFO  [main] [HikariDataSource:123] - HikariPool-1 - Start completed.
+23-02-04 19:51:16 INFO  [main] [Dialect:175] - HHH000400: Using dialect: org.hibernate.dialect.MySQL5Dialect
+23-02-04 19:51:17 INFO  [main] [JtaPlatformInitiator:52] - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+23-02-04 19:51:17 INFO  [main] [LocalContainerEntityManagerFactoryBean:437] - Initialized JPA EntityManagerFactory for persistence unit 'default'
+23-02-04 19:51:19 WARN  [main] [JpaBaseConfiguration$JpaWebConfiguration:219] - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+23-02-04 19:51:19 INFO  [main] [DefaultSecurityFilterChain:55] - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@59c9e3b9, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@45bedfed, org.springframework.security.web.context.SecurityContextPersistenceFilter@5d7d2cb5, org.springframework.security.web.header.HeaderWriterFilter@7ed0020a, org.springframework.security.web.authentication.logout.LogoutFilter@4f0e6be, jsonweb.exitserver.auth.jwt.JwtFilter@7269674d, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@5c501f62, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@b43db07, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@187b33de, org.springframework.security.web.session.SessionManagementFilter@4ab0ebf0, org.springframework.security.web.access.ExceptionTranslationFilter@64ce7e6f, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@6acec4a1]
+23-02-04 19:51:19 INFO  [main] [WelcomePageHandlerMapping:53] - Adding welcome page: class path resource [static/index.html]
+23-02-04 19:51:19 INFO  [main] [Http11NioProtocol:173] - Starting ProtocolHandler ["http-nio-8080"]
+23-02-04 19:51:19 INFO  [main] [TomcatWebServer:220] - Tomcat started on port(s): 8080 (http) with context path ''
+23-02-04 19:51:20 INFO  [main] [JsonWebServerApplicationKt:61] - Started JsonWebServerApplicationKt in 12.435 seconds (JVM running for 12.704)
+23-02-04 19:51:31 INFO  [http-nio-8080-exec-1] [[/]:173] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+23-02-04 19:51:31 INFO  [http-nio-8080-exec-1] [DispatcherServlet:525] - Initializing Servlet 'dispatcherServlet'
+23-02-04 19:51:31 INFO  [http-nio-8080-exec-1] [DispatcherServlet:547] - Completed initialization in 1 ms
+23-02-04 19:51:31 INFO  [http-nio-8080-exec-1] [IpLogInterceptor:23] - 0:0:0:0:0:0:0:1 : POST /admin/themes
+23-02-04 19:52:57 INFO  [SpringApplicationShutdownHook] [LocalContainerEntityManagerFactoryBean:651] - Closing JPA EntityManagerFactory for persistence unit 'default'
+23-02-04 19:52:57 INFO  [SpringApplicationShutdownHook] [HikariDataSource:350] - HikariPool-1 - Shutdown initiated...
+23-02-04 19:52:57 INFO  [SpringApplicationShutdownHook] [HikariDataSource:352] - HikariPool-1 - Shutdown completed.
+23-02-04 19:53:29 INFO  [background-preinit] [Version:21] - HV000001: Hibernate Validator 6.2.5.Final
+23-02-04 19:53:29 INFO  [main] [JsonWebServerApplicationKt:55] - Starting JsonWebServerApplicationKt using Java 17.0.4.1 on Sunwoongs-MacBook-Pro.local with PID 98616 (/Users/wng/git_ws/jsonWeb-server/build/classes/kotlin/main started by wng in /Users/wng/git_ws/jsonWeb-server)
+23-02-04 19:53:29 INFO  [main] [JsonWebServerApplicationKt:640] - The following 1 profile is active: "secret"
+23-02-04 19:53:29 INFO  [main] [RepositoryConfigurationDelegate:132] - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+23-02-04 19:53:29 INFO  [main] [RepositoryConfigurationDelegate:201] - Finished Spring Data repository scanning in 49 ms. Found 12 JPA repository interfaces.
+23-02-04 19:53:37 INFO  [main] [PostProcessorRegistrationDelegate$BeanPostProcessorChecker:376] - Bean '(inner bean)#231df705' of type [com.amazonaws.auth.BasicAWSCredentials] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+23-02-04 19:53:37 INFO  [main] [PostProcessorRegistrationDelegate$BeanPostProcessorChecker:376] - Bean '(inner bean)#70b48eb3' of type [com.amazonaws.auth.AWSStaticCredentialsProvider] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+23-02-04 19:53:37 INFO  [main] [PostProcessorRegistrationDelegate$BeanPostProcessorChecker:376] - Bean '(inner bean)#5333f08f' of type [com.amazonaws.auth.profile.ProfileCredentialsProvider] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+23-02-04 19:53:37 INFO  [main] [PostProcessorRegistrationDelegate$BeanPostProcessorChecker:376] - Bean 'credentialsProvider' of type [org.springframework.cloud.aws.core.credentials.CredentialsProviderFactoryBean] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+23-02-04 19:53:37 INFO  [main] [PostProcessorRegistrationDelegate$BeanPostProcessorChecker:376] - Bean 'credentialsProvider' of type [com.amazonaws.auth.AWSCredentialsProviderChain] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+23-02-04 19:53:38 INFO  [main] [TomcatWebServer:108] - Tomcat initialized with port(s): 8080 (http)
+23-02-04 19:53:38 INFO  [main] [Http11NioProtocol:173] - Initializing ProtocolHandler ["http-nio-8080"]
+23-02-04 19:53:38 INFO  [main] [StandardService:173] - Starting service [Tomcat]
+23-02-04 19:53:38 INFO  [main] [StandardEngine:173] - Starting Servlet engine: [Apache Tomcat/9.0.68]
+23-02-04 19:53:38 INFO  [main] [[/]:173] - Initializing Spring embedded WebApplicationContext
+23-02-04 19:53:38 INFO  [main] [ServletWebServerApplicationContext:292] - Root WebApplicationContext: initialization completed in 8857 ms
+23-02-04 19:53:38 INFO  [main] [LogHelper:31] - HHH000204: Processing PersistenceUnitInfo [name: default]
+23-02-04 19:53:38 INFO  [main] [Version:44] - HHH000412: Hibernate ORM core version 5.6.12.Final
+23-02-04 19:53:38 INFO  [main] [Version:56] - HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+23-02-04 19:53:38 INFO  [main] [HikariDataSource:110] - HikariPool-1 - Starting...
+23-02-04 19:53:38 INFO  [main] [HikariDataSource:123] - HikariPool-1 - Start completed.
+23-02-04 19:53:38 INFO  [main] [Dialect:175] - HHH000400: Using dialect: org.hibernate.dialect.MySQL5Dialect
+23-02-04 19:53:39 INFO  [main] [JtaPlatformInitiator:52] - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+23-02-04 19:53:39 INFO  [main] [LocalContainerEntityManagerFactoryBean:437] - Initialized JPA EntityManagerFactory for persistence unit 'default'
+23-02-04 19:53:41 WARN  [main] [JpaBaseConfiguration$JpaWebConfiguration:219] - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+23-02-04 19:53:41 INFO  [main] [DefaultSecurityFilterChain:55] - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@61f990b, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@7c63146c, org.springframework.security.web.context.SecurityContextPersistenceFilter@2e7de98a, org.springframework.security.web.header.HeaderWriterFilter@56357e52, org.springframework.security.web.authentication.logout.LogoutFilter@69e67993, jsonweb.exitserver.auth.jwt.JwtFilter@5b2235a5, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@1b2092fe, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@5047fc77, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@5af6378e, org.springframework.security.web.session.SessionManagementFilter@105fa381, org.springframework.security.web.access.ExceptionTranslationFilter@4ab0ebf0, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@11f633f]
+23-02-04 19:53:41 INFO  [main] [WelcomePageHandlerMapping:53] - Adding welcome page: class path resource [static/index.html]
+23-02-04 19:53:41 INFO  [main] [Http11NioProtocol:173] - Starting ProtocolHandler ["http-nio-8080"]
+23-02-04 19:53:41 INFO  [main] [TomcatWebServer:220] - Tomcat started on port(s): 8080 (http) with context path ''
+23-02-04 19:53:42 INFO  [main] [JsonWebServerApplicationKt:61] - Started JsonWebServerApplicationKt in 12.999 seconds (JVM running for 13.28)
+23-02-04 19:53:44 INFO  [http-nio-8080-exec-2] [[/]:173] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+23-02-04 19:53:44 INFO  [http-nio-8080-exec-2] [DispatcherServlet:525] - Initializing Servlet 'dispatcherServlet'
+23-02-04 19:53:44 INFO  [http-nio-8080-exec-2] [DispatcherServlet:547] - Completed initialization in 2 ms
+23-02-04 19:53:44 INFO  [http-nio-8080-exec-2] [IpLogInterceptor:23] - 0:0:0:0:0:0:0:1 : POST /admin/themes
+23-02-04 19:53:59 INFO  [http-nio-8080-exec-3] [IpLogInterceptor:23] - 0:0:0:0:0:0:0:1 : GET /themes
+23-02-04 19:54:08 INFO  [SpringApplicationShutdownHook] [LocalContainerEntityManagerFactoryBean:651] - Closing JPA EntityManagerFactory for persistence unit 'default'
+23-02-04 19:54:08 INFO  [SpringApplicationShutdownHook] [HikariDataSource:350] - HikariPool-1 - Shutdown initiated...
+23-02-04 19:54:08 INFO  [SpringApplicationShutdownHook] [HikariDataSource:352] - HikariPool-1 - Shutdown completed.
+23-02-04 19:55:41 INFO  [background-preinit] [Version:21] - HV000001: Hibernate Validator 6.2.5.Final
+23-02-04 19:55:41 INFO  [main] [JsonWebServerApplicationKt:55] - Starting JsonWebServerApplicationKt using Java 17.0.4.1 on Sunwoongs-MacBook-Pro.local with PID 99364 (/Users/wng/git_ws/jsonWeb-server/build/classes/kotlin/main started by wng in /Users/wng/git_ws/jsonWeb-server)
+23-02-04 19:55:41 INFO  [main] [JsonWebServerApplicationKt:640] - The following 1 profile is active: "secret"
+23-02-04 19:55:42 INFO  [main] [RepositoryConfigurationDelegate:132] - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+23-02-04 19:55:42 INFO  [main] [RepositoryConfigurationDelegate:201] - Finished Spring Data repository scanning in 54 ms. Found 12 JPA repository interfaces.
+23-02-04 19:55:49 INFO  [main] [PostProcessorRegistrationDelegate$BeanPostProcessorChecker:376] - Bean '(inner bean)#231df705' of type [com.amazonaws.auth.BasicAWSCredentials] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+23-02-04 19:55:49 INFO  [main] [PostProcessorRegistrationDelegate$BeanPostProcessorChecker:376] - Bean '(inner bean)#70b48eb3' of type [com.amazonaws.auth.AWSStaticCredentialsProvider] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+23-02-04 19:55:49 INFO  [main] [PostProcessorRegistrationDelegate$BeanPostProcessorChecker:376] - Bean '(inner bean)#5333f08f' of type [com.amazonaws.auth.profile.ProfileCredentialsProvider] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+23-02-04 19:55:49 INFO  [main] [PostProcessorRegistrationDelegate$BeanPostProcessorChecker:376] - Bean 'credentialsProvider' of type [org.springframework.cloud.aws.core.credentials.CredentialsProviderFactoryBean] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+23-02-04 19:55:49 INFO  [main] [PostProcessorRegistrationDelegate$BeanPostProcessorChecker:376] - Bean 'credentialsProvider' of type [com.amazonaws.auth.AWSCredentialsProviderChain] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+23-02-04 19:55:50 INFO  [main] [TomcatWebServer:108] - Tomcat initialized with port(s): 8080 (http)
+23-02-04 19:55:50 INFO  [main] [Http11NioProtocol:173] - Initializing ProtocolHandler ["http-nio-8080"]
+23-02-04 19:55:50 INFO  [main] [StandardService:173] - Starting service [Tomcat]
+23-02-04 19:55:50 INFO  [main] [StandardEngine:173] - Starting Servlet engine: [Apache Tomcat/9.0.68]
+23-02-04 19:55:50 INFO  [main] [[/]:173] - Initializing Spring embedded WebApplicationContext
+23-02-04 19:55:50 INFO  [main] [ServletWebServerApplicationContext:292] - Root WebApplicationContext: initialization completed in 8841 ms
+23-02-04 19:55:50 INFO  [main] [LogHelper:31] - HHH000204: Processing PersistenceUnitInfo [name: default]
+23-02-04 19:55:50 INFO  [main] [Version:44] - HHH000412: Hibernate ORM core version 5.6.12.Final
+23-02-04 19:55:50 INFO  [main] [Version:56] - HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+23-02-04 19:55:50 INFO  [main] [HikariDataSource:110] - HikariPool-1 - Starting...
+23-02-04 19:55:50 INFO  [main] [HikariDataSource:123] - HikariPool-1 - Start completed.
+23-02-04 19:55:50 INFO  [main] [Dialect:175] - HHH000400: Using dialect: org.hibernate.dialect.MySQL5Dialect
+23-02-04 19:55:52 INFO  [main] [JtaPlatformInitiator:52] - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+23-02-04 19:55:52 INFO  [main] [LocalContainerEntityManagerFactoryBean:437] - Initialized JPA EntityManagerFactory for persistence unit 'default'
+23-02-04 19:55:53 WARN  [main] [JpaBaseConfiguration$JpaWebConfiguration:219] - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+23-02-04 19:55:53 INFO  [main] [DefaultSecurityFilterChain:55] - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@61f990b, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@7c63146c, org.springframework.security.web.context.SecurityContextPersistenceFilter@2e7de98a, org.springframework.security.web.header.HeaderWriterFilter@56357e52, org.springframework.security.web.authentication.logout.LogoutFilter@69e67993, jsonweb.exitserver.auth.jwt.JwtFilter@5b2235a5, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@1b2092fe, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@5047fc77, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@5af6378e, org.springframework.security.web.session.SessionManagementFilter@105fa381, org.springframework.security.web.access.ExceptionTranslationFilter@4ab0ebf0, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@11f633f]
+23-02-04 19:55:53 INFO  [main] [WelcomePageHandlerMapping:53] - Adding welcome page: class path resource [static/index.html]
+23-02-04 19:55:53 INFO  [main] [Http11NioProtocol:173] - Starting ProtocolHandler ["http-nio-8080"]
+23-02-04 19:55:53 INFO  [main] [TomcatWebServer:220] - Tomcat started on port(s): 8080 (http) with context path ''
+23-02-04 19:55:54 INFO  [main] [JsonWebServerApplicationKt:61] - Started JsonWebServerApplicationKt in 12.872 seconds (JVM running for 13.146)
+23-02-04 19:55:56 INFO  [http-nio-8080-exec-1] [[/]:173] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+23-02-04 19:55:56 INFO  [http-nio-8080-exec-1] [DispatcherServlet:525] - Initializing Servlet 'dispatcherServlet'
+23-02-04 19:55:56 INFO  [http-nio-8080-exec-1] [DispatcherServlet:547] - Completed initialization in 1 ms
+23-02-04 19:55:56 INFO  [http-nio-8080-exec-1] [IpLogInterceptor:23] - 0:0:0:0:0:0:0:1 : POST /admin/themes
+23-02-04 19:56:07 INFO  [http-nio-8080-exec-3] [IpLogInterceptor:23] - 0:0:0:0:0:0:0:1 : GET /themes
+23-02-04 19:56:35 INFO  [http-nio-8080-exec-4] [IpLogInterceptor:23] - 0:0:0:0:0:0:0:1 : POST /admin/themes
+23-02-04 19:56:35 WARN  [http-nio-8080-exec-4] [GlobalExceptionHandler:17] - [IncorrectResultSizeDataAccessException] handled: query did not return a unique result: 2; nested exception is javax.persistence.NonUniqueResultException: query did not return a unique result: 2
+23-02-04 19:56:48 INFO  [http-nio-8080-exec-6] [IpLogInterceptor:23] - 0:0:0:0:0:0:0:1 : GET /themes
+23-02-04 19:57:06 INFO  [http-nio-8080-exec-7] [IpLogInterceptor:23] - 0:0:0:0:0:0:0:1 : POST /admin/themes
+23-02-04 19:57:09 INFO  [http-nio-8080-exec-8] [IpLogInterceptor:23] - 0:0:0:0:0:0:0:1 : GET /themes
+23-02-04 19:57:18 INFO  [SpringApplicationShutdownHook] [LocalContainerEntityManagerFactoryBean:651] - Closing JPA EntityManagerFactory for persistence unit 'default'
+23-02-04 19:57:18 INFO  [SpringApplicationShutdownHook] [HikariDataSource:350] - HikariPool-1 - Shutdown initiated...
+23-02-04 19:57:18 INFO  [SpringApplicationShutdownHook] [HikariDataSource:352] - HikariPool-1 - Shutdown completed.
+23-02-04 20:02:17 INFO  [background-preinit] [Version:21] - HV000001: Hibernate Validator 6.2.5.Final
+23-02-04 20:02:17 INFO  [main] [JsonWebServerApplicationKt:55] - Starting JsonWebServerApplicationKt using Java 17.0.4.1 on Sunwoongs-MacBook-Pro.local with PID 1989 (/Users/wng/git_ws/jsonWeb-server/build/classes/kotlin/main started by wng in /Users/wng/git_ws/jsonWeb-server)
+23-02-04 20:02:17 INFO  [main] [JsonWebServerApplicationKt:640] - The following 1 profile is active: "secret"
+23-02-04 20:02:18 INFO  [main] [RepositoryConfigurationDelegate:132] - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+23-02-04 20:02:18 INFO  [main] [RepositoryConfigurationDelegate:201] - Finished Spring Data repository scanning in 49 ms. Found 12 JPA repository interfaces.
+23-02-04 20:02:27 INFO  [main] [PostProcessorRegistrationDelegate$BeanPostProcessorChecker:376] - Bean '(inner bean)#77083e41' of type [com.amazonaws.auth.BasicAWSCredentials] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+23-02-04 20:02:27 INFO  [main] [PostProcessorRegistrationDelegate$BeanPostProcessorChecker:376] - Bean '(inner bean)#4fb64a52' of type [com.amazonaws.auth.AWSStaticCredentialsProvider] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+23-02-04 20:02:27 INFO  [main] [PostProcessorRegistrationDelegate$BeanPostProcessorChecker:376] - Bean '(inner bean)#51e8d066' of type [com.amazonaws.auth.profile.ProfileCredentialsProvider] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+23-02-04 20:02:27 INFO  [main] [PostProcessorRegistrationDelegate$BeanPostProcessorChecker:376] - Bean 'credentialsProvider' of type [org.springframework.cloud.aws.core.credentials.CredentialsProviderFactoryBean] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+23-02-04 20:02:27 INFO  [main] [PostProcessorRegistrationDelegate$BeanPostProcessorChecker:376] - Bean 'credentialsProvider' of type [com.amazonaws.auth.AWSCredentialsProviderChain] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+23-02-04 20:02:27 INFO  [main] [TomcatWebServer:108] - Tomcat initialized with port(s): 8080 (http)
+23-02-04 20:02:27 INFO  [main] [Http11NioProtocol:173] - Initializing ProtocolHandler ["http-nio-8080"]
+23-02-04 20:02:27 INFO  [main] [StandardService:173] - Starting service [Tomcat]
+23-02-04 20:02:27 INFO  [main] [StandardEngine:173] - Starting Servlet engine: [Apache Tomcat/9.0.68]
+23-02-04 20:02:27 INFO  [main] [[/]:173] - Initializing Spring embedded WebApplicationContext
+23-02-04 20:02:27 INFO  [main] [ServletWebServerApplicationContext:292] - Root WebApplicationContext: initialization completed in 9811 ms
+23-02-04 20:02:27 INFO  [main] [LogHelper:31] - HHH000204: Processing PersistenceUnitInfo [name: default]
+23-02-04 20:02:27 INFO  [main] [Version:44] - HHH000412: Hibernate ORM core version 5.6.12.Final
+23-02-04 20:02:27 INFO  [main] [Version:56] - HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+23-02-04 20:02:27 INFO  [main] [HikariDataSource:110] - HikariPool-1 - Starting...
+23-02-04 20:02:28 INFO  [main] [HikariDataSource:123] - HikariPool-1 - Start completed.
+23-02-04 20:02:28 INFO  [main] [Dialect:175] - HHH000400: Using dialect: org.hibernate.dialect.MySQL5Dialect
+23-02-04 20:02:29 INFO  [main] [JtaPlatformInitiator:52] - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+23-02-04 20:02:29 INFO  [main] [LocalContainerEntityManagerFactoryBean:437] - Initialized JPA EntityManagerFactory for persistence unit 'default'
+23-02-04 20:02:31 WARN  [main] [JpaBaseConfiguration$JpaWebConfiguration:219] - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+23-02-04 20:02:31 INFO  [main] [DefaultSecurityFilterChain:55] - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@1d0e2c96, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@7fa498b3, org.springframework.security.web.context.SecurityContextPersistenceFilter@1be7b7de, org.springframework.security.web.header.HeaderWriterFilter@e76aa, org.springframework.security.web.authentication.logout.LogoutFilter@2086dfb8, jsonweb.exitserver.auth.jwt.JwtFilter@64cde9a5, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@2f1e3e1c, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@31f151ff, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@5efb3259, org.springframework.security.web.session.SessionManagementFilter@58030528, org.springframework.security.web.access.ExceptionTranslationFilter@43a304ee, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@5b7737eb]
+23-02-04 20:02:31 INFO  [main] [WelcomePageHandlerMapping:53] - Adding welcome page: class path resource [static/index.html]
+23-02-04 20:02:31 INFO  [main] [Http11NioProtocol:173] - Starting ProtocolHandler ["http-nio-8080"]
+23-02-04 20:02:31 INFO  [main] [TomcatWebServer:220] - Tomcat started on port(s): 8080 (http) with context path ''
+23-02-04 20:02:31 INFO  [main] [JsonWebServerApplicationKt:61] - Started JsonWebServerApplicationKt in 14.264 seconds (JVM running for 14.533)
+23-02-04 20:02:32 INFO  [http-nio-8080-exec-2] [[/]:173] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+23-02-04 20:02:32 INFO  [http-nio-8080-exec-2] [DispatcherServlet:525] - Initializing Servlet 'dispatcherServlet'
+23-02-04 20:02:32 INFO  [http-nio-8080-exec-2] [DispatcherServlet:547] - Completed initialization in 1 ms
+23-02-04 20:02:32 INFO  [http-nio-8080-exec-2] [IpLogInterceptor:23] - 0:0:0:0:0:0:0:1 : GET /admin/genres
+23-02-04 20:02:32 WARN  [http-nio-8080-exec-2] [GlobalExceptionHandler:17] - [PropertyReferenceException] handled: No property 'genre' found for type 'Genre' Did you mean ''genreId''
+23-02-04 20:02:43 INFO  [http-nio-8080-exec-4] [IpLogInterceptor:23] - 0:0:0:0:0:0:0:1 : GET /admin/genres
+23-02-04 20:02:43 WARN  [http-nio-8080-exec-4] [GlobalExceptionHandler:17] - [PropertyReferenceException] handled: No property 'genre' found for type 'Genre' Did you mean ''genreId''
+23-02-04 20:03:25 INFO  [SpringApplicationShutdownHook] [LocalContainerEntityManagerFactoryBean:651] - Closing JPA EntityManagerFactory for persistence unit 'default'
+23-02-04 20:03:25 INFO  [SpringApplicationShutdownHook] [HikariDataSource:350] - HikariPool-1 - Shutdown initiated...
+23-02-04 20:03:25 INFO  [SpringApplicationShutdownHook] [HikariDataSource:352] - HikariPool-1 - Shutdown completed.
+23-02-04 20:03:32 INFO  [background-preinit] [Version:21] - HV000001: Hibernate Validator 6.2.5.Final
+23-02-04 20:03:32 INFO  [main] [JsonWebServerApplicationKt:55] - Starting JsonWebServerApplicationKt using Java 17.0.4.1 on Sunwoongs-MacBook-Pro.local with PID 2415 (/Users/wng/git_ws/jsonWeb-server/build/classes/kotlin/main started by wng in /Users/wng/git_ws/jsonWeb-server)
+23-02-04 20:03:32 INFO  [main] [JsonWebServerApplicationKt:640] - The following 1 profile is active: "secret"
+23-02-04 20:03:33 INFO  [main] [RepositoryConfigurationDelegate:132] - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+23-02-04 20:03:33 INFO  [main] [RepositoryConfigurationDelegate:201] - Finished Spring Data repository scanning in 57 ms. Found 12 JPA repository interfaces.
+23-02-04 20:03:33 WARN  [main] [InstanceMetadataServiceResourceFetcher:105] - Fail to retrieve token 
+com.amazonaws.SdkClientException: Failed to connect to service endpoint: 
+	at com.amazonaws.internal.EC2ResourceFetcher.doReadResource(EC2ResourceFetcher.java:100)
+	at com.amazonaws.internal.InstanceMetadataServiceResourceFetcher.getToken(InstanceMetadataServiceResourceFetcher.java:91)
+	at com.amazonaws.internal.InstanceMetadataServiceResourceFetcher.readResource(InstanceMetadataServiceResourceFetcher.java:69)
+	at com.amazonaws.internal.EC2ResourceFetcher.readResource(EC2ResourceFetcher.java:66)
+	at com.amazonaws.util.EC2MetadataUtils.getItems(EC2MetadataUtils.java:407)
+	at com.amazonaws.util.EC2MetadataUtils.getData(EC2MetadataUtils.java:376)
+	at org.springframework.cloud.aws.context.support.env.AwsCloudEnvironmentCheckUtils.isRunningOnCloudEnvironment(AwsCloudEnvironmentCheckUtils.java:38)
+	at org.springframework.cloud.aws.context.annotation.OnAwsCloudEnvironmentCondition.matches(OnAwsCloudEnvironmentCondition.java:38)
+	at org.springframework.context.annotation.ConditionEvaluator.shouldSkip(ConditionEvaluator.java:108)
+	at org.springframework.context.annotation.ConfigurationClassBeanDefinitionReader$TrackedConditionEvaluator.shouldSkip(ConfigurationClassBeanDefinitionReader.java:489)
+	at org.springframework.context.annotation.ConfigurationClassBeanDefinitionReader$TrackedConditionEvaluator.shouldSkip(ConfigurationClassBeanDefinitionReader.java:478)
+	at org.springframework.context.annotation.ConfigurationClassBeanDefinitionReader.loadBeanDefinitionsForConfigurationClass(ConfigurationClassBeanDefinitionReader.java:140)
+	at org.springframework.context.annotation.ConfigurationClassBeanDefinitionReader.loadBeanDefinitions(ConfigurationClassBeanDefinitionReader.java:129)
+	at org.springframework.context.annotation.ConfigurationClassPostProcessor.processConfigBeanDefinitions(ConfigurationClassPostProcessor.java:343)
+	at org.springframework.context.annotation.ConfigurationClassPostProcessor.postProcessBeanDefinitionRegistry(ConfigurationClassPostProcessor.java:247)
+	at org.springframework.context.support.PostProcessorRegistrationDelegate.invokeBeanDefinitionRegistryPostProcessors(PostProcessorRegistrationDelegate.java:311)
+	at org.springframework.context.support.PostProcessorRegistrationDelegate.invokeBeanFactoryPostProcessors(PostProcessorRegistrationDelegate.java:112)
+	at org.springframework.context.support.AbstractApplicationContext.invokeBeanFactoryPostProcessors(AbstractApplicationContext.java:746)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:564)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:147)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:734)
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:408)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:308)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1306)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1295)
+	at jsonweb.exitserver.JsonWebServerApplicationKt.main(JsonWebServerApplication.kt:19)
+Caused by: java.net.NoRouteToHostException: No route to host
+	at java.base/sun.nio.ch.Net.connect0(Native Method)
+	at java.base/sun.nio.ch.Net.connect(Net.java:579)
+	at java.base/sun.nio.ch.Net.connect(Net.java:568)
+	at java.base/sun.nio.ch.NioSocketImpl.connect(NioSocketImpl.java:588)
+	at java.base/java.net.Socket.connect(Socket.java:633)
+	at java.base/sun.net.NetworkClient.doConnect(NetworkClient.java:178)
+	at java.base/sun.net.www.http.HttpClient.openServer(HttpClient.java:532)
+	at java.base/sun.net.www.http.HttpClient.openServer(HttpClient.java:637)
+	at java.base/sun.net.www.http.HttpClient.<init>(HttpClient.java:280)
+	at java.base/sun.net.www.http.HttpClient.New(HttpClient.java:385)
+	at java.base/sun.net.www.http.HttpClient.New(HttpClient.java:407)
+	at java.base/sun.net.www.protocol.http.HttpURLConnection.getNewHttpClient(HttpURLConnection.java:1309)
+	at java.base/sun.net.www.protocol.http.HttpURLConnection.plainConnect0(HttpURLConnection.java:1287)
+	at java.base/sun.net.www.protocol.http.HttpURLConnection.plainConnect(HttpURLConnection.java:1128)
+	at java.base/sun.net.www.protocol.http.HttpURLConnection.connect(HttpURLConnection.java:1057)
+	at com.amazonaws.internal.ConnectionUtils.connectToEndpoint(ConnectionUtils.java:95)
+	at com.amazonaws.internal.EC2ResourceFetcher.doReadResource(EC2ResourceFetcher.java:80)
+	... 25 common frames omitted
+23-02-04 20:03:34 INFO  [main] [PostProcessorRegistrationDelegate$BeanPostProcessorChecker:376] - Bean '(inner bean)#794240e2' of type [com.amazonaws.auth.BasicAWSCredentials] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+23-02-04 20:03:34 INFO  [main] [PostProcessorRegistrationDelegate$BeanPostProcessorChecker:376] - Bean '(inner bean)#3009eed7' of type [com.amazonaws.auth.AWSStaticCredentialsProvider] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+23-02-04 20:03:34 INFO  [main] [PostProcessorRegistrationDelegate$BeanPostProcessorChecker:376] - Bean '(inner bean)#50cdfafa' of type [com.amazonaws.auth.profile.ProfileCredentialsProvider] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+23-02-04 20:03:34 INFO  [main] [PostProcessorRegistrationDelegate$BeanPostProcessorChecker:376] - Bean 'credentialsProvider' of type [org.springframework.cloud.aws.core.credentials.CredentialsProviderFactoryBean] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+23-02-04 20:03:34 INFO  [main] [PostProcessorRegistrationDelegate$BeanPostProcessorChecker:376] - Bean 'credentialsProvider' of type [com.amazonaws.auth.AWSCredentialsProviderChain] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+23-02-04 20:03:34 INFO  [main] [TomcatWebServer:108] - Tomcat initialized with port(s): 8080 (http)
+23-02-04 20:03:34 INFO  [main] [Http11NioProtocol:173] - Initializing ProtocolHandler ["http-nio-8080"]
+23-02-04 20:03:34 INFO  [main] [StandardService:173] - Starting service [Tomcat]
+23-02-04 20:03:34 INFO  [main] [StandardEngine:173] - Starting Servlet engine: [Apache Tomcat/9.0.68]
+23-02-04 20:03:34 INFO  [main] [[/]:173] - Initializing Spring embedded WebApplicationContext
+23-02-04 20:03:34 INFO  [main] [ServletWebServerApplicationContext:292] - Root WebApplicationContext: initialization completed in 1388 ms
+23-02-04 20:03:34 INFO  [main] [LogHelper:31] - HHH000204: Processing PersistenceUnitInfo [name: default]
+23-02-04 20:03:34 INFO  [main] [Version:44] - HHH000412: Hibernate ORM core version 5.6.12.Final
+23-02-04 20:03:34 INFO  [main] [Version:56] - HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+23-02-04 20:03:34 INFO  [main] [HikariDataSource:110] - HikariPool-1 - Starting...
+23-02-04 20:03:34 INFO  [main] [HikariDataSource:123] - HikariPool-1 - Start completed.
+23-02-04 20:03:34 INFO  [main] [Dialect:175] - HHH000400: Using dialect: org.hibernate.dialect.MySQL5Dialect
+23-02-04 20:03:36 INFO  [main] [JtaPlatformInitiator:52] - HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+23-02-04 20:03:36 INFO  [main] [LocalContainerEntityManagerFactoryBean:437] - Initialized JPA EntityManagerFactory for persistence unit 'default'
+23-02-04 20:03:37 WARN  [main] [JpaBaseConfiguration$JpaWebConfiguration:219] - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+23-02-04 20:03:37 INFO  [main] [DefaultSecurityFilterChain:55] - Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@4fa78886, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@2a4d34b2, org.springframework.security.web.context.SecurityContextPersistenceFilter@46eb5c0c, org.springframework.security.web.header.HeaderWriterFilter@3a95898c, org.springframework.security.web.authentication.logout.LogoutFilter@7c95440d, jsonweb.exitserver.auth.jwt.JwtFilter@3e1201dd, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@106361e9, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@22974eba, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@353ab9e5, org.springframework.security.web.session.SessionManagementFilter@16344151, org.springframework.security.web.access.ExceptionTranslationFilter@c2a7ded, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@65c6a7a]
+23-02-04 20:03:37 INFO  [main] [WelcomePageHandlerMapping:53] - Adding welcome page: class path resource [static/index.html]
+23-02-04 20:03:38 INFO  [main] [Http11NioProtocol:173] - Starting ProtocolHandler ["http-nio-8080"]
+23-02-04 20:03:38 INFO  [main] [TomcatWebServer:220] - Tomcat started on port(s): 8080 (http) with context path ''
+23-02-04 20:03:38 INFO  [main] [JsonWebServerApplicationKt:61] - Started JsonWebServerApplicationKt in 5.563 seconds (JVM running for 5.864)
+23-02-04 20:03:41 INFO  [http-nio-8080-exec-1] [[/]:173] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+23-02-04 20:03:41 INFO  [http-nio-8080-exec-1] [DispatcherServlet:525] - Initializing Servlet 'dispatcherServlet'
+23-02-04 20:03:41 INFO  [http-nio-8080-exec-1] [DispatcherServlet:547] - Completed initialization in 1 ms
+23-02-04 20:03:41 INFO  [http-nio-8080-exec-1] [IpLogInterceptor:23] - 0:0:0:0:0:0:0:1 : GET /admin/genres
+23-02-04 20:03:52 INFO  [SpringApplicationShutdownHook] [LocalContainerEntityManagerFactoryBean:651] - Closing JPA EntityManagerFactory for persistence unit 'default'
+23-02-04 20:03:52 INFO  [SpringApplicationShutdownHook] [HikariDataSource:350] - HikariPool-1 - Shutdown initiated...
+23-02-04 20:03:52 INFO  [SpringApplicationShutdownHook] [HikariDataSource:352] - HikariPool-1 - Shutdown completed.
