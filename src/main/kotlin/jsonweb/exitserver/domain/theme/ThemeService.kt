@@ -2,6 +2,7 @@ package jsonweb.exitserver.domain.theme
 
 import jsonweb.exitserver.domain.cafe.CafeRepository
 import org.modelmapper.ModelMapper
+import org.springframework.data.domain.Sort
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 
@@ -64,10 +65,15 @@ class ThemeService(
 
     private fun addThemeGenre(theme: Theme, genreList: List<String>) {
         for (genreName in genreList) {
-            val genre = genreRepository.findGenreByGenreName(genreName)
-                .orElse(genreRepository.save(Genre(genreName)))
-            val themeGenre = themeGenreRepository.save(ThemeGenre(theme, genre))
-            theme.addThemeGenre(themeGenre)
+            if (genreRepository.existsByGenreName(genreName)) {
+                val genre = genreRepository.findByGenreName(genreName).get()
+                val themeGenre = themeGenreRepository.save(ThemeGenre(theme, genre))
+                theme.addThemeGenre(themeGenre)
+            } else {
+                val genre = genreRepository.save(Genre(genreName))
+                val themeGenre = themeGenreRepository.save(ThemeGenre(theme, genre))
+                theme.addThemeGenre(themeGenre)
+            }
         }
     }
 
@@ -77,4 +83,5 @@ class ThemeService(
         .map { it.kor() }
         .toList()
 
+    fun getGenreList() = genreRepository.findAll(Sort.by(Sort.Direction.ASC, "genreName")).map { g -> g.genreName }
 }

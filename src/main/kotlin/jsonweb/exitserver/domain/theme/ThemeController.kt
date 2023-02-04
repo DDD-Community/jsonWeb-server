@@ -37,7 +37,10 @@ class ThemeController(
     fun registerTheme(@RequestBody form: RegisterThemeRequest): CommonResponse<Long> =
         success(themeService.registerTheme(form))
 
+    //    @GetMapping("/admin/genres")
+//    fun getAllGenres(): CommonResponse<List<String>> =
+//        success(themeService.getThemeGenreList())
     @GetMapping("/admin/genres")
     fun getAllGenres(): CommonResponse<List<String>> =
-        success(themeService.getThemeGenreList())
+        success(themeService.getGenreList())
 }

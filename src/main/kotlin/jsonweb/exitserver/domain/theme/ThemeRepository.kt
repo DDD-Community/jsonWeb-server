@@ -12,5 +12,6 @@ interface ThemeGenreRepository: JpaRepository<ThemeGenre, Long> {
 }
 
 interface GenreRepository: JpaRepository<Genre, Long> {
-    fun findGenreByGenreName(genreName: String): Optional<Genre>
+    fun findByGenreName(genreName: String): Optional<Genre>
+    fun existsByGenreName(genreName: String): Boolean
 }
