@@ -54,7 +54,7 @@ class Cafe(
     fun addOpenHour(openHour: OpenHour) = openHourList.add(openHour)
     fun addTheme(theme: Theme) {
         themeList.add(theme)
-        themeCount = themeList.size
+        themeCount++
     }
     fun increaseReviewCount() {
         reviewCount++
