@@ -63,7 +63,8 @@ class ThemeService(
         themes.sortedWith { o1, o2 -> (o2.avgStar.toInt() * o2.reviewCount) - (o1.avgStar.toInt() * o1.reviewCount) }
     }
 
-    private fun addThemeGenre(theme: Theme, genreList: List<String>) {
+    @Transactional
+    fun addThemeGenre(theme: Theme, genreList: List<String>) {
         for (genreName in genreList) {
             if (genreRepository.existsByGenreName(genreName)) {
                 val genre = genreRepository.findByGenreName(genreName).get()
