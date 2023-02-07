@@ -2,7 +2,8 @@ package jsonweb.exitserver.auth.jwt
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import jsonweb.exitserver.common.CommonResponse
-import jsonweb.exitserver.common.logger
+import jsonweb.exitserver.util.getIp
+import jsonweb.exitserver.util.logger
 import org.springframework.http.HttpStatus
 import org.springframework.http.MediaType
 import org.springframework.security.access.AccessDeniedException
@@ -21,7 +22,7 @@ class JwtAuthenticationEntryPoint(private val objectMapper: ObjectMapper) : Auth
         response: HttpServletResponse,
         e: AuthenticationException
     ) {
-        log.warn("(401) Unauthorized access = {}", e.message)
+        log.warn("{} {} {} (401) - {}", request.getIp(), request.method, request.requestURI, e.message)
         response.contentType = MediaType.APPLICATION_JSON_VALUE
         response.characterEncoding = "utf-8"
         response.status = HttpStatus.UNAUTHORIZED.value()

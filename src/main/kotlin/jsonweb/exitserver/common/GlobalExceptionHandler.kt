@@ -1,5 +1,6 @@
 package jsonweb.exitserver.common
 
+import jsonweb.exitserver.util.logger
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.MethodArgumentNotValidException

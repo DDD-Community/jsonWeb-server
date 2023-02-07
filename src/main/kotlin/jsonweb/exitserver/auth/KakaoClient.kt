@@ -1,6 +1,6 @@
 package jsonweb.exitserver.auth
 
-import jsonweb.exitserver.common.logger
+import jsonweb.exitserver.util.logger
 import org.json.JSONException
 import org.json.JSONObject
 import org.springframework.beans.factory.annotation.Value

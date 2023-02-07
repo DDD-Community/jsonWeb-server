@@ -1,6 +1,5 @@
 package jsonweb.exitserver.util
 
-import jsonweb.exitserver.common.logger
 import jsonweb.exitserver.domain.user.UserRepository
 import org.json.JSONObject
 import org.springframework.stereotype.Component

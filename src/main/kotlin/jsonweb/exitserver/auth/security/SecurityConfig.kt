@@ -15,6 +15,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.security.web.DefaultSecurityFilterChain
 import org.springframework.security.web.SecurityFilterChain
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter
+import org.springframework.security.web.firewall.StrictHttpFirewall
 
 @Configuration
 @EnableGlobalMethodSecurity(prePostEnabled = true)
@@ -23,6 +24,14 @@ class SecurityConfig(
     private val jwtAuthenticationEntryPoint: JwtAuthenticationEntryPoint,
     private val jwtAccessDeniedHandler: JwtAccessDeniedHandler
 ) {
+
+    @Bean
+    fun setDefaultFirewall(): StrictHttpFirewall {
+        val firewall = StrictHttpFirewall()
+        firewall.setAllowSemicolon(true)
+        firewall.setAllowUrlEncodedDoubleSlash(true)
+        return firewall
+    }
 
     @Bean
     fun passwordEncoder() = BCryptPasswordEncoder()

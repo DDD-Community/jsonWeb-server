@@ -1,11 +1,11 @@
 package jsonweb.exitserver.domain.review
 
-import jsonweb.exitserver.common.logger
 import jsonweb.exitserver.domain.theme.ThemeRepository
 import jsonweb.exitserver.domain.user.UserService
 import jsonweb.exitserver.util.Exp
 import jsonweb.exitserver.util.badge.BadgeDomain
 import jsonweb.exitserver.util.badge.CheckBadge
+import jsonweb.exitserver.util.logger
 import org.modelmapper.ModelMapper
 import org.springframework.data.domain.PageRequest
 import org.springframework.data.domain.Sort

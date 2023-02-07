@@ -1,11 +1,11 @@
 package jsonweb.exitserver.util.badge
 
-import jsonweb.exitserver.common.logger
 import jsonweb.exitserver.domain.inquiry.InquiryCategoryEnum
 import jsonweb.exitserver.domain.report.ReviewReport
 import jsonweb.exitserver.domain.theme.GenreEnum
 import jsonweb.exitserver.domain.user.User
 import jsonweb.exitserver.domain.user.UserService
+import jsonweb.exitserver.util.logger
 import org.aspectj.lang.JoinPoint
 import org.aspectj.lang.annotation.AfterReturning
 import org.aspectj.lang.annotation.Aspect

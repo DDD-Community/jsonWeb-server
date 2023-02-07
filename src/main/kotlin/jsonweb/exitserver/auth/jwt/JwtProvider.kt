@@ -3,8 +3,8 @@ package jsonweb.exitserver.auth.jwt
 import io.jsonwebtoken.Jwts
 import io.jsonwebtoken.security.Keys
 import jsonweb.exitserver.auth.security.PrincipalDetailsService
-import jsonweb.exitserver.common.logger
 import jsonweb.exitserver.domain.user.User
+import jsonweb.exitserver.util.logger
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
 import org.springframework.security.core.Authentication

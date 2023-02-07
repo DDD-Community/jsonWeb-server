@@ -1,8 +1,8 @@
 package jsonweb.exitserver.domain.user
 
 import jsonweb.exitserver.common.CommonResponse
-import jsonweb.exitserver.common.logger
 import jsonweb.exitserver.common.success
+import jsonweb.exitserver.util.logger
 import org.springframework.web.bind.annotation.*
 import javax.validation.Valid
 
