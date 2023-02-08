@@ -66,7 +66,6 @@ class User(
      * methods
      */
     // user
-
     fun addExp(amount: Int, reason: String) {
         exp += amount
         expLogMutableList.add(ExpLog(user = this, amount = amount, reason = reason))

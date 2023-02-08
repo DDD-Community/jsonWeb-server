@@ -1,6 +1,6 @@
 package jsonweb.exitserver.common
 
-import jsonweb.exitserver.util.badge.BadgeDto
+import jsonweb.exitserver.util.badge.BadgeResponse
 import jsonweb.exitserver.util.badge.BadgeEnum
 import org.springframework.stereotype.Controller
 import org.springframework.web.bind.annotation.GetMapping
@@ -28,7 +28,7 @@ class VueClientRedirector {
 @RestController
 class BadgeController {
     @GetMapping("/badges")
-    fun getAllBadges(): CommonResponse<List<BadgeDto>> = success(
-        BadgeEnum.values().map { BadgeDto(it.kor(), it.requirement(), it.order()) }
+    fun getAllBadges(): CommonResponse<List<BadgeResponse>> = success(
+        BadgeEnum.values().map { BadgeResponse(it.kor(), it.requirement(), it.order()) }
     )
 }

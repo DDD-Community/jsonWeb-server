@@ -2,6 +2,7 @@ package jsonweb.exitserver.domain.user
 
 import jsonweb.exitserver.common.CommonResponse
 import jsonweb.exitserver.common.success
+import jsonweb.exitserver.util.badge.BadgeResponse
 import jsonweb.exitserver.util.logger
 import org.springframework.web.bind.annotation.*
 import javax.validation.Valid
@@ -43,6 +44,10 @@ class UserController(private val userService: UserService) {
     @GetMapping("/me/exp-log")
     fun getExpLogList(): CommonResponse<List<ExpLogResponse>> =
         success(userService.getExpLogList())
+
+    @GetMapping("/me/badges")
+    fun getMyBadges(): CommonResponse<List<BadgeResponse>> =
+        success(userService.getMyBadges())
 
     /**
      * test

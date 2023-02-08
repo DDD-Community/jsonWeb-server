@@ -5,6 +5,8 @@ import jsonweb.exitserver.auth.jwt.JwtProvider
 import jsonweb.exitserver.auth.security.getCurrentLoginUserId
 import jsonweb.exitserver.common.TEST_ADMIN_KAKAO_ID
 import jsonweb.exitserver.util.NicknameGenerator
+import jsonweb.exitserver.util.badge.BadgeEnum
+import jsonweb.exitserver.util.badge.BadgeResponse
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
 import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
@@ -87,6 +89,29 @@ class UserService(
         val user = getCurrentLoginUser()
         userRepository.delete(user)
         return kakaoClient.unlink(user.kakaoId)
+    }
+
+    fun getMyBadges(): List<BadgeResponse> {
+        val user = getCurrentLoginUser()
+        val totalBadges: MutableList<BadgeResponse> = mutableListOf()
+        BadgeEnum.values().forEach {
+            totalBadges.add(
+                BadgeResponse(
+                    badge = it.kor(),
+                    requirement = it.requirement(),
+                    order = it.order(),
+                    isObtained = false
+                )
+            )
+        }
+        for (badge in totalBadges) {
+            for (userBadge in user.badgeList) {
+                if (badge.badge == userBadge.badge) {
+                    badge.isObtained = true
+                }
+            }
+        }
+        return totalBadges
     }
 
     /**
