@@ -13,7 +13,7 @@ interface ReviewRepository: JpaRepository<Review, Long> {
     @Query("select r from Review r join fetch r.user u join fetch r.theme t join fetch t.cafe c where r.reviewId = :id")
     override fun findById(id: Long): Optional<Review>
 
-    @Query("select r from Review r join fetch r.user u join fetch r.theme t join fetch t.cafe")
+    @Query("select r from Review r join fetch r.user u join fetch r.theme t join fetch t.cafe c where r.theme = :theme")
     fun findAllByTheme(theme: Theme): List<Review>
     fun findAllByTheme(theme: Theme, pageable: Pageable): Page<Review>
     fun findAllByUser(user: User, pageable: Pageable): Page<Review>
