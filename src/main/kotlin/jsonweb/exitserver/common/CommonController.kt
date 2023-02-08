@@ -29,6 +29,6 @@ class VueClientRedirector {
 class BadgeController {
     @GetMapping("/badges")
     fun getAllBadges(): CommonResponse<List<BadgeDto>> = success(
-        BadgeEnum.values().map { BadgeDto(it.kor(), it.requirement()) }
+        BadgeEnum.values().map { BadgeDto(it.kor(), it.requirement(), it.order()) }
     )
 }
