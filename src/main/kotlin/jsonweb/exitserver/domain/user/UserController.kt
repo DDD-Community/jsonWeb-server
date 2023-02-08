@@ -43,4 +43,11 @@ class UserController(private val userService: UserService) {
     @GetMapping("/me/exp-log")
     fun getExpLogList(): CommonResponse<List<ExpLogResponse>> =
         success(userService.getExpLogList())
+
+    /**
+     * test
+     */
+    @PostMapping("/test/exp/{exp}")
+    fun testAddExp(@PathVariable exp: Int): CommonResponse<Int> =
+        success(userService.addExp(exp))
 }

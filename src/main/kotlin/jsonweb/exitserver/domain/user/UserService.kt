@@ -115,4 +115,11 @@ class UserService(
 
     fun getTestUser(kakaoId: Long) = userRepository.findByKakaoId(kakaoId)!!
 
+    @Transactional
+    fun addExp(exp: Int): Int {
+        val user = getCurrentLoginUser()
+        user.addExp(exp, "test")
+        return exp
+    }
+
 }

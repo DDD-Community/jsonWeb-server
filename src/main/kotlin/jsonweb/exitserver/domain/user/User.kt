@@ -66,14 +66,11 @@ class User(
      * methods
      */
     // user
-    @PostUpdate
-    fun checkUserLevel() {
-        level = UserLevelEnum.getLevelName(exp)
-    }
 
     fun addExp(amount: Int, reason: String) {
         exp += amount
         expLogMutableList.add(ExpLog(user = this, amount = amount, reason = reason))
+        level = UserLevelEnum.getLevelName(exp)
     }
 
     fun addBadge(badgeEnum: BadgeEnum) {
