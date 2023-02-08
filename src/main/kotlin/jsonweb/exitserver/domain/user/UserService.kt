@@ -106,11 +106,10 @@ class UserService(
         }
         for (badge in totalBadges) {
             for (userBadge in user.badgeList) {
-                if (badge.badge == userBadge.badge) {
-                    badge.isObtained = true
-                }
+                if (badge.badge == userBadge.badge) badge.isObtained = true
             }
         }
+        for (badge in totalBadges) if (!badge.isObtained) badge.badge = "???"
         return totalBadges
     }
 
