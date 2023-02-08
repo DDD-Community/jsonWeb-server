@@ -99,7 +99,6 @@ class UserService(
                 BadgeResponse(
                     badge = it.kor(),
                     requirement = it.requirement(),
-                    order = it.order(),
                     isObtained = false
                 )
             )

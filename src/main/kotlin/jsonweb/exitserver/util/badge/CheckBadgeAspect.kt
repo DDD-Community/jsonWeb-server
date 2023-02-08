@@ -74,14 +74,6 @@ class CheckBadgeAspect(private val userService: UserService) {
             user.addBadge(BadgeEnum.HORROR_MANIA)
         }
 
-        // 미스터리 장르 리뷰 3개 작성, 미스터리 러버
-        if (user.isNotGotten(BadgeEnum.MYSTERY_LOVER) &&
-            user.getReviewGenreCount(GenreEnum.MYSTERY) == GENRE_REVIEW_REQUIREMENT
-        ) {
-            log.info("${user.nickname}님이 ${BadgeEnum.MYSTERY_LOVER.kor()} 뱃지 획득!")
-            user.addBadge(BadgeEnum.MYSTERY_LOVER)
-        }
-
         // 로맨스 장르 리뷰 3개 작성, 로맨스 홀릭
         if (user.isNotGotten(BadgeEnum.ROMANCE_HOLIC) &&
             user.getReviewGenreCount(GenreEnum.ROMANCE) == GENRE_REVIEW_REQUIREMENT
